@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77382097703",
+    "project_id": "alpha-ai-app",
+    "storage_bucket": "alpha-ai-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77382097703:android:af423918664527e657a702",
+        "android_client_info": {
+          "package_name": "com.example.alpha_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe93tehIt_T5fs3p1Ej4HkQLvAoOLbr50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

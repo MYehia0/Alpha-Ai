@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Alpha-Ai</string>
+    <string name="alpha_ai">Alpha Ai</string>
+    <string name="user_name">User Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="login">Login</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="or_create_my_account">Or Create My Account</string>
+
+</resources>

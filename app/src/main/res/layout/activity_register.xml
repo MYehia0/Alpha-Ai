@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="base"
+            type="com.example.alpha_ai.base.BaseViewModel" />
+        <variable
+            name="vm"
+            type="com.example.alpha_ai.ui.register.RegisterViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.register.RegisterActivity">
+        <include layout="@layout/content_register"
+            app:vm="@{vm}"/>
+
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/layout_appbar"
+            app:title="@{@string/create_account}"
+            app:vm="@{base}"
+            app:vs="@{true}" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

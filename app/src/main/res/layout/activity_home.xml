@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="base"
+            type="com.example.alpha_ai.base.BaseViewModel" />
+        <variable
+            name="vm"
+            type="com.example.alpha_ai.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeActivity">
+
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/layout_appbar"
+            app:title="@{@string/alpha_ai}"
+            app:vm="@{base}"
+            app:vs="@{false}" />
+
+
+        <include
+            android:id="@+id/content"
+            layout="@layout/content_home"
+            />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
