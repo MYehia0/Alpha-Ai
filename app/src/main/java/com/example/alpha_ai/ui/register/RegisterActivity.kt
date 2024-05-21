@@ -2,6 +2,7 @@ package com.example.alpha_ai.ui.register
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
 import com.example.alpha_ai.databinding.ActivityRegisterBinding
 import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.ui.login.LoginActivity
 
 class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel>(),RegisterNavigator {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,5 +28,10 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         return ViewModelProvider(this).get(RegisterViewModel::class.java)
     }
 
-
+    override fun goToLogin() {
+        binding.content.signIn.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }

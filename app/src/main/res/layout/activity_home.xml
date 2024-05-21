@@ -15,7 +15,9 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeActivity">
+        tools:context=".ui.home.HomeActivity"
+        android:background="@color/white"
+        >
 
         <include
             android:id="@+id/appbar"

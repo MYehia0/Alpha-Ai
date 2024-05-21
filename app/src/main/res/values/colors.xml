@@ -10,6 +10,10 @@
 
     <color name="trans">#00000000</color>
     <color name="gray">#FFAEB0B2</color>
+    <color name="gray100">#F4F4F4</color>
+    <color name="gray200">#9EAFB0</color>
     <color name="blue">#0182EE</color>
+    <color name="blue100">#3399EE</color>
+    <color name="blue200">#7BB8EC</color>
 
 </resources>

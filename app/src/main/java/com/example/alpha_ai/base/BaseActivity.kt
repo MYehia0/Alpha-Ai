@@ -43,7 +43,7 @@ abstract class BaseActivity<VB:ViewDataBinding,VM: BaseViewModel<*>>:AppCompatAc
                 dialog?.dismiss()
             }.setPositiveButton(message) { dialog, i ->
                 dialog?.dismiss()
-                viewModel.onBack()
+//                viewModel.onBack()
             }.show()
 
     }

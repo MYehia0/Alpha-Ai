@@ -15,6 +15,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.login.LoginActivity">
         <include
             android:id="@+id/content"
@@ -24,9 +25,9 @@
         <include
             android:id="@+id/appbar"
             layout="@layout/layout_appbar"
-            app:title="@{@string/sign_in}"
+            app:title="@{@string/empty}"
             app:vm="@{base}"
-            app:vs="@{false}" />
+            app:vs="@{true}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

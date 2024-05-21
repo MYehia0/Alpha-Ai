@@ -40,6 +40,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(),Login
     override fun goToHome() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
-        finish()
+//        finish()
     }
 }

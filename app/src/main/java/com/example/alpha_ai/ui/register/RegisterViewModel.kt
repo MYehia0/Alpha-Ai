@@ -104,5 +104,8 @@ class RegisterViewModel: BaseViewModel<RegisterNavigator>() {
             }
     }
 
+    fun goToLogin(){
+        navigator?.goToLogin()
+    }
 
 }
