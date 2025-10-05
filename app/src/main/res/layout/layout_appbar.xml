@@ -11,6 +11,12 @@
             name="vs"
             type="Boolean" />
         <variable
+            name="logout"
+            type="Boolean" />
+        <variable
+            name="search"
+            type="Boolean" />
+        <variable
             name="vm"
             type="com.example.alpha_ai.base.BaseViewModel" />
     </data>
@@ -23,13 +29,12 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="20dp"
             >
 
             <ImageButton
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow_back"
                 android:background="@color/trans"
                 android:layoutDirection="rtl"
@@ -41,10 +46,42 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@{title}"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_margin="5dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                >
+                <ImageButton
+                    android:id="@+id/btn_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/search"
+                    android:background="@color/trans"
+                    visible="@{search}"
+                    android:onClick="@{()-> vm.onSearch() }"
+                    />
+                <ImageButton
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/sign_out"
+                    android:background="@color/trans"
+                    android:layoutDirection="rtl"
+                    visible="@{logout}"
+                    android:onClick="@{()-> vm.onLogout() }"
+                    />
+            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 </layout>

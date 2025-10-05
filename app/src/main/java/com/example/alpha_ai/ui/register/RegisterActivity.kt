@@ -1,12 +1,7 @@
 package com.example.alpha_ai.ui.register
 
-import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
 import com.example.alpha_ai.databinding.ActivityRegisterBinding
@@ -20,6 +15,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
         binding.base = viewModel
         viewModel.navigator = this
     }
+
 
     override fun getLayoutID(): Int {
         return R.layout.activity_register

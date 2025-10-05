@@ -25,6 +25,17 @@
     <string name="get_started">Get Started</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="empty"> </string>
-
+    <string name="tasks_title">Tasks</string>
+    <string name="gec_title">Grammar Error Correction</string>
+    <string name="ocr_title">OCR</string>
+    <string name="er_title">Enhancing Recognition</string>
+    <string name="wr_title">Word Recognition</string>
+    <string name="doc_title">Doc to Text</string>
+    <string name="stt_title">Speech To Text</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_forget_pass">Enter your email for the verification process,\nwe will send code otp your email</string>
+    <string name="text_otp">A four-digit code should have come to your\nemail address that you indicated.</string>
+    <string name="text_new_pass">Create your new password. if you forget it,\nthen you have to do forgot password</string>
 
 </resources>

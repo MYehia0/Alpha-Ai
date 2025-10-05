@@ -28,6 +28,8 @@
             layout="@layout/layout_appbar"
             app:title="@{@string/empty}"
             app:vm="@{base}"
+            app:logout="@{false}"
+            app:search="@{false}"
             app:vs="@{true}" />
 
 

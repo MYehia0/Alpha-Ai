@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
 import com.example.alpha_ai.databinding.ActivityLoginBinding
 import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.ui.forgetpassword.sendmail.SendEmailActivity
 import com.example.alpha_ai.ui.home.HomeActivity
 import com.example.alpha_ai.ui.register.RegisterActivity
 
@@ -19,7 +20,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(),Login
         binding.vm = viewModel
         binding.base = viewModel
         viewModel.navigator = this
-
+        binding.content.forgetPassword.setOnClickListener {
+            val intent = Intent(this, SendEmailActivity::class.java)
+            startActivity(intent)
+        }
+        if(!viewModel.validateAllForm()){
+            binding.content.cardBtnLogin.setCardBackgroundColor(getColor(R.color.blue100))
+        }
+        else{
+            binding.content.cardBtnLogin.setCardBackgroundColor(getColor(R.color.blue))
+        }
     }
 
     override fun getLayoutID(): Int {
@@ -38,8 +48,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(),Login
     }
 
     override fun goToHome() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, StartActivity::class.java)
         startActivity(intent)
-//        finish()
+        finish()
     }
 }

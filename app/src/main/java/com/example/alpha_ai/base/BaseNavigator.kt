@@ -5,4 +5,8 @@ interface BaseNavigator {
     fun showMessage(messageOK: String , message: String)
     fun hideLoading()
     fun onBack()
+    fun onLogout()
+    fun onSearch()
+    fun copy(text: String)
+
 }

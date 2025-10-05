@@ -24,13 +24,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(),Sp
         super.onCreate(savedInstanceState)
         viewModel.navigator = this
         Log.e("checkUser","O")
-//        viewModel.checkUser()
-        Handler(Looper.getMainLooper()).postDelayed({
-            Log.e("BO","O")
-            val intent = Intent(this, OnBoardingActivity::class.java)
-            startActivity(intent)
-            finish()
-        },2000)
+        viewModel.checkUser()
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            Log.e("BO","O")
+//            val intent = Intent(this, OnBoardingActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        },2000)
     }
 
     override fun getLayoutID(): Int {

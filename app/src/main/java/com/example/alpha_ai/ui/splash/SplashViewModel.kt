@@ -2,6 +2,7 @@ package com.example.alpha_ai.ui.splash
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.example.alpha_ai.base.BaseViewModel
 import com.example.alpha_ai.database.FireStoreUtils
 import com.example.alpha_ai.database.models.User
@@ -15,6 +16,7 @@ class SplashViewModel:BaseViewModel<SplashNavigator>() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             navigator?.goToBoarding()
+//            Log.e("auth.currentUser",auth.currentUser.toString())
 //            if(auth.currentUser==null){
 //                navigator?.goToBoarding()
 //            }

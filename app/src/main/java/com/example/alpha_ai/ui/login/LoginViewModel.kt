@@ -53,6 +53,17 @@ class LoginViewModel: BaseViewModel<LoginNavigator>() {
         return isValid
     }
 
+    fun validateAllForm(): Boolean {
+        if(email.get()?.trim().isNullOrBlank()
+            && password.get().isNullOrBlank()){
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
+
     fun getUserFromDatabase(user: FirebaseUser?){
         FireStoreUtils()
             .getUserFromFireStore(user?.uid)

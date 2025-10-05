@@ -7,4 +7,10 @@ open class BaseViewModel<N: BaseNavigator>:ViewModel() {
     fun onBack(){
         navigator?.onBack()
     }
+    fun onLogout(){
+        navigator?.onLogout()
+    }
+    fun onSearch(){
+        navigator?.onSearch()
+    }
 }

@@ -2,10 +2,15 @@ package com.example.alpha_ai.base
 
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.example.alpha_ai.ui.history.search.SearchHistoryActivity
+import com.example.alpha_ai.ui.tasks.stt.STTActivity
 
 abstract class BaseActivity<VB:ViewDataBinding,VM: BaseViewModel<*>>:AppCompatActivity(),
     BaseNavigator {
@@ -55,5 +60,25 @@ abstract class BaseActivity<VB:ViewDataBinding,VM: BaseViewModel<*>>:AppCompatAc
 
     override fun onBack() {
         onBackPressedDispatcher.onBackPressed()
+    }
+
+    override fun onSearch() {
+        val intent = Intent(this,
+            SearchHistoryActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onLogout() {
+
+    }
+
+    override fun copy(text: String) {
+        copyToClipboard(text)
+    }
+    private fun copyToClipboard(text: String) {
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        val clip = android.content.ClipData.newPlainText("Copied Text", text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 }

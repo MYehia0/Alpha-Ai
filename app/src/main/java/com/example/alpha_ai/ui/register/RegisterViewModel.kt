@@ -1,9 +1,12 @@
 package com.example.alpha_ai.ui.register
 
 import android.database.Observable
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.trimmedLength
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.alpha_ai.R
 import com.example.alpha_ai.base.BaseViewModel
 import com.example.alpha_ai.database.FireStoreUtils
 import com.example.alpha_ai.database.models.User
@@ -18,9 +21,20 @@ class RegisterViewModel: BaseViewModel<RegisterNavigator>() {
     var emailError = ObservableField<String?>()
     var passwordError = ObservableField<String?>()
     var passwordConformError = ObservableField<String?>()
+    var buttonChecker = ObservableField<Int>()
 
     val auth = FirebaseAuth.getInstance()
     private var isValid:Boolean = true
+    private var isChecked:Boolean = false
+    fun check(){
+        if(isChecked){
+            buttonChecker.set(R.drawable.checkboxselected)
+            isChecked = false
+        }else{
+            buttonChecker.set(R.drawable.checkbox)
+            isChecked = true
+        }
+    }
 
     fun register(){
         if(!validateForm()){
@@ -84,6 +98,8 @@ class RegisterViewModel: BaseViewModel<RegisterNavigator>() {
         }
         return isValid
     }
+
+
     fun insertUserToDatebase(userID:String?){
         val user = User(
             uid = userID,
