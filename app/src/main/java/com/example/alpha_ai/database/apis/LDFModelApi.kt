@@ -1,7 +1,7 @@
 package com.example.alpha_ai.database.apis
 
 import android.util.Log
-import com.example.alpha_ai.constants.Constants
+import com.example.alpha_ai.constants.Constant
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -19,8 +19,8 @@ class LDFModelApi {
                 val client = OkHttpClient()
                 val requestBody = data.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val apiRequest = Request.Builder()
-                    .url(Constants.LDF.API_URL)
-                    .headers(Constants.LDF.headers.toHeaders())
+                    .url(Constant.LDF.API_URL)
+                    .headers(Constant.LDF.headers.toHeaders())
                     .post(requestBody)
                     .build()
 

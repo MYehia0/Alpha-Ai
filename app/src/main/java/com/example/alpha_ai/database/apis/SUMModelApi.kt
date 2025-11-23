@@ -1,6 +1,6 @@
 package com.example.alpha_ai.database.apis
 
-import com.example.alpha_ai.constants.Constants
+import com.example.alpha_ai.constants.Constant
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -18,8 +18,8 @@ class SUMModelApi {
                 val client = OkHttpClient()
                 val requestBody = data.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val apiRequest = Request.Builder()
-                    .url(Constants.SUM.API_URL)
-                    .headers(Constants.SUM.headers.toHeaders())
+                    .url(Constant.SUM.API_URL)
+                    .headers(Constant.SUM.headers.toHeaders())
                     .post(requestBody)
                     .build()
 

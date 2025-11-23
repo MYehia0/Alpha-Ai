@@ -2,7 +2,7 @@ package com.example.alpha_ai.database.apis
 
 import android.graphics.Bitmap
 import android.util.Log
-import com.example.alpha_ai.constants.Constants
+import com.example.alpha_ai.constants.Constant
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -20,8 +20,8 @@ class MTModelApi {
                 val client = OkHttpClient()
                 val requestBody = data.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val apiRequest = Request.Builder()
-                    .url(Constants.MT.API_URL)
-                    .headers(Constants.MT.headers.toHeaders())
+                    .url(Constant.MT.API_URL)
+                    .headers(Constant.MT.headers.toHeaders())
                     .post(requestBody)
                     .build()
 

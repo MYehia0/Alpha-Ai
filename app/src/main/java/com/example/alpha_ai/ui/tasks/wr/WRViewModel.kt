@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.example.alpha_ai.base.BaseViewModel
-import com.example.alpha_ai.database.apis.ApiManager
+//import com.example.alpha_ai.database.apis.ApiManager
 import com.example.alpha_ai.database.apis.MTModelApi
 import com.example.alpha_ai.database.apis.TGModelApi
 import com.example.alpha_ai.database.apis.TextToImageApi

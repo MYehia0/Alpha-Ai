@@ -1,7 +1,7 @@
 package com.example.alpha_ai.database.apis
 
 import android.util.Log
-import com.example.alpha_ai.constants.Constants
+import com.example.alpha_ai.constants.Constant
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -17,8 +17,8 @@ class TTSModelApi {
 
                 val requestBody = text.toRequestBody("application/json".toMediaTypeOrNull())
                 val apiRequest = Request.Builder()
-                    .url(Constants.TTS.API_URL)
-                    .headers(Constants.TTS.headers.toHeaders())
+                    .url(Constant.TTS.API_URL)
+                    .headers(Constant.TTS.headers.toHeaders())
                     .post(requestBody)
                     .build()
 

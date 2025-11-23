@@ -3,7 +3,7 @@ package com.example.alpha_ai.database.apis
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import com.example.alpha_ai.constants.Constants
+import com.example.alpha_ai.constants.Constant
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -22,8 +22,8 @@ class TextToImageApi {
 
                 val requestBody = text.toRequestBody("application/json".toMediaTypeOrNull())
                 val apiRequest = Request.Builder()
-                    .url(Constants.IG.API_URL)
-                    .headers(Constants.IG.headers.toHeaders())
+                    .url(Constant.IG.API_URL)
+                    .headers(Constant.IG.headers.toHeaders())
                     .post(requestBody)
                     .build()
 

@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.alpha_ai.base.BaseViewModel
 import com.example.alpha_ai.constants.UserProvider
 import com.example.alpha_ai.database.FireStoreUtils
-import com.example.alpha_ai.database.apis.ApiManager
+//import com.example.alpha_ai.database.apis.ApiManager
 import com.example.alpha_ai.database.apis.GECModelApi
 import com.example.alpha_ai.database.apis.GECarModelApi
 import com.example.alpha_ai.database.apis.LDFModelApi
