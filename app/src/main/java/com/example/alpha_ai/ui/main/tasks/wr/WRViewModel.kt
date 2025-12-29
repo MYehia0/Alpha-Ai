@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import com.example.alpha_ai.base.BaseViewModel
 //import com.example.alpha_ai.database.apis.ApiManager
-import com.example.alpha_ai.database.apis.MTModelApi
+//import com.example.alpha_ai.database.apis.MTModelApi
 
 //import com.example.alpha_ai.database.apis.TGModelApi
 //import com.example.alpha_ai.database.apis.TextToImageApi
@@ -30,10 +30,10 @@ class WRViewModel : BaseViewModel<WRNavigator>(){
 //        navigator?.showLoading("Loading...")
         output_en_trans.set(input.get())
         payload_MT = """{"inputs": "${input.get()}"}"""
-        MTModelApi.query(payload_MT) { response ->
-            output_ar_trans.set(response ?: "Error: Response is null")
-            Log.e("ar_trans", response ?: "Error: Response is null")
-        }
+//        MTModelApi.query(payload_MT) { response ->
+//            output_ar_trans.set(response ?: "Error: Response is null")
+//            Log.e("ar_trans", response ?: "Error: Response is null")
+//        }
         payload_TG = """{"inputs": "give me this word(${input.get()}) in the sentence"}"""
 //        TGModelApi.query(payload_TG) { response ->
 //            var text = response ?: "Error: Response is null"

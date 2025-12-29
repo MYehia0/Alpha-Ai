@@ -8,9 +8,9 @@ import com.example.alpha_ai.data.firebase.FireStoreUtils
 import com.example.alpha_ai.data.models.History
 //import com.example.alpha_ai.database.apis.GECModelApi
 //import com.example.alpha_ai.database.apis.GECarModelApi
-import com.example.alpha_ai.database.apis.LDFModelApi
-import com.example.alpha_ai.database.apis.SUMModelApi
-import com.example.alpha_ai.database.apis.SUMarModelApi
+//import com.example.alpha_ai.database.apis.LDFModelApi
+//import com.example.alpha_ai.database.apis.SUMModelApi
+//import com.example.alpha_ai.database.apis.SUMarModelApi
 
 class WordsViewModel : BaseViewModel<WordsNavigator>(){
     var input = ObservableField<String>()
@@ -28,77 +28,77 @@ class WordsViewModel : BaseViewModel<WordsNavigator>(){
         loadingVisibility.set(true)
 //        navigator?.showLoading("Loading...")
         payload = """{"inputs": "${input.get()}"}"""
-        LDFModelApi.query(payload) { response ->
-            Log.e("response", response ?: "Error: Response is null")
-            if (response.equals("eng_Latn")){
-                payload = """{"inputs": "Fix the grammar: ${input.get()}"}"""
-//                GECModelApi.getGECResponse(payload) { response ->
-//                    output.set(response ?: "Error: Response is null")
-//                    payload = """{"inputs": "${response}"}"""
-//                    Log.e("output", response ?: "Error: Response is null")
-//                    if(response != null){
-//                        flag = true
-//                    }
-//                }
-            }
-            else if (response.equals("arb_Arab")){
-//                GECarModelApi.getGECResponse(payload) { response ->
-//                    output.set(response ?: "Error: Response is null")
-//                    payload = """{"inputs": "${response}"}"""
-//                    Log.e("outputAr", response ?: "Error: Response is null")
-//                    if(response != null){
-//                        flag = true
-//                    }
-//                }
-            }
-            else if (response == null) {
-                output.set("Error: Response is null")
-            }
-            else {
-                output.set("Error: Enter another language")
-            }
-            if(flag){
-                insertHistoryToDatabase(UserProvider.user?.uid)
-                flag = false
-            }
-        }
+//        LDFModelApi.query(payload) { response ->
+//            Log.e("response", response ?: "Error: Response is null")
+//            if (response.equals("eng_Latn")){
+//                payload = """{"inputs": "Fix the grammar: ${input.get()}"}"""
+////                GECModelApi.getGECResponse(payload) { response ->
+////                    output.set(response ?: "Error: Response is null")
+////                    payload = """{"inputs": "${response}"}"""
+////                    Log.e("output", response ?: "Error: Response is null")
+////                    if(response != null){
+////                        flag = true
+////                    }
+////                }
+//            }
+//            else if (response.equals("arb_Arab")){
+////                GECarModelApi.getGECResponse(payload) { response ->
+////                    output.set(response ?: "Error: Response is null")
+////                    payload = """{"inputs": "${response}"}"""
+////                    Log.e("outputAr", response ?: "Error: Response is null")
+////                    if(response != null){
+////                        flag = true
+////                    }
+////                }
+//            }
+//            else if (response == null) {
+//                output.set("Error: Response is null")
+//            }
+//            else {
+//                output.set("Error: Enter another language")
+//            }
+//            if(flag){
+//                insertHistoryToDatabase(UserProvider.user?.uid)
+//                flag = false
+//            }
+//        }
 //        navigator?.hideLoading()
         loadingVisibility.set(false)
 
     }
 
     fun summarize() {
-        if(!validateFormOutput()){
-            return
-        }
-        loadingVisibility.set(true)
-//        navigator?.showLoading("Loading...")
-//        payload = """{"inputs": "${output.get()}"}"""
-        LDFModelApi.query(payload) { response ->
-            Log.e("response", response ?: "Error: Response is null")
-            if (response.equals("eng_Latn")){
-                Log.e("SUM", payload)
-                SUMModelApi.query(payload) { response ->
-                    output.set(response ?: "Error: Response is null")
-                    Log.e("SUM", response ?: "Error: Response is null")
-                }
-            }
-            else if (response.equals("arb_Arab")){
-                Log.e("SUMar", payload)
-                SUMarModelApi.query(payload) { response ->
-                    output.set(response ?: "Error: Response is null")
-                    Log.e("SUM", response ?: "Error: Response is null")
-                }
-            }
-            else if (response == null) {
-                output.set("Error: Response is null")
-            }
-            else {
-                output.set("Error: Enter another language")
-            }
-        }
-//        navigator?.hideLoading()
-        loadingVisibility.set(false)
+//        if(!validateFormOutput()){
+//            return
+//        }
+//        loadingVisibility.set(true)
+////        navigator?.showLoading("Loading...")
+////        payload = """{"inputs": "${output.get()}"}"""
+//        LDFModelApi.query(payload) { response ->
+//            Log.e("response", response ?: "Error: Response is null")
+//            if (response.equals("eng_Latn")){
+//                Log.e("SUM", payload)
+//                SUMModelApi.query(payload) { response ->
+//                    output.set(response ?: "Error: Response is null")
+//                    Log.e("SUM", response ?: "Error: Response is null")
+//                }
+//            }
+//            else if (response.equals("arb_Arab")){
+//                Log.e("SUMar", payload)
+//                SUMarModelApi.query(payload) { response ->
+//                    output.set(response ?: "Error: Response is null")
+//                    Log.e("SUM", response ?: "Error: Response is null")
+//                }
+//            }
+//            else if (response == null) {
+//                output.set("Error: Response is null")
+//            }
+//            else {
+//                output.set("Error: Enter another language")
+//            }
+//        }
+////        navigator?.hideLoading()
+//        loadingVisibility.set(false)
     }
 
     fun insertHistoryToDatabase(userID:String?){
