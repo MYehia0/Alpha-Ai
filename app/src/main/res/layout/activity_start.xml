@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:padding="16dp"
-        tools:context=".ui.login.StartActivity">
+        tools:context=".ui.auth.login.StartActivity">
 
         <LinearLayout
             android:id="@+id/welcome_linear"

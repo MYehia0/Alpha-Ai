@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.gec.GECViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.gec.GECViewModel" />
         <variable
             name="base"
             type="com.example.alpha_ai.base.BaseViewModel" />
@@ -16,7 +16,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.tasks.gec.GECActivity"
+        tools:context=".ui.main.tasks.gec.GECActivity"
         android:background="@color/white"
         >
 

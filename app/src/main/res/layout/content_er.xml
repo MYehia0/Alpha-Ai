@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_er"
-    tools:context=".ui.tasks.er.ERActivity"
+    tools:context=".ui.main.tasks.er.ERActivity"
     >
 
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.er.ERViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.er.ERViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -10,13 +10,13 @@
             type="com.example.alpha_ai.base.BaseViewModel" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.forgetpassword.sendmail.SendEmailViewModel" />
+            type="com.example.alpha_ai.ui.auth.password.sendmail.SendEmailViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.forgetpassword.sendmail.SendEmailActivity">
+        tools:context=".ui.auth.password.sendmail.SendEmailActivity">
         <include
             android:id="@+id/content"
             layout="@layout/content_sendemail"

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_doc"
-    tools:context=".ui.tasks.doc.DOCActivity"
+    tools:context=".ui.main.tasks.doc.DOCActivity"
     >
 
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.doc.DOCViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.doc.DOCViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

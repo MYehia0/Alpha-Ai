@@ -17,49 +17,49 @@
         android:theme="@style/Theme.AlphaAi"
         tools:targetApi="31">
         <activity
-            android:name=".ui.history.search.SearchHistoryActivity"
+            android:name=".ui.main.history.search.SearchHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.StartActivity"
+            android:name=".ui.auth.login.StartActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.forgetpassword.newpassward.NewPasswordActivity"
+            android:name=".ui.auth.password.reset.NewPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.forgetpassword.sendmail.SendEmailActivity"
+            android:name=".ui.auth.password.sendmail.SendEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.forgetpassword.otp.OtpActivity"
+            android:name=".ui.auth.password.otp.OtpActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tasks.stt.STTActivity"
+            android:name=".ui.main.tasks.stt.STTActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tasks.doc.DOCActivity"
+            android:name=".ui.main.tasks.doc.DOCActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tasks.er.ERActivity"
+            android:name=".ui.main.tasks.er.ERActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tasks.ocr.OCRActivity"
+            android:name=".ui.main.tasks.ocr.OCRActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tasks.gec.GECActivity"
+            android:name=".ui.main.tasks.gec.GECActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.tasks.wr.WRActivity"
+            android:name=".ui.main.tasks.wr.WRActivity"
             android:exported="false" />
         <activity
             android:name=".ui.onBoarding.OnBoardingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.main.home.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.auth.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.RegisterActivity"
+            android:name=".ui.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.splash.SplashActivity"

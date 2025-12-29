@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.alpha_ai.ui.history.History" />
+            type="com.example.alpha_ai.data.models.History" />
         <variable
             name="imageId"
             type="Integer" />

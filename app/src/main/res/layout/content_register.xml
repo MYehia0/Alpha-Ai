@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_register"
-    tools:context=".ui.register.RegisterActivity"
+    tools:context=".ui.auth.register.RegisterActivity"
     >
 
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.register.RegisterViewModel" />
+            type="com.example.alpha_ai.ui.auth.register.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

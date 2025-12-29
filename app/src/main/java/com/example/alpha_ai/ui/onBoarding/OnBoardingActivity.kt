@@ -3,16 +3,12 @@ package com.example.alpha_ai.ui.onBoarding
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
 import com.example.alpha_ai.base.BaseActivity
 import com.example.alpha_ai.databinding.ActivityOnBoardingBinding
-import com.example.alpha_ai.ui.login.LoginActivity
-import com.example.alpha_ai.ui.register.RegisterActivity
+import com.example.alpha_ai.ui.auth.login.LoginActivity
+import com.example.alpha_ai.ui.auth.register.RegisterActivity
 
 class OnBoardingActivity : BaseActivity<ActivityOnBoardingBinding, OnBoardingViewModel>(),OnBoardingNavigator {
     override fun onCreate(savedInstanceState: Bundle?) {

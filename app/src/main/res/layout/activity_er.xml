@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.er.ERViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.er.ERViewModel" />
         <variable
             name="base"
             type="com.example.alpha_ai.base.BaseViewModel" />
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.tasks.er.ERActivity">
+        tools:context=".ui.main.tasks.er.ERActivity">
 
         <include
             android:id="@+id/appbar"

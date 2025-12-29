@@ -2,11 +2,7 @@ package com.example.alpha_ai.ui.splash
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import com.example.alpha_ai.base.BaseViewModel
-import com.example.alpha_ai.database.FireStoreUtils
-import com.example.alpha_ai.database.models.User
-import com.example.alpha_ai.constants.UserProvider
 import com.google.firebase.auth.FirebaseAuth
 
 class SplashViewModel:BaseViewModel<SplashNavigator>() {

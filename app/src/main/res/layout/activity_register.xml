@@ -10,14 +10,14 @@
             type="com.example.alpha_ai.base.BaseViewModel" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.register.RegisterViewModel" />
+            type="com.example.alpha_ai.ui.auth.register.RegisterViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.register.RegisterActivity">
+        tools:context=".ui.auth.register.RegisterActivity">
         <include
             android:id="@+id/content"
             layout="@layout/content_register"

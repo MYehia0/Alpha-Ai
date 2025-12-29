@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_words"
-    tools:context=".ui.tasks.words.WordsActivity"
+    tools:context=".ui.main.tasks.words.WordsActivity"
     >
 
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.words.WordsViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.words.WordsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

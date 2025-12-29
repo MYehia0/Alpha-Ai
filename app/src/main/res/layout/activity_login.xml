@@ -10,13 +10,13 @@
             type="com.example.alpha_ai.base.BaseViewModel" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.login.LoginViewModel" />
+            type="com.example.alpha_ai.ui.auth.login.LoginViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".ui.auth.login.LoginActivity">
         <include
             android:id="@+id/content"
             layout="@layout/content_login"

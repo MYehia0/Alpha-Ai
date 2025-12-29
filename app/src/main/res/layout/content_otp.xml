@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_otp"
-    tools:context=".ui.forgetpassword.otp.OtpActivity"
+    tools:context=".ui.auth.password.otp.OtpActivity"
     >
 
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.forgetpassword.otp.OtpViewModel" />
+            type="com.example.alpha_ai.ui.auth.password.otp.OtpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

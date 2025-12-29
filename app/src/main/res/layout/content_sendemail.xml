@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_sendemail"
-    tools:context=".ui.forgetpassword.sendmail.SendEmailActivity"
+    tools:context=".ui.auth.password.sendmail.SendEmailActivity"
     >
 
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.forgetpassword.sendmail.SendEmailViewModel" />
+            type="com.example.alpha_ai.ui.auth.password.sendmail.SendEmailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

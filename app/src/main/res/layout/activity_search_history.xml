@@ -9,7 +9,7 @@
             type="com.example.alpha_ai.base.BaseViewModel" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.history.search.SearchHistoryViewModel" />
+            type="com.example.alpha_ai.ui.main.history.search.SearchHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.history.search.SearchHistoryActivity">
+        tools:context=".ui.main.history.search.SearchHistoryActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"

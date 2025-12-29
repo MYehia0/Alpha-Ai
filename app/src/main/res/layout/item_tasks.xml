@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.alpha_ai.ui.tasks.Task" />
+            type="com.example.alpha_ai.data.models.Task" />
     </data>
 
     <androidx.cardview.widget.CardView

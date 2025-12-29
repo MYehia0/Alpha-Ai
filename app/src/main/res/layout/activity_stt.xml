@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.stt.STTViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.stt.STTViewModel" />
         <variable
             name="base"
             type="com.example.alpha_ai.base.BaseViewModel" />
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.tasks.stt.STTActivity">
+        tools:context=".ui.main.tasks.stt.STTActivity">
 
         <include
             android:id="@+id/appbar"

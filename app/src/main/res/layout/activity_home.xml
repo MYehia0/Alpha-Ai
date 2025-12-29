@@ -15,13 +15,13 @@
             type="com.example.alpha_ai.base.BaseViewModel" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.home.HomeViewModel" />
+            type="com.example.alpha_ai.ui.main.home.HomeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeActivity"
+        tools:context=".ui.main.home.HomeActivity"
         android:background="@color/white"
         >
 

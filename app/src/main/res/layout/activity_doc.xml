@@ -9,14 +9,14 @@
             type="com.example.alpha_ai.base.BaseViewModel" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.ui.tasks.doc.DOCViewModel" />
+            type="com.example.alpha_ai.ui.main.tasks.doc.DOCViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.tasks.doc.DOCActivity">
+        tools:context=".ui.main.tasks.doc.DOCActivity">
 
         <include
             android:id="@+id/appbar"
