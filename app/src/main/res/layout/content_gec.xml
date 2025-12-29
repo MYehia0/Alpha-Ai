@@ -58,18 +58,18 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <ProgressBar
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/loading"
-                    style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:layout_gravity="bottom"
-                    tools:visibility="visible"
-                    android:progress="10"
-                    android:progressBackgroundTint="@color/blue400"
-                    android:progressTint="@color/blue"
-                    visible="@{vm.loadingVisibility}"
-                    />
+                    android:layout_height="wrap_content"
+
+                    android:indeterminate="true"
+                    app:indicatorColor="@color/blue"
+                    app:trackColor="#E0E0E0"
+                    app:trackThickness="10dp"
+
+                    app:visible="@{vm.loadingVisibility}" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
