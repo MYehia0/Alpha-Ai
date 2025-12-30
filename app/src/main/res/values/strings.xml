@@ -37,5 +37,12 @@
     <string name="text_forget_pass">Enter your email for the verification process,\nwe will send code otp your email</string>
     <string name="text_otp">A four-digit code should have come to your\nemail address that you indicated.</string>
     <string name="text_new_pass">Create your new password. if you forget it,\nthen you have to do forgot password</string>
-
+    <string name="terms_disclaimer">
+        By continuing, you agree to our <font color="#0182EE">Terms of Service</font> and <font color="#0182EE">Privacy Policy</font>.
+    </string>
+    <string name="app_title_formatted">Alpha <font color="#0182EE">Ai</font></string>
+    <string name="version_info">VERSION 1.1.0</string>
+    <string name="powered_by">Powered by Alpha Team</string>
+    <string name="enter_the_input">Enter the input</string>
+    <string name="type_or_paste_your_text_here">Type or paste your text here…</string>
 </resources>

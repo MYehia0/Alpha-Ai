@@ -30,7 +30,7 @@ fun bindImagebByID(imageButton: ImageButton,imageID: Int?){
 
 @BindingAdapter("visible")
 fun visible(view: View,visible: Boolean){
-    view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+    view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("backgroundCard")

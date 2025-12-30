@@ -35,7 +35,7 @@ class SplashViewModel:BaseViewModel<SplashNavigator>() {
 //                        }
 //                    }
 //            }
-        },2000)
+        },5000)
     }
 
 
