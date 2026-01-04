@@ -25,6 +25,8 @@
     <string name="get_started">Get Started</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="empty"> </string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
     <string name="tasks_title">Tasks</string>
     <string name="gec_title">Grammar Error Correction</string>
     <string name="ocr_title">OCR</string>
@@ -45,4 +47,9 @@
     <string name="powered_by">Powered by Alpha Team</string>
     <string name="enter_the_input">Enter the input</string>
     <string name="type_or_paste_your_text_here">Type or paste your text here…</string>
+    <string name="output">Output</string>
+    <string name="corrected_text_will_appear_here">Corrected text will appear here...</string>
+    <string name="correction">Correction</string>
+    <string name="summarize">Summarize</string>
+    <string name="english">English</string>
 </resources>

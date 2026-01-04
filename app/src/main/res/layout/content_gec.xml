@@ -43,6 +43,7 @@
                     android:textColor="#263238"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,6 +61,7 @@
                     android:text="@={vm.input}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:fontFamily="sans-serif"
                     app:layout_constraintTop_toBottomOf="@id/tv_input_label" />
 
                 <LinearLayout
@@ -98,13 +100,13 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/output_card"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="15dp"
+            android:layout_marginVertical="20dp"
             app:cardBackgroundColor="@color/blue"
             app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toTopOf="@id/bottom_container"
             app:layout_constraintTop_toBottomOf="@id/input_card">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -115,20 +117,23 @@
                     android:id="@+id/tv_output_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Output"
+                    android:text="@string/output"
                     android:textColor="@color/white"
                     android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_output_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="English"
+                    android:text="@string/english"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
+                    android:fontFamily="sans-serif"
                     android:background="@drawable/bg_chip_transparent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -136,17 +141,20 @@
                 <EditText
                     android:id="@+id/edit_out"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
                     android:background="@null"
                     android:gravity="top|start"
-                    android:hint="Corrected text will appear here..."
+                    android:minLines="6"
+                    android:maxLines="8"
+                    android:hint="@string/corrected_text_will_appear_here"
                     android:textColorHint="#80FFFFFF"
                     android:text="@={vm.output}"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:focusable="false"
+                    android:fontFamily="sans-serif"
                     app:layout_constraintBottom_toTopOf="@id/divider"
                     app:layout_constraintTop_toBottomOf="@id/tv_output_label" />
 
@@ -173,6 +181,7 @@
                         android:src="@drawable/copy"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/white"
+                        android:contentDescription="@string/copy"
                         android:onClick="@{() -> vm.copy()}"/>
 
                     <ImageView
@@ -181,6 +190,7 @@
                         android:layout_height="24dp"
                         android:src="@drawable/ic_share"
                         app:tint="@color/white"
+                        android:contentDescription="@string/share"
                         android:onClick="@{() -> vm.share()}"/>
                 </LinearLayout>
 
@@ -198,49 +208,30 @@
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_summarize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
-                    android:text="Tt  Select Words"
-                    android:textSize="12sp"
-                    android:textColor="@color/blue"
-                    android:textAllCaps="false"
-                    app:backgroundTint="#EAF6FF"
-                    app:cornerRadius="12dp"
-                    app:elevation="0dp"
-                    android:onClick="@{() -> vm.copy()}"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_summarize"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="5dp"
-                    android:text="Summarize"
-                    android:textSize="12sp"
-                    android:textColor="@color/blue"
-                    android:textAllCaps="false"
-                    app:icon="@drawable/ic_sort"
-                    app:iconTint="@color/blue"
-                    app:backgroundTint="#EAF6FF"
-                    app:cornerRadius="12dp"
-                    app:elevation="0dp"
-                    android:onClick="@{() -> vm.summarize()}"/>
-            </LinearLayout>
+                android:paddingVertical="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/summarize"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                app:icon="@drawable/ic_sort"
+                app:iconTint="@color/blue"
+                app:backgroundTint="#EAF6FF"
+                app:cornerRadius="16dp"
+                app:elevation="0dp"
+                android:onClick="@{() -> vm.summarize()}"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_correction"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Correction"
+                android:text="@string/correction"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -249,6 +240,7 @@
                 app:iconGravity="textEnd"
                 app:backgroundTint="@color/blue"
                 app:cornerRadius="30dp"
+                android:fontFamily="sans-serif-medium"
                 android:onClick="@{() -> vm.submit()}"/>
         </LinearLayout>
 
