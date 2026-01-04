@@ -197,66 +197,61 @@
             android:paddingBottom="20dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray100"
-                android:layout_marginTop="5dp"
-                />
-            <androidx.cardview.widget.CardView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="5dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="15dp"
-                        app:cardCornerRadius="20dp"
-                        app:cardBackgroundColor="@color/blue200">
-                        <Button
-                            android:id="@+id/btn_summarize"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingVertical="15dp"
-                            android:text="Summarize"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/blue"
-                            android:textAllCaps="false"
-                            android:background="?attr/selectableItemBackground"
-                            android:onClick="@{() -> vm.summarize()}"
-                            />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/blue"
-                >
-                <Button
-                    android:id="@+id/btn_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="15dp"
-                    android:text="Submit"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:text="Tt  Select Words"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
                     android:textAllCaps="false"
-                    android:background="?attr/selectableItemBackground"
-                    android:onClick="@{() -> vm.submit()}"
-                    />
-            </androidx.cardview.widget.CardView>
+                    app:backgroundTint="#EAF6FF"
+                    app:cornerRadius="12dp"
+                    app:elevation="0dp"
+                    android:onClick="@{() -> vm.copy()}"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_summarize"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:text="Summarize"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue"
+                    android:textAllCaps="false"
+                    app:icon="@drawable/ic_sort"
+                    app:iconTint="@color/blue"
+                    app:backgroundTint="#EAF6FF"
+                    app:cornerRadius="12dp"
+                    app:elevation="0dp"
+                    android:onClick="@{() -> vm.summarize()}"/>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_correction"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Correction"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                app:icon="@drawable/ic_magic_wand"
+                app:iconGravity="textEnd"
+                app:backgroundTint="@color/blue"
+                app:cornerRadius="30dp"
+                android:onClick="@{() -> vm.submit()}"/>
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
