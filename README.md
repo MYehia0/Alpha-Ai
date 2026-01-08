@@ -1,5 +1,7 @@
 # Alpha-AI
 
+> **⚠️ Note:** This project is currently under refactoring. The graduation project focused on NLP integration and backend architecture rather than UI design. UI improvements are in progress.
+
 AI-powered language enhancement Android app offering grammar correction in Arabic and English.
 
 **Graduation Project | Grade: A+**
@@ -41,18 +43,18 @@ Alpha-AI helps users improve their writing by providing:
 ## Current Status
 
 **In Progress:**
-- Refactoring UI for better user experience
+- UI/UX redesign for better user experience
 - Adding unit tests (JUnit, Mockk)
 - Improving network error handling
-- Code optimization and cleanup
+- Code documentation and cleanup
 
----
-
-## Future Improvements
-
-- Migrate UI to Jetpack Compose
+**Future Improvements:**
+- Migrate to Jetpack Compose
+- Add offline mode with local caching
 - Implement CI/CD pipeline
 - Expand language support
+
+---
 
 ## License
 
