@@ -1,6 +1,51 @@
 <resources>
+
+    // common
     <string name="app_name">Alpha-Ai</string>
     <string name="alpha_ai">Alpha Ai</string>
+
+    // splash
+    <string name="app_title_formatted">Alpha <font color="#0182EE">Ai</font></string>
+    <string name="version_info">VERSION 1.1.0</string>
+    <string name="powered_by">Powered by Alpha Team</string>
+    <string name="splash_sub_title">Experience the power of AI with us</string>
+
+    // onboarding
+
+    // sign up
+
+    // sign in
+
+    // Start
+
+    // home
+
+    // tasks
+
+    // gec
+
+    // ocr
+
+    // er
+
+    // wr
+
+    // doc
+
+    // stt
+
+    // tts
+
+    // settings
+
+    // profile
+
+    // help
+
+    // about
+
+    // logout
+
     <string name="user_name">User Name</string>
     <string name="email_address">Email Address</string>
     <string name="password">Password</string>
@@ -42,14 +87,13 @@
     <string name="terms_disclaimer">
         By continuing, you agree to our <font color="#0182EE">Terms of Service</font> and <font color="#0182EE">Privacy Policy</font>.
     </string>
-    <string name="app_title_formatted">Alpha <font color="#0182EE">Ai</font></string>
-    <string name="version_info">VERSION 1.1.0</string>
-    <string name="powered_by">Powered by Alpha Team</string>
     <string name="enter_the_input">Enter the input</string>
     <string name="type_or_paste_your_text_here">Type or paste your text here…</string>
     <string name="output">Output</string>
-    <string name="corrected_text_will_appear_here">Corrected text will appear here...</string>
+    <string name="corrected_text_will_appear_here">Corrected text will appear here…</string>
     <string name="correction">Correction</string>
     <string name="summarize">Summarize</string>
     <string name="english">English</string>
+    <string name="sign_up_to_get_started_with_alpha_ai">Sign up to get started with Alpha Ai</string>
+    <string name="full_name">Full Name</string>
 </resources>

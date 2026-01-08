@@ -14,10 +14,17 @@
     <color name="gray200">#9EAFB0</color>
     <color name="red">#FF0000</color>
     <color name="red100">#FCEAEB</color>
+
     <color name="blue">#0182EE</color>
+    <color name="blue50">#EAF6FF</color>
+
     <color name="blue100">#3399EE</color>
     <color name="blue200">#D6EBFC</color>
     <color name="blue300">#D1E4F3</color>
     <color name="blue400">#33AAFF</color>
+    <color name="black50">#263238</color>
+    <color name="gray50">#90A4AE</color>
+    <color name="gray70">#546E7A</color>
+    <color name="gray20">#80FFFFFF</color>
 
 </resources>
