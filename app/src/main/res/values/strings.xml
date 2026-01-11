@@ -8,11 +8,27 @@
     <string name="app_title_formatted">Alpha <font color="#0182EE">Ai</font></string>
     <string name="version_info">VERSION 1.1.0</string>
     <string name="powered_by">Powered by Alpha Team</string>
-    <string name="splash_sub_title">Experience the power of AI with us</string>
 
     // onboarding
+    <string name="correction_with_alpha_ai">Correction with Alpha Ai</string>
+    <string name="experience_the_power_of_ai_with_us">Experience the power of Ai with us</string>
+    <string name="i_need_to_create_an_account">I need to create an account</string>
+    <string name="i_already_have_an_account">I already have an account</string>
+    <string name="terms_disclaimer">
+        By continuing, you agree to our <font color="#0182EE">Terms of Service</font> and <font color="#0182EE">Privacy Policy</font>.
+    </string>
 
     // sign up
+    <string name="create_account">Create Account</string>
+    <string name="sign_up_to_get_started_with_alpha_ai">Sign up to get started with Alpha Ai</string>
+    <string name="full_name">Full Name</string>
+    <string name="user_name">User Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">Log In</string>
+    <string name="already_have_an_account">Already have an account?</string>
+
 
     // sign in
 
@@ -46,19 +62,10 @@
 
     // logout
 
-    <string name="user_name">User Name</string>
-    <string name="email_address">Email Address</string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="create_account">Create Account</string>
-    <string name="login">Login</string>
+
     <string name="sign_in">Sign In</string>
     <string name="forget_password">Forget password?</string>
     <string name="or_create_my_account">Or Create My Account</string>
-    <string name="correction_with_alpha_ai">Correction with Alpha Ai</string>
-    <string name="experience_the_power_of_ai_with_us">Experience the power of Ai with us</string>
-    <string name="i_need_to_create_an_account">I need to create an account</string>
-    <string name="i_already_have_an_account">I already have an account</string>
     <string name="welcome_back_to_alpha_ai">Welcome back to Alpha Ai</string>
     <string name="please_login_to_continue_to_your_account">Please login to continue to your account</string>
     <string name="sign_up">Sign Up</string>
@@ -68,7 +75,6 @@
     <string name="please_enter_your_details_to_create_an_account">Please enter your details to create an account</string>
     <string name="i_agree_to_chatbot_ai_public_agreement_terms_privacy_policy"><![CDATA[I agree to Chatbot_AI Public Agreement, Terms, & Privacy Policy.]]></string>
     <string name="get_started">Get Started</string>
-    <string name="already_have_an_account">Already have an account?</string>
     <string name="empty"> </string>
     <string name="share">Share</string>
     <string name="copy">Copy</string>
@@ -79,14 +85,10 @@
     <string name="wr_title">Word Recognition</string>
     <string name="doc_title">Doc to Text</string>
     <string name="stt_title">Speech To Text</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_forget_pass">Enter your email for the verification process,\nwe will send code otp your email</string>
     <string name="text_otp">A four-digit code should have come to your\nemail address that you indicated.</string>
     <string name="text_new_pass">Create your new password. if you forget it,\nthen you have to do forgot password</string>
-    <string name="terms_disclaimer">
-        By continuing, you agree to our <font color="#0182EE">Terms of Service</font> and <font color="#0182EE">Privacy Policy</font>.
-    </string>
     <string name="enter_the_input">Enter the input</string>
     <string name="type_or_paste_your_text_here">Type or paste your text here…</string>
     <string name="output">Output</string>
@@ -94,6 +96,5 @@
     <string name="correction">Correction</string>
     <string name="summarize">Summarize</string>
     <string name="english">English</string>
-    <string name="sign_up_to_get_started_with_alpha_ai">Sign up to get started with Alpha Ai</string>
-    <string name="full_name">Full Name</string>
+
 </resources>
