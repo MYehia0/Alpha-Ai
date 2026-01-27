@@ -1,83 +1,103 @@
-package com.example.alpha_ai.base
+package com.example.alpha_ai.core.base
 
-import android.app.AlertDialog
-import android.app.ProgressDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.core.view.WindowCompat
 import androidx.databinding.ViewDataBinding
-import com.example.alpha_ai.ui.main.history.search.SearchHistoryActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.alpha_ai.core.common.NavigationDestination
+import com.example.alpha_ai.core.common.SnackbarDuration
+import com.example.alpha_ai.core.common.UiEvent
+import com.example.alpha_ai.core.utils.extensions.showMaterial3Dialog
+import com.example.alpha_ai.core.utils.extensions.showMaterial3Snackbar
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
-abstract class BaseActivity<VB:ViewDataBinding,VM: BaseViewModel<*>>:AppCompatActivity(),
-    BaseNavigator {
-    lateinit var binding: VB
-    lateinit var viewModel: VM //by viewModels()
+abstract class BaseActivity<VB:ViewDataBinding,VM: BaseViewModel>:AppCompatActivity() {
+    protected lateinit var binding: VB
+    protected abstract val viewModel: VM
+
+    protected abstract fun inflateBinding(): VB
+    protected abstract fun handleNavigation(destination: NavigationDestination)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, getLayoutID())
-        viewModel = genViewModel()
-//        viewModel.navigator = this
-
+        binding = inflateBinding()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        binding.lifecycleOwner = this
+        observeUiEvents()
     }
-    abstract fun getLayoutID():Int
-    abstract fun genViewModel():VM
 
-    var alertDialog: AlertDialog?= null
-    var progressDialog: ProgressDialog?=null
-    override fun showLoading(message: String) {
-        progressDialog = ProgressDialog(this)
-        progressDialog?.setMessage(message)
-        progressDialog?.show()
-    }
-    override fun showMessage(messageOK: String , message: String) {
-        if( message == "" ){
-            alertDialog = AlertDialog.Builder(this)
-                .setMessage(messageOK)
-                .setPositiveButton("ok") { dialog, i ->
-                    dialog?.dismiss()
-                }.show()
-            return
+    private fun observeUiEvents() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiEvent.collect { event ->
+                    handleUiEvent(event)
+                }
+            }
         }
-        alertDialog = AlertDialog.Builder(this)
-            .setMessage(messageOK)
-            .setNegativeButton("ok") { dialog, i ->
-                dialog?.dismiss()
-            }.setPositiveButton(message) { dialog, i ->
-                dialog?.dismiss()
-//                viewModel.onBack()
-            }.show()
-
-    }
-    override fun hideLoading() {
-        alertDialog?.dismiss()
-        progressDialog?.dismiss()
-        progressDialog = null
     }
 
-    override fun onBack() {
+    private fun handleUiEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.ShowSnackbar -> {
+                Log.d("BaseActivity", "ShowSnackbar event received: ${event.message}")
+                showSnackbar(event)
+//                binding.root.showMaterial3Snackbar(
+//                    message = event.message,
+//                    duration = when (event.duration) {
+//                        SnackbarDuration.SHORT -> Snackbar.LENGTH_SHORT
+//                        SnackbarDuration.LONG -> Snackbar.LENGTH_LONG
+//                        SnackbarDuration.INDEFINITE -> Snackbar.LENGTH_INDEFINITE
+//                    },
+//                    action = event.action
+//                )
+            }
+
+            is UiEvent.ShowDialog -> {
+                Log.d("BaseActivity", "ShowDialog event received")
+                showMaterial3Dialog(
+                    title = event.title,
+                    message = event.message,
+                    positiveButton = event.positiveButton,
+                    negativeButton = event.negativeButton,
+                    dismissible = event.dismissible
+                )
+            }
+
+            is UiEvent.Navigate -> {
+                Log.d("BaseActivity", "Navigate event received: ${event.destination}")
+                handleNavigation(event.destination)
+            }
+        }
+    }
+
+    private fun showSnackbar(event: UiEvent.ShowSnackbar) {
+        val anchorView = getSnackbarAnchorView()
+        Log.d("BaseActivity", "Anchor view: $anchorView")
+        Log.d("BaseActivity", "Anchor view parent: ${anchorView.parent}")
+
+        anchorView.showMaterial3Snackbar(
+            message = event.message,
+            duration = when (event.duration) {
+                SnackbarDuration.SHORT -> Snackbar.LENGTH_SHORT
+                SnackbarDuration.LONG -> Snackbar.LENGTH_LONG
+                SnackbarDuration.INDEFINITE -> Snackbar.LENGTH_INDEFINITE
+            },
+            action = event.action
+        )
+        Log.d("BaseActivity", "Snackbar show() called")
+    }
+
+    protected open fun getSnackbarAnchorView(): View {
+        return binding.root
+    }
+
+    protected fun navigateBack() {
         onBackPressedDispatcher.onBackPressed()
-    }
-
-    override fun onSearch() {
-        val intent = Intent(this,
-            SearchHistoryActivity::class.java)
-        startActivity(intent)
-    }
-
-    override fun onLogout() {
-
-    }
-
-    override fun copy(text: String) {
-        copyToClipboard(text)
-    }
-    private fun copyToClipboard(text: String) {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-        val clip = android.content.ClipData.newPlainText("Copied Text", text)
-        clipboard.setPrimaryClip(clip)
-        Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,9 +1,9 @@
 package com.example.alpha_ai.ui.main.history.search
 
 import androidx.lifecycle.MutableLiveData
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
 
-class SearchHistoryViewModel: BaseViewModel<SearchHistoryNavigator>() {
+class SearchHistoryViewModel: BaseViewModel() {
     var search = MutableLiveData<String>()
 
 //    fun updateSearch(){

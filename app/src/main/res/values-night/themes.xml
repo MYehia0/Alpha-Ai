@@ -3,7 +3,7 @@
     <style name="Theme.AlphaAi" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue200</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -14,29 +14,9 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-    </style>
 
-    <style name="main_text_style" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">42sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="welcome_text_style" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="welcome_text_style_2" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="fill_text_style" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/gray</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/app_font_family</item>
+        <item name="fontFamily">@font/app_font_family</item>
     </style>
 
 </resources>

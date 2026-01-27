@@ -2,11 +2,11 @@ package com.example.alpha_ai.ui.main.tasks.ocr
 
 import android.graphics.Bitmap
 import androidx.databinding.ObservableField
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
 //import com.example.alpha_ai.database.apis.OCRModelApi
 import java.io.ByteArrayOutputStream
 
-class OCRViewModel : BaseViewModel<OCRNavigator>(){
+class OCRViewModel : BaseViewModel(){
     var output = ObservableField<String>()
     var outputError = ObservableField<String?>()
     var loadingVisibility = ObservableField<Boolean>()
@@ -41,7 +41,7 @@ class OCRViewModel : BaseViewModel<OCRNavigator>(){
     fun copy() {
         output.get().let {
             if(!it?.trim().isNullOrBlank()){
-                navigator?.copy(it!!)
+//                navigator?.copy(it!!)
             }
         }
     }
@@ -51,7 +51,7 @@ class OCRViewModel : BaseViewModel<OCRNavigator>(){
         if(!validateFormOutput()){
             return
         }
-        navigator?.correct()
+//        navigator?.correct()
     }
 
     fun validateFormOutput(): Boolean {

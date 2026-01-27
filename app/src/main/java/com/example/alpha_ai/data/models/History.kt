@@ -10,7 +10,6 @@ data class History(
             History("gec", "gec","gec","انه يحب اكل الطعام بكثره", "إنه يحب أكل الطعام بكثرة ."),
             History("gec", "gec","gec","came to work everyday", "I came to work everyday."),
             History("gec", "gec","gec","The seats are not supposed for young people to sit down on those seats but for old people.", "The seats are not supposed for young people to sit down on those seats but for old people."),
-
         )
 
     }

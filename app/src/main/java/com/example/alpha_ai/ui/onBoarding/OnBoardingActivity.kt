@@ -2,67 +2,45 @@ package com.example.alpha_ai.ui.onBoarding
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityOnBoardingBinding
 import com.example.alpha_ai.ui.auth.login.LoginActivity
 import com.example.alpha_ai.ui.auth.register.RegisterActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
-class OnBoardingActivity : BaseActivity<ActivityOnBoardingBinding, OnBoardingViewModel>(),OnBoardingNavigator {
+@AndroidEntryPoint
+class OnBoardingActivity : BaseActivity<ActivityOnBoardingBinding, OnBoardingViewModel>() {
+    override val viewModel: OnBoardingViewModel by viewModels()
+    override fun inflateBinding(): ActivityOnBoardingBinding {
+        return DataBindingUtil.setContentView(this, R.layout.activity_on_boarding)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupBinding()
+    }
+
+    private fun setupBinding() {
+        binding.lifecycleOwner = this
         binding.vm = viewModel
-        viewModel.navigator = this
-        binding.btnSignUp.setOnClickListener{
-            Log.e("reO","O")
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+    }
+
+    override fun handleNavigation(destination: NavigationDestination) {
+        when(destination){
+            is NavigationDestination.Login -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+            is NavigationDestination.Register -> {
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+            }
+            else -> {}
         }
-        binding.btnSignIn.setOnClickListener{
-            Log.e("lgO","O")
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    override fun getLayoutID(): Int {
-        return R.layout.activity_on_boarding
-    }
-
-    override fun genViewModel(): OnBoardingViewModel {
-        return ViewModelProvider(this)[OnBoardingViewModel::class.java]
-    }
-
-    override fun goToLogin() {
-
-//        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent)
-        binding.btnSignIn.setOnClickListener{
-            Log.e("lgO","O")
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    override fun goToRegister() {
-//        val intent = Intent(this, RegisterActivity::class.java)
-//        startActivity(intent)
-        binding.btnSignUp.setOnClickListener{
-            Log.e("reO","O")
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.e("rO","O")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.e("sO","O")
     }
 }

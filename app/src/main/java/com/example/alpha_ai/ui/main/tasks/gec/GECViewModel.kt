@@ -1,12 +1,12 @@
 package com.example.alpha_ai.ui.main.tasks.gec
 
+import android.content.Context
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.alpha_ai.base.BaseViewModel
-import com.example.alpha_ai.data.firebase.FireStoreUtils
+import com.example.alpha_ai.core.base.BaseViewModel
 import com.example.alpha_ai.data.models.History
 import com.example.alpha_ai.data.remote.api.ApiManager
 import com.example.alpha_ai.data.remote.api.ApiResult
@@ -22,7 +22,7 @@ class GECViewModelFactory(private val apiManager: ApiManager) : ViewModelProvide
     }
 }
 
-class GECViewModel(private val apiManager: ApiManager) : BaseViewModel<GECNavigator>() {
+class GECViewModel(private val apiManager: ApiManager) : BaseViewModel() {
 
     var input = ObservableField("")
     var output = ObservableField("")
@@ -113,31 +113,31 @@ class GECViewModel(private val apiManager: ApiManager) : BaseViewModel<GECNaviga
     }
 
     private fun insertHistoryToDatabase(userID: String?) {
-        val history = History(
-            uid = userID,
-            input = input.get(),
-            response = output.get(),
-            taskType = "gec",
-        )
-
-        FireStoreUtils()
-            .sendHistory(history)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-//                    navigator?.showMessage("Successfully corrected.", "")
-                } else {
-//                    navigator?.showMessage(
-//                        task.exception?.localizedMessage ?: "Failed to save history",
-//                        ""
-//                    )
-                }
-            }
+//        val history = History(
+//            uid = userID,
+//            input = input.get(),
+//            response = output.get(),
+//            taskType = "gec",
+//        )
+//
+//        FireStoreUtils()
+//            .sendHistory(history)
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+////                    navigator?.showMessage("Successfully corrected.", "")
+//                } else {
+////                    navigator?.showMessage(
+////                        task.exception?.localizedMessage ?: "Failed to save history",
+////                        ""
+////                    )
+//                }
+//            }
     }
 
     fun copy() {
         output.get()?.let {
             if (it.trim().isNotBlank()) {
-                navigator?.copy(it)
+//                navigator?.copy(it)
             }
         }
     }

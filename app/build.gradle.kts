@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
 }
 
 // Load API keys from properties file
@@ -95,6 +96,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+
+    // datastore
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
     // Retrofit & Networking
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
@@ -138,4 +146,8 @@ dependencies {
     
     // Timber for logging
     implementation("com.jakewharton.timber:timber:5.0.1")
+}
+
+kapt {
+    correctErrorTypes = true
 }

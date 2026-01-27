@@ -3,14 +3,14 @@ package com.example.alpha_ai.ui.main.tasks.wr
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.databinding.ObservableField
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
 //import com.example.alpha_ai.database.apis.ApiManager
 //import com.example.alpha_ai.database.apis.MTModelApi
 
 //import com.example.alpha_ai.database.apis.TGModelApi
 //import com.example.alpha_ai.database.apis.TextToImageApi
 
-class WRViewModel : BaseViewModel<WRNavigator>(){
+class WRViewModel : BaseViewModel(){
     var input = ObservableField<String>()
     var output_en_trans = ObservableField<String>()
     var output_ar_trans = ObservableField<String>()

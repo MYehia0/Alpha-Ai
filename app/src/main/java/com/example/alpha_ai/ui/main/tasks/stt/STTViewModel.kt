@@ -1,11 +1,11 @@
 package com.example.alpha_ai.ui.main.tasks.stt
 
 import androidx.databinding.ObservableField
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
 import java.io.File
 import java.io.FileInputStream
 
-class STTViewModel : BaseViewModel<STTNavigator>(){
+class STTViewModel : BaseViewModel(){
     var output = ObservableField<String>()
     var outputError = ObservableField<String?>()
 
@@ -28,7 +28,7 @@ class STTViewModel : BaseViewModel<STTNavigator>(){
     fun copy() {
         output.get().let {
             if(!it?.trim().isNullOrBlank()){
-                navigator?.copy(it!!)
+//                navigator?.copy(it!!)
             }
         }
     }
@@ -38,7 +38,7 @@ class STTViewModel : BaseViewModel<STTNavigator>(){
         if(!validateFormOutput()){
             return
         }
-        navigator?.correct()
+//        navigator?.correct()
     }
 
     fun validateFormOutput(): Boolean {

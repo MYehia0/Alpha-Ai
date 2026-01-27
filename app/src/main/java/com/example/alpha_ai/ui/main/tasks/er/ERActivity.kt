@@ -6,17 +6,30 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityErBinding
+import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.getValue
 
-class ERActivity : BaseActivity<ActivityErBinding, ERViewModel>(), ERNavigator {
+class ERActivity : BaseActivity<ActivityErBinding, ERViewModel>() {
+    override val viewModel: ERViewModel by viewModels()
+    override fun inflateBinding(): ActivityErBinding {
+        return DataBindingUtil.setContentView(this,R.layout.activity_er)
+    }
+
+    override fun handleNavigation(destination: NavigationDestination) {
+
+    }
     private var mediaRecorder: MediaRecorder? = null
     private var mediaPlayer: MediaPlayer? = null
     private var isRecording: Boolean = false
@@ -31,8 +44,6 @@ class ERActivity : BaseActivity<ActivityErBinding, ERViewModel>(), ERNavigator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
-        binding.base = viewModel
-        viewModel.navigator=this
 
         binding.content.btnSubmit.setOnClickListener {
             if(binding.content.btnSubmit.text.equals("Record")){
@@ -132,13 +143,5 @@ class ERActivity : BaseActivity<ActivityErBinding, ERViewModel>(), ERNavigator {
         } catch (e: IOException) {
             Log.e("TTSActivity", "saveAndPlayAudio() failed")
         }
-    }
-
-    override fun getLayoutID(): Int {
-        return R.layout.activity_er
-    }
-
-    override fun genViewModel(): ERViewModel {
-        return ViewModelProvider(this)[ERViewModel::class.java]
     }
 }

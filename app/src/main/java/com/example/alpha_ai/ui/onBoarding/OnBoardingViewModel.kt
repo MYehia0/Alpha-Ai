@@ -1,12 +1,14 @@
 package com.example.alpha_ai.ui.onBoarding
 
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
+import com.example.alpha_ai.core.common.NavigationDestination
+import com.example.alpha_ai.core.common.UiEvent
 
-class OnBoardingViewModel: BaseViewModel<OnBoardingNavigator>() {
-    fun goToLogin(){
-        navigator?.goToLogin()
+class OnBoardingViewModel: BaseViewModel() {
+    fun navigateToLogin() {
+        sendEvent(UiEvent.Navigate(NavigationDestination.Login))
     }
-    fun goToRegister(){
-        navigator?.goToRegister()
+    fun navigateToRegister() {
+        sendEvent(UiEvent.Navigate(NavigationDestination.Register))
     }
 }

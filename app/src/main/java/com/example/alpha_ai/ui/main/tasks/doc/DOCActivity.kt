@@ -4,24 +4,35 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityDocBinding
 import com.example.alpha_ai.ui.main.tasks.gec.GECActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
-class DOCActivity : BaseActivity<ActivityDocBinding, DOCViewModel>(), DOCNavigator {
+class DOCActivity : BaseActivity<ActivityDocBinding, DOCViewModel>() {
+
+    override val viewModel: DOCViewModel by viewModels()
+    override fun inflateBinding(): ActivityDocBinding {
+        return DataBindingUtil.setContentView(this,R.layout.activity_doc)
+    }
+
+    override fun handleNavigation(destination: NavigationDestination) {
+
+    }
+
     var file: File? = null
     private val PICK_FILE_REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
-        binding.base = viewModel
-        viewModel.navigator=this
         selectImage()
         binding.content.btnGec.setOnClickListener {
             val intent = Intent(this, GECActivity::class.java)
@@ -61,11 +72,7 @@ class DOCActivity : BaseActivity<ActivityDocBinding, DOCViewModel>(), DOCNavigat
         return file
     }
 
-    override fun getLayoutID(): Int {
-        return R.layout.activity_ocr
-    }
-
-    override fun genViewModel(): DOCViewModel {
-        return ViewModelProvider(this)[DOCViewModel::class.java]
-    }
+//    override fun genViewModel(): DOCViewModel {
+//        return ViewModelProvider(this)[DOCViewModel::class.java]
+//    }
 }

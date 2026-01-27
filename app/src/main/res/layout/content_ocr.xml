@@ -92,7 +92,6 @@
                     app:hintTextColor="@color/blue200"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
-                    errorText="@{vm.outputError}"
                     >
                     <EditText
                         android:id="@+id/edit_out"

@@ -19,27 +19,4 @@
         <item name="fontFamily">@font/app_font_family</item>
     </style>
 
-    <style name="main_text_style" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">42sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="welcome_text_style" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="welcome_text_style_2" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="fill_text_style" parent="Theme.AlphaAi">
-        <item name="android:textColor">@color/gray</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
 </resources>

@@ -18,7 +18,7 @@
             type="Boolean" />
         <variable
             name="vm"
-            type="com.example.alpha_ai.base.BaseViewModel" />
+            type="com.example.alpha_ai.core.base.BaseViewModel" />
     </data>
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -41,8 +41,8 @@
                 android:background="@color/trans"
                 android:layoutDirection="rtl"
                 visible="@{vs}"
-                android:onClick="@{()-> vm.onBack() }"
                 />
+<!--            android:onClick="@{()-> vm.onBack() }"-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +71,6 @@
                     android:src="@drawable/search"
                     android:background="@color/trans"
                     visible="@{search}"
-                    android:onClick="@{()-> vm.onSearch() }"
                     />
                 <ImageButton
                     android:id="@+id/btn_logout"
@@ -83,8 +82,6 @@
                     android:src="@drawable/sign_out"
                     android:background="@color/trans"
                     android:layoutDirection="rtl"
-                    visible="@{logout}"
-                    android:onClick="@{()-> vm.onLogout() }"
                     />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>

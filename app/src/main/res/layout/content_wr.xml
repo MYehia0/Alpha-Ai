@@ -42,7 +42,6 @@
                     app:hintTextColor="@color/blue"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
-                    errorText="@{vm.inputError}"
                     >
 
                     <EditText

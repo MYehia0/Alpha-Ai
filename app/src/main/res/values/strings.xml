@@ -29,8 +29,11 @@
     <string name="login">Log In</string>
     <string name="already_have_an_account">Already have an account?</string>
 
-
-    // sign in
+    <!-- Login Screen -->
+    <string name="sign_in_title">Welcome back to Alpha Ai</string>
+    <string name="sign_in_subtitle">Please login to continue to your account</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="facebook_sign_in">Sign in with Facebook</string>
 
     // Start
 
@@ -61,6 +64,11 @@
     // about
 
     // logout
+
+    <!-- Validation Messages -->
+    <string name="error_invalid_email">Please enter a valid email address</string>
+    <string name="error_empty_password">Password cannot be empty</string>
+    <string name="error_short_password">Password must be at least 6 characters</string>
 
 
     <string name="sign_in">Sign In</string>
@@ -96,5 +104,6 @@
     <string name="correction">Correction</string>
     <string name="summarize">Summarize</string>
     <string name="english">English</string>
+    <string name="back">Back</string>
 
 </resources>

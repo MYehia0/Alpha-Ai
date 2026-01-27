@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.alpha_ai.core.constants.UserProvider
-import com.example.alpha_ai.data.firebase.FireStoreUtils
+import com.example.alpha_ai.core.common.UserProvider
 import com.example.alpha_ai.data.models.History
 import com.example.alpha_ai.databinding.FragmentHistoryBinding
 
@@ -59,29 +58,29 @@ class HistoryFragment : Fragment() {
     }
     var hisList:MutableList<History>?=null
     private fun loadHistories(){
-        FireStoreUtils()
-            .getHistory(UserProvider.user?.uid)
-            .addOnCompleteListener { task->
-                if(task.isSuccessful){
-                    Log.e("user", UserProvider.user?.uid.toString())
-                    var cnt = 0
-                    task.result.documents.forEach{
-                        val history = History(
-                            id = it.data?.get("id").toString(),
-                            uid = it.data?.get("uid").toString(),
-                            taskType = it.data?.get("taskType").toString(),
-                            input = it.data?.get("input").toString(),
-                            response = it.data?.get("response").toString()
-                        )
-//                        hisList?.add(history)
-                        hisList?.set(cnt,history)
-                        cnt += 1
-                        Log.e("his",history.toString())
-                    }
-//                    hisList?.let { historyList?.addAll(it) }
-                    Log.e("his",hisList.toString())
-                }
-            }
+//        FireStoreUtils()
+//            .getHistory(UserProvider.user?.uid)
+//            .addOnCompleteListener { task->
+//                if(task.isSuccessful){
+//                    Log.e("user", UserProvider.user?.uid.toString())
+//                    var cnt = 0
+//                    task.result.documents.forEach{
+//                        val history = History(
+//                            id = it.data?.get("id").toString(),
+//                            uid = it.data?.get("uid").toString(),
+//                            taskType = it.data?.get("taskType").toString(),
+//                            input = it.data?.get("input").toString(),
+//                            response = it.data?.get("response").toString()
+//                        )
+////                        hisList?.add(history)
+//                        hisList?.set(cnt,history)
+//                        cnt += 1
+//                        Log.e("his",history.toString())
+//                    }
+////                    hisList?.let { historyList?.addAll(it) }
+//                    Log.e("his",hisList.toString())
+//                }
+//            }
     }
 
     fun searchInHistoryList(query: String): MutableList<History>? {

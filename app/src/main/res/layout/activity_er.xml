@@ -7,9 +7,6 @@
         <variable
             name="vm"
             type="com.example.alpha_ai.ui.main.tasks.er.ERViewModel" />
-        <variable
-            name="base"
-            type="com.example.alpha_ai.base.BaseViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -23,7 +20,6 @@
             android:id="@+id/appbar"
             layout="@layout/layout_appbar"
             app:title="@{@string/er_title}"
-            app:vm="@{base}"
             app:logout="@{false}"
             app:search="@{false}"
             app:vs="@{true}" />

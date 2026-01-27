@@ -2,11 +2,15 @@ package com.example.alpha_ai.ui.main.history.search
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivitySearchHistoryBinding
 import com.example.alpha_ai.data.models.History
+import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import com.example.alpha_ai.ui.main.history.HistoryFragment
 import com.example.alpha_ai.ui.main.history.NoHistoryFragment
 import com.example.alpha_ai.ui.main.tasks.doc.DOCActivity
@@ -15,24 +19,40 @@ import com.example.alpha_ai.ui.main.tasks.gec.GECActivity
 import com.example.alpha_ai.ui.main.tasks.ocr.OCRActivity
 import com.example.alpha_ai.ui.main.tasks.stt.STTActivity
 import com.example.alpha_ai.ui.main.tasks.wr.WRActivity
+import kotlin.getValue
 
 class SearchHistoryActivity : BaseActivity<ActivitySearchHistoryBinding, SearchHistoryViewModel>(),
-    SearchHistoryNavigator,
     HistoryFragment.OnHistoryListener {
-//    val historyFragment = HistoryFragment()
+    override val viewModel: SearchHistoryViewModel by viewModels()
+    override fun inflateBinding(): ActivitySearchHistoryBinding {
+        return DataBindingUtil.setContentView(this, R.layout.activity_search_history)
+    }
+
     val noHistoryFragment = NoHistoryFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.vm = viewModel
-        binding.base = viewModel
-        viewModel.navigator=this
+        setupBinding()
         viewModel.search.observe(this) {
             if (it.trim().isNullOrBlank()) {
-                viewModel.navigator?.onEdit(it,false)
+//                viewModel.navigator?.onEdit(it,false)
             } else {
-                viewModel.navigator?.onEdit(it,true)
+//                viewModel.navigator?.onEdit(it,true)
             }
+        }
+    }
+
+    private fun setupBinding() {
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+    }
+
+    override fun handleNavigation(destination: NavigationDestination) {
+        when (destination) {
+//            is NavigationDestination.SearchHistoryEdit -> {
+//                onEdit(destination.search,destination.flag)
+//            }
+            else -> {}
         }
     }
 
@@ -48,14 +68,6 @@ class SearchHistoryActivity : BaseActivity<ActivitySearchHistoryBinding, SearchH
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_history,historyFragment)
             .commit()
-    }
-
-    override fun genViewModel(): SearchHistoryViewModel {
-        return ViewModelProvider(this).get(SearchHistoryViewModel::class.java)
-    }
-
-    override fun getLayoutID(): Int {
-        return R.layout.activity_search_history
     }
 
     override fun onHistoryClick(history: History) {
@@ -96,14 +108,14 @@ class SearchHistoryActivity : BaseActivity<ActivitySearchHistoryBinding, SearchH
         }
     }
 
-    override fun onEdit(search: String, flag: Boolean) {
-        if (!flag){
-            showNoHistoryFragment()
-        }
-        else {
-            showHistoryFragment(search)
-        }
-    }
+//    override fun onEdit(search: String, flag: Boolean) {
+//        if (!flag){
+//            showNoHistoryFragment()
+//        }
+//        else {
+//            showHistoryFragment(search)
+//        }
+//    }
 
 }
 

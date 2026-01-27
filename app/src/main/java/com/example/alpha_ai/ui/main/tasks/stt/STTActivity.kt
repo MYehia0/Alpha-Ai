@@ -6,16 +6,28 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivitySttBinding
+import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import com.example.alpha_ai.ui.main.tasks.gec.GECActivity
 import java.io.IOException
+import kotlin.getValue
 
-class STTActivity : BaseActivity<ActivitySttBinding, STTViewModel>(), STTNavigator {
+class STTActivity : BaseActivity<ActivitySttBinding, STTViewModel>() {
+    override val viewModel: STTViewModel by viewModels()
+    override fun inflateBinding(): ActivitySttBinding {
+        return DataBindingUtil.setContentView(this,R.layout.activity_stt)
+    }
+    override fun handleNavigation(destination: NavigationDestination) {
+    }
+
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording: Boolean = false
     private var audioFilePath: String? = null
@@ -29,8 +41,6 @@ class STTActivity : BaseActivity<ActivitySttBinding, STTViewModel>(), STTNavigat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
-        binding.base = viewModel
-        viewModel.navigator=this
 
         binding.content.btnGec.setOnClickListener {
             val intent = Intent(this, GECActivity::class.java)
@@ -114,18 +124,10 @@ class STTActivity : BaseActivity<ActivitySttBinding, STTViewModel>(), STTNavigat
         binding.content.btnSubmit.icon = getDrawable(R.drawable.mic)
     }
 
-    override fun getLayoutID(): Int {
-        return R.layout.activity_stt
-    }
-
-    override fun genViewModel(): STTViewModel {
-        return ViewModelProvider(this)[STTViewModel::class.java]
-    }
-
-    override fun correct() {
-        val intent = Intent(this, GECActivity::class.java)
-        intent.putExtra("IN_CORRECT", "${viewModel.output.get()}");
-        startActivity(intent)
-    }
+//    override fun correct() {
+//        val intent = Intent(this, GECActivity::class.java)
+//        intent.putExtra("IN_CORRECT", "${viewModel.output.get()}");
+//        startActivity(intent)
+//    }
 
 }

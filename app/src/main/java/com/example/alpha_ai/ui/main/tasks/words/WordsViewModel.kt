@@ -2,9 +2,8 @@ package com.example.alpha_ai.ui.main.tasks.words
 
 import android.util.Log
 import androidx.databinding.ObservableField
-import com.example.alpha_ai.base.BaseViewModel
-import com.example.alpha_ai.core.constants.UserProvider
-import com.example.alpha_ai.data.firebase.FireStoreUtils
+import com.example.alpha_ai.core.base.BaseViewModel
+import com.example.alpha_ai.core.common.UserProvider
 import com.example.alpha_ai.data.models.History
 //import com.example.alpha_ai.database.apis.GECModelApi
 //import com.example.alpha_ai.database.apis.GECarModelApi
@@ -12,7 +11,7 @@ import com.example.alpha_ai.data.models.History
 //import com.example.alpha_ai.database.apis.SUMModelApi
 //import com.example.alpha_ai.database.apis.SUMarModelApi
 
-class WordsViewModel : BaseViewModel<WordsNavigator>(){
+class WordsViewModel : BaseViewModel(){
     var input = ObservableField<String>()
     var output = ObservableField<String>()
     var loadingVisibility = ObservableField<Boolean>()
@@ -102,22 +101,22 @@ class WordsViewModel : BaseViewModel<WordsNavigator>(){
     }
 
     fun insertHistoryToDatabase(userID:String?){
-        val history = History(
-            uid = userID,
-            input = input.get(),
-            response = output.get(),
-            taskType = "gec",
-        )
-        FireStoreUtils()
-            .sendHistory(history)
-            .addOnCompleteListener { task->
-                navigator?.hideLoading()
-                if(task.isSuccessful){
-                    navigator?.showMessage("Successfully Correction.","")
-                }else{
-                    navigator?.showMessage(task.exception?.localizedMessage!!,"")
-                }
-            }
+//        val history = History(
+//            uid = userID,
+//            input = input.get(),
+//            response = output.get(),
+//            taskType = "gec",
+//        )
+//        FireStoreUtils()
+//            .sendHistory(history)
+//            .addOnCompleteListener { task->
+////                navigator?.hideLoading()
+//                if(task.isSuccessful){
+////                    navigator?.showMessage("Successfully Correction.","")
+//                }else{
+////                    navigator?.showMessage(task.exception?.localizedMessage!!,"")
+//                }
+//            }
     }
 
 
@@ -150,7 +149,7 @@ class WordsViewModel : BaseViewModel<WordsNavigator>(){
     fun copy() {
         output.get().let {
             if(!it?.trim().isNullOrBlank()){
-                navigator?.copy(it!!)
+//                navigator?.copy(it!!)
             }
         }
     }

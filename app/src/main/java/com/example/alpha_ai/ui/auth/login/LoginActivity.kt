@@ -2,50 +2,74 @@ package com.example.alpha_ai.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.alpha_ai.R
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityLoginBinding
-import com.example.alpha_ai.base.BaseActivity
-import com.example.alpha_ai.ui.auth.password.sendmail.SendEmailActivity
+import com.example.alpha_ai.core.common.UiState
 import com.example.alpha_ai.ui.auth.register.RegisterActivity
+import com.example.alpha_ai.ui.main.home.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), LoginNavigator {
+@AndroidEntryPoint
+class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
+
+    override val viewModel: LoginViewModel by viewModels()
+    override fun inflateBinding(): ActivityLoginBinding {
+        return DataBindingUtil.setContentView(this,R.layout.activity_login)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.vm = viewModel
-        binding.base = viewModel
-        viewModel.navigator = this
-        binding.content.forgetPassword.setOnClickListener {
-            val intent = Intent(this, SendEmailActivity::class.java)
-            startActivity(intent)
-        }
-        if(!viewModel.validateAllForm()){
-            binding.content.cardBtnLogin.setCardBackgroundColor(getColor(R.color.blue100))
-        }
-        else{
-            binding.content.cardBtnLogin.setCardBackgroundColor(getColor(R.color.blue))
-        }
+        setupBinding()
+        observeAuthState()
     }
 
-    override fun getLayoutID(): Int {
-        return R.layout.activity_login
+    private fun setupBinding() {
+         binding.lifecycleOwner = this
+         binding.vm = viewModel
     }
 
-    override fun genViewModel(): LoginViewModel {
-        return ViewModelProvider(this).get(LoginViewModel::class.java)
-    }
-
-    override fun goToRegister() {
-        binding.content.textCreateMyAccount.setOnClickListener{
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+    private fun observeAuthState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.authState.collect { state ->
+                    handleAuthState(state)
+                }
+            }
         }
     }
 
-    override fun goToHome() {
-        val intent = Intent(this, StartActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun handleAuthState(state: UiState<String>) {
+        when (state) {
+            is UiState.Idle -> {}
+            is UiState.Loading -> {}
+            is UiState.Success -> {}
+            is UiState.Error -> {}
+        }
+    }
+
+    override fun handleNavigation(destination: NavigationDestination) {
+        when (destination) {
+            is NavigationDestination.Home -> {
+                startActivity(Intent(this, HomeActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
+                finish()
+            }
+            is NavigationDestination.Register -> {
+                startActivity(Intent(this, RegisterActivity::class.java))
+            }
+            is NavigationDestination.Back -> {
+                navigateBack()
+            }
+            else -> {}
+        }
     }
 }

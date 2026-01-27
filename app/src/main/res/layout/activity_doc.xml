@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="base"
-            type="com.example.alpha_ai.base.BaseViewModel" />
-        <variable
             name="vm"
             type="com.example.alpha_ai.ui.main.tasks.doc.DOCViewModel" />
     </data>
@@ -22,7 +19,6 @@
             android:id="@+id/appbar"
             layout="@layout/layout_appbar"
             app:title="@{@string/doc_title}"
-            app:vm="@{base}"
             app:logout="@{false}"
             app:search="@{false}"
             app:vs="@{true}"/>

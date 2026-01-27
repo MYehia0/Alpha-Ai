@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toBottomOf="@id/task_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:gravity="center"
-                textID="@{item.taskName}"
+                android:text="@{item.taskName}"
                 tools:text="GEC"
                 android:textStyle="bold"
                 android:textColor="@color/black"

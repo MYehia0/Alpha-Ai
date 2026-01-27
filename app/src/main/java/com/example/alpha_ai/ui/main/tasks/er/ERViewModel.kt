@@ -2,14 +2,14 @@ package com.example.alpha_ai.ui.main.tasks.er
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
 //import com.example.alpha_ai.database.apis.GECModelApi
 //import com.example.alpha_ai.database.apis.SSTModelApi
 //import com.example.alpha_ai.database.apis.TTSModelApi
 import java.io.File
 import java.io.FileInputStream
 
-class ERViewModel : BaseViewModel<ERNavigator>(){
+class ERViewModel : BaseViewModel(){
     var output1 = ObservableField<String>()
     var output3 = ObservableField<String>()
     val output2 = MutableLiveData<ByteArray?>()
@@ -53,7 +53,7 @@ class ERViewModel : BaseViewModel<ERNavigator>(){
     fun copy() {
         output3.get().let {
             if(!it?.trim().isNullOrBlank()){
-                navigator?.copy(it!!)
+//                navigator?.copy(it!!)
             }
         }
     }

@@ -5,20 +5,29 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityOcrBinding
+import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import com.example.alpha_ai.ui.main.tasks.gec.GECActivity
+import kotlin.getValue
 
-class OCRActivity : BaseActivity<ActivityOcrBinding, OCRViewModel>(), OCRNavigator {
+class OCRActivity : BaseActivity<ActivityOcrBinding, OCRViewModel>() {
+    override val viewModel: OCRViewModel by viewModels()
+    override fun inflateBinding(): ActivityOcrBinding {
+        return DataBindingUtil.setContentView(this,R.layout.activity_ocr)
+    }
+    override fun handleNavigation(destination: NavigationDestination) {
+    }
     var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
-        binding.base = viewModel
-        viewModel.navigator=this
         selectImage()
     }
 
@@ -38,17 +47,9 @@ class OCRActivity : BaseActivity<ActivityOcrBinding, OCRViewModel>(), OCRNavigat
         viewModel.bitmap = bitmap
     }
 
-    override fun getLayoutID(): Int {
-        return R.layout.activity_ocr
-    }
-
-    override fun genViewModel(): OCRViewModel {
-        return ViewModelProvider(this)[OCRViewModel::class.java]
-    }
-
-    override fun correct() {
-        val intent = Intent(this, GECActivity::class.java)
-        intent.putExtra("IN_CORRECT", "${viewModel.output.get()}");
-        startActivity(intent)
-    }
+//    override fun correct() {
+//        val intent = Intent(this, GECActivity::class.java)
+//        intent.putExtra("IN_CORRECT", "${viewModel.output.get()}");
+//        startActivity(intent)
+//    }
 }

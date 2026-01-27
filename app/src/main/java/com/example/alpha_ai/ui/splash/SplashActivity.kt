@@ -2,49 +2,41 @@ package com.example.alpha_ai.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import com.example.alpha_ai.R
-import com.example.alpha_ai.base.BaseActivity
+import com.example.alpha_ai.core.base.BaseActivity
+import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivitySplashBinding
 import com.example.alpha_ai.ui.main.home.HomeActivity
 import com.example.alpha_ai.ui.onBoarding.OnBoardingActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
+@AndroidEntryPoint
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
+    override val viewModel: SplashViewModel by viewModels()
+    override fun inflateBinding(): ActivitySplashBinding {
+        return DataBindingUtil.setContentView(this,R.layout.activity_splash)
+    }
 
-class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(),SplashNavigator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.navigator = this
-        Log.e("checkUser","O")
-        viewModel.checkUser()
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            Log.e("BO","O")
-//            val intent = Intent(this, OnBoardingActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        },2000)
     }
 
-    override fun getLayoutID(): Int {
-        return R.layout.activity_splash
+    override fun handleNavigation(destination: NavigationDestination) {
+        when(destination){
+            is NavigationDestination.OnBoarding -> {
+                val intent = Intent(this, OnBoardingActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            is NavigationDestination.Home -> {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else -> {}
+        }
     }
-
-    override fun genViewModel(): SplashViewModel {
-        return ViewModelProvider(this)[SplashViewModel::class.java]
-    }
-
-    override fun goToBoarding() {
-        Log.e("BO","O")
-        val intent = Intent(this, OnBoardingActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    override fun goToHome() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-
 }

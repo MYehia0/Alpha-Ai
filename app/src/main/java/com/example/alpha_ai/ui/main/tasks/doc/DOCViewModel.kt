@@ -1,7 +1,7 @@
 package com.example.alpha_ai.ui.main.tasks.doc
 
 import androidx.databinding.ObservableField
-import com.example.alpha_ai.base.BaseViewModel
+import com.example.alpha_ai.core.base.BaseViewModel
 //import com.example.alpha_ai.database.apis.OCRModelApi
 import java.io.File
 import java.io.FileInputStream
@@ -11,7 +11,7 @@ import org.apache.poi.hwpf.extractor.WordExtractor
 //import org.apache.pdfbox.text.PDFTextStripper
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 
-class DOCViewModel : BaseViewModel<DOCNavigator>(){
+class DOCViewModel : BaseViewModel(){
     var output = ObservableField<String>()
     var loadingVisibility = ObservableField<Boolean>()
 

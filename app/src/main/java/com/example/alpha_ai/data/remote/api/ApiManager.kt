@@ -1,7 +1,7 @@
 package com.example.alpha_ai.data.remote.api
 
 import android.content.Context
-import com.example.alpha_ai.core.constants.Constants
+import com.example.alpha_ai.core.common.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

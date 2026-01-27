@@ -11,9 +11,6 @@
             name="search"
             type="Boolean" />
         <variable
-            name="base"
-            type="com.example.alpha_ai.base.BaseViewModel" />
-        <variable
             name="vm"
             type="com.example.alpha_ai.ui.main.home.HomeViewModel" />
     </data>
@@ -29,7 +26,6 @@
             android:id="@+id/appbar"
             layout="@layout/layout_appbar"
             app:title="@{title}"
-            app:vm="@{base}"
             app:logout="@{true}"
             app:search="@{search}"
             app:vs="@{false}" />
