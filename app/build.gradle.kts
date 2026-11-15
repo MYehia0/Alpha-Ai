@@ -9,24 +9,11 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
-// Load API keys from properties file
-val apiProperties = Properties().apply {
-    val apiPropertiesFile = rootProject.file("api_keys.properties")
-    if (apiPropertiesFile.exists()) {
-        load(FileInputStream(apiPropertiesFile))
-    } else {
-        // Create default empty properties if file doesn't exist
-        setProperty("GEC_API_KEY", "")
-        setProperty("GECAR_API_KEY", "")
-        setProperty("LDF_API_KEY", "")
-        setProperty("OCR_API_KEY", "")
-        setProperty("SST_API_KEY", "")
-        setProperty("TTS_API_KEY", "")
-        setProperty("MT_API_KEY", "")
-        setProperty("TG_API_KEY", "")
-        setProperty("IG_API_KEY", "")
-        setProperty("SUM_API_KEY", "")
-        setProperty("SUMMAR_API_KEY", "")
+// Secrets are read from local.properties, which is git-ignored.
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        FileInputStream(localPropertiesFile).use { load(it) }
     }
 }
 
@@ -48,18 +35,12 @@ android {
         versionCode = 1
         versionName = "1.0"
         
-        // Add API keys to BuildConfig
-        buildConfigField("String", "GEC_API_KEY", "\"${apiProperties.getProperty("GEC_API_KEY", "")}\"")
-        buildConfigField("String", "GECAR_API_KEY", "\"${apiProperties.getProperty("GECAR_API_KEY", "")}\"")
-        buildConfigField("String", "LDF_API_KEY", "\"${apiProperties.getProperty("LDF_API_KEY", "")}\"")
-        buildConfigField("String", "OCR_API_KEY", "\"${apiProperties.getProperty("OCR_API_KEY", "")}\"")
-        buildConfigField("String", "SST_API_KEY", "\"${apiProperties.getProperty("SST_API_KEY", "")}\"")
-        buildConfigField("String", "TTS_API_KEY", "\"${apiProperties.getProperty("TTS_API_KEY", "")}\"")
-        buildConfigField("String", "MT_API_KEY", "\"${apiProperties.getProperty("MT_API_KEY", "")}\"")
-        buildConfigField("String", "TG_API_KEY", "\"${apiProperties.getProperty("TG_API_KEY", "")}\"")
-        buildConfigField("String", "IG_API_KEY", "\"${apiProperties.getProperty("IG_API_KEY", "")}\"")
-        buildConfigField("String", "SUM_API_KEY", "\"${apiProperties.getProperty("SUM_API_KEY", "")}\"")
-        buildConfigField("String", "SUMMAR_API_KEY", "\"${apiProperties.getProperty("SUMMAR_API_KEY", "")}\"")
+        // Hugging Face token, supplied through local.properties (HF_API_TOKEN=...)
+        buildConfigField(
+            "String",
+            "HF_API_TOKEN",
+            "\"${localProperties.getProperty("HF_API_TOKEN", "")}\""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
