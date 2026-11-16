@@ -37,8 +37,9 @@ first implementation task from the official release pages.
 **Testing**: JUnit 4, MockK, Turbine, `kotlinx-coroutines-test` (added to the catalog and
 exposed by `:core:testing`); Gradle TestKit for the convention-plugin rules
 
-**Target Platform**: Android, `minSdk` 26, `compileSdk` and `targetSdk` at the level currently
-required by Google Play
+**Target Platform**: Android, `minSdk` 26, `compileSdk` 37, `targetSdk` 34. `targetSdk` is
+deliberately not raised in this spec, because doing so changes run-time behavior (see
+"Pinned versions" in research.md); it is raised in the design-system spec
 
 **Project Type**: mobile-app (multi-module Android)
 
@@ -168,7 +169,7 @@ Each step ends with the app building and is committed separately.
 
 | Risk | Mitigation |
 |---|---|
-| Data Binding with a Kotlin `@BindingAdapter` may not work under `legacy-kapt` (not confirmed by a source) | Verify at step 4. Fallback: opt `:app` out of built-in Kotlin with the documented flag and record it here |
+| Data Binding with a Kotlin `@BindingAdapter` may not work under `legacy-kapt` (not confirmed by a source) | Verified during implementation: Data Binding works under `legacy-kapt` on AGP 9.5.1. The fallback was not needed |
 | Kotlin 2 compiler reports new errors in existing code | Fix only what blocks compilation; keep each fix minimal and behavior-neutral |
 | A library has no version compatible with AGP 9 | Replace with the nearest equivalent only where required, and record it in this plan |
 | Firebase BoM upgrade changes Auth UI behavior | Upgrade `firebase-ui-auth` only if the build breaks; test sign-in and sign-up by hand |
@@ -178,4 +179,5 @@ Each step ends with the app building and is committed separately.
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
+| `targetSdk` stays at 34 (the constitution asks for the level Google Play requires) | Raising it enables edge-to-edge and other behavior changes on every existing screen | Raising it now would break FR-019 (no visible change). It is raised in the design-system spec and must be raised before any Play release |
 | A kapt processor remains in `:app` (the constitution names KSP for annotation processing; the plan prompt says KSP replaces kapt) | Data Binding has no KSP processor, and the 30 existing XML screens use it with a Kotlin `@BindingAdapter` | Removing Data Binding now would rewrite existing screens, which the spec forbids. The constitution requires KSP "in new modules", and no new module uses kapt; it is removed from `:app` when the last XML screen is migrated |

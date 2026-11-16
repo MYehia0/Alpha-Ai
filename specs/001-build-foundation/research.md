@@ -237,6 +237,56 @@ removed are leftovers that either do nothing on current JVMs or slow the build.
 **Alternatives considered**: keep sharing some `.idea` files (code style). Rejected:
 `kotlin.code.style=official` in `gradle.properties` already carries the code style.
 
+## Pinned versions
+
+Looked up on 2026-11-16 from the Google Maven, Maven Central, and Gradle release metadata.
+
+| Component | Step 1 (last 8.x line) | Step 2 (9.x line, final) |
+|---|---|---|
+| Gradle | 8.14.7 | 9.9.1 |
+| Android Gradle Plugin | 8.13.2 | 9.5.1 |
+| Kotlin | 2.3.20 | 2.4.21 |
+| KSP | 2.3.14 | 2.3.14 |
+| Hilt | 2.58 | 2.60.1 |
+| Compose BOM | not used | 2026.09.00 |
+| Firebase BoM | 35.2.0 | 35.2.0 |
+| `compileSdk` | 36 | 37 |
+| `targetSdk` | 34 | 34 |
+| `minSdk` | 26 | 26 |
+
+Deviations from R1 and R4, and why:
+
+- **`targetSdk` stays at 34.** Raising it to 35 or later turns on edge-to-edge layout and other
+  run-time behavior changes, which would visibly change the existing screens and break FR-019
+  ("the app keeps working unchanged"). It is raised in the design-system spec, where every
+  screen is reworked for insets anyway. It must be raised before any Google Play release.
+- **`compileSdk` is 36 in step 1 and 37 in step 2.** The newest AndroidX and Compose releases
+  need `compileSdk` 37, which needs AGP 9.1 or later. Step 1 therefore held AndroidX at
+  `core-ktx` 1.17.0, `appcompat` 1.7.1, `activity` 1.11.0, `lifecycle` 2.9.4. Step 2 uses
+  `core-ktx` 1.19.1, `appcompat` 1.8.0, `activity` 1.13.0, `lifecycle` 2.11.0. `compileSdk`
+  only selects the APIs the code compiles against; it does not change run-time behavior.
+- **Kotlin 2.3.20 and Hilt 2.58 in step 1.** Hilt 2.59 and later need AGP 9, and Hilt 2.58
+  cannot read Kotlin 2.4 metadata.
+- **`material` stays at 1.11.0 and `firebase-ui-auth` at 8.0.2**: newer versions change
+  component appearance or the sign-in API, and the build does not need them.
+- **Step 2 pins the Kotlin Gradle plugin on the root `buildscript` classpath.** AGP 9.5.1
+  bundles an older Kotlin compiler that cannot read libraries compiled with Kotlin 2.4
+  (Firebase 35.x). Declaring `kotlin-gradle-plugin` 2.4.21 on the classpath is the documented
+  way to choose the version used by built-in Kotlin.
+
+### Outcomes recorded during implementation
+
+- **Data Binding under `legacy-kapt` (R3)**: works on AGP 9.5.1. The generated binding classes
+  and the Kotlin `@BindingAdapter` compile; the fallback was not needed.
+- **Configuration cache (R11)**: enabled. A second `assembleDebug` reports "Configuration
+  cache entry reused"; no plugin was incompatible.
+- **Lint baseline (R9)**: 255 existing findings recorded in `app/lint-baseline.xml`. Two
+  `TrustAllX509TrustManager` warnings inside the Apache POI jar were left out of the baseline
+  because their location is an absolute path in the local Gradle cache; they stay visible as
+  warnings and do not fail the build.
+- **Missing-token warning (R7)**: printed by the `preBuild` task rather than at configuration
+  time, so it still appears when the configuration cache is reused.
+
 ## Sources
 
 - [Android Gradle plugin release notes](https://developer.android.com/build/releases/gradle-plugin)
