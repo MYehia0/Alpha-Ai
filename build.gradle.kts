@@ -1,25 +1,9 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.2.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
-        classpath("com.google.gms:google-services:4.4.1")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
-    }
-}
-
+// Top-level build file. Plugins are declared here and applied in each module.
 plugins {
-    alias(libs.plugins.androidApplication) apply false
-    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
-    id("com.android.library") version "8.2.2" apply false
-    id("com.google.gms.google-services") version "4.4.1" apply false
-    id("com.google.dagger.hilt.android") version "2.48" apply false
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.hilt) apply false
 }

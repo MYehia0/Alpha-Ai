@@ -2,11 +2,11 @@ import java.util.Properties
 import java.io.FileInputStream
 
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlin-kapt")
-    id("com.google.gms.google-services")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.hilt)
 }
 
 // Secrets are read from local.properties, which is git-ignored.
@@ -19,9 +19,8 @@ val localProperties = Properties().apply {
 
 android {
     namespace = "com.example.alpha_ai"
-    compileSdk = 34
-    
-    // Enable view binding
+    compileSdk = libs.versions.compileSdk.get().toInt()
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -30,11 +29,11 @@ android {
 
     defaultConfig {
         applicationId = "com.example.alpha_ai"
-        minSdk = 26
-        targetSdk = 34
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-        
+
         // Hugging Face token, supplied through local.properties (HF_API_TOKEN=...)
         buildConfigField(
             "String",
@@ -61,72 +60,59 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    // Build features are now defined at the top of the android block
 }
 
 dependencies {
-    // AndroidX Core
+    // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.constraintlayout)
-    implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
-    // Testing
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.security.crypto)
+
+    // UI
+    implementation(libs.material)
+    implementation(libs.material.progressbar)
+    implementation(libs.swipe.layout)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
-    // datastore
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
-
-    // Retrofit & Networking
-    val retrofitVersion = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-    
-    // OkHttp
-    val okhttpVersion = "4.11.0"
-    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+    // Networking
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
 
     // Coroutines
-    val coroutinesVersion = "1.7.3"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-
-    // Lifecycle
-    val lifecycleVersion = "2.7.0"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-    implementation("androidx.activity:activity-ktx:1.8.2")
-
-    // Apache POI
-    val poiVersion = "5.2.3"
-    implementation("org.apache.poi:poi:$poiVersion")
-    implementation("org.apache.poi:poi-ooxml:$poiVersion")
-    implementation("org.apache.poi:poi-scratchpad:$poiVersion")
-
-    // UI Components
-    implementation(libs.swipe.layout)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    
-    // Glide for image loading (if needed)
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
-    
-    // Timber for logging
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.ui.auth)
+
+    // Document parsing
+    implementation(libs.poi.core)
+    implementation(libs.poi.ooxml)
+    implementation(libs.poi.scratchpad)
+
+    // Logging
+    implementation(libs.timber)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
 }
 
 kapt {
