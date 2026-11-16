@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -25,6 +26,17 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "Alpha-Ai"
 include(":app")
- 
+include(
+    ":core:common",
+    ":core:domain",
+    ":core:data",
+    ":core:network",
+    ":core:datastore",
+    ":core:designsystem",
+    ":core:ui",
+    ":core:testing",
+)

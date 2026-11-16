@@ -1,6 +1,6 @@
 [versions]
 # SDK levels
-compileSdk = "36"
+compileSdk = "37"
 minSdk = "26"
 targetSdk = "34"
 
@@ -12,11 +12,11 @@ hilt = "2.60.1"
 ksp = "2.3.14"
 
 # AndroidX
-coreKtx = "1.17.0"
-appcompat = "1.7.1"
-activity = "1.11.0"
+coreKtx = "1.19.1"
+appcompat = "1.8.0"
+activity = "1.13.0"
 constraintlayout = "2.1.4"
-lifecycle = "2.9.4"
+lifecycle = "2.11.0"
 securityCrypto = "1.1.0-alpha06"
 
 # UI

@@ -1,26 +1,41 @@
 import java.util.Properties
 import java.io.FileInputStream
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    id("alpha.android.application")
+    id("alpha.android.compose")
+    id("alpha.hilt")
+    // Data Binding has no KSP processor, so kapt stays in this module only.
     alias(libs.plugins.android.legacy.kapt)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
-    alias(libs.plugins.hilt)
 }
 
-// Secrets are read from local.properties, which is git-ignored.
+// Secrets never live in tracked files. HF_API_TOKEN is resolved from, in order: a Gradle
+// property, an environment variable, then the git-ignored local.properties.
 val localProperties = Properties().apply {
     val localPropertiesFile = rootProject.file("local.properties")
     if (localPropertiesFile.exists()) {
         FileInputStream(localPropertiesFile).use { load(it) }
     }
 }
+val hfApiToken: String = providers.gradleProperty("HF_API_TOKEN")
+    .orElse(providers.environmentVariable("HF_API_TOKEN"))
+    .orNull
+    ?: localProperties.getProperty("HF_API_TOKEN", "")
+
+if (hfApiToken.isBlank()) {
+    tasks.named("preBuild") {
+        doFirst {
+            logger.warn(
+                "HF_API_TOKEN is not set. Add it to local.properties " +
+                    "(see local.properties.example). AI features will fail at run time."
+            )
+        }
+    }
+}
 
 android {
     namespace = "com.example.alpha_ai"
-    compileSdk = libs.versions.compileSdk.get().toInt()
 
     buildFeatures {
         viewBinding = true
@@ -30,17 +45,10 @@ android {
 
     defaultConfig {
         applicationId = "com.example.alpha_ai"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
-        // Hugging Face token, supplied through local.properties (HF_API_TOKEN=...)
-        buildConfigField(
-            "String",
-            "HF_API_TOKEN",
-            "\"${localProperties.getProperty("HF_API_TOKEN", "")}\""
-        )
+        buildConfigField("String", "HF_API_TOKEN", "\"$hfApiToken\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -54,15 +62,10 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-}
 
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+    lint {
+        // Existing findings are recorded in the baseline; only new ones fail the build.
+        baseline = file("lint-baseline.xml")
     }
 }
 
@@ -83,10 +86,6 @@ dependencies {
     implementation(libs.material.progressbar)
     implementation(libs.swipe.layout)
     implementation(libs.glide)
-
-    // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
 
     // Networking
     implementation(libs.retrofit.core)
