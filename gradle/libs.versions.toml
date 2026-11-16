@@ -5,10 +5,10 @@ minSdk = "26"
 targetSdk = "34"
 
 # Build tools
-agp = "8.13.2"
-kotlin = "2.3.20"
+agp = "9.5.1"
+kotlin = "2.4.21"
 googleServices = "4.6.0"
-hilt = "2.58"
+hilt = "2.60.1"
 ksp = "2.3.14"
 
 # AndroidX
@@ -38,12 +38,21 @@ firebaseUiAuth = "8.0.2"
 poi = "5.2.3"
 timber = "5.0.1"
 
+# Compose
+composeBom = "2026.09.00"
+
 # Testing
 junit = "4.13.2"
+mockk = "1.14.12"
+turbine = "1.2.1"
 androidxJunit = "1.1.5"
 espressoCore = "3.5.1"
 
 [libraries]
+# Gradle plugins as libraries, for build-logic and for pinning built-in Kotlin
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
@@ -53,6 +62,12 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifec
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
+
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-progressbar = { group = "me.zhanghai.android.materialprogressbar", name = "library", version.ref = "materialProgressBar" }
@@ -82,14 +97,18 @@ poi-scratchpad = { group = "org.apache.poi", name = "poi-scratchpad", version.re
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+android-legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "agp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
