@@ -1,0 +1,20 @@
+title = "Alpha-AI secret scan"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "alpha-huggingface-token"
+description = "Hugging Face access token"
+regex = '''hf_[A-Za-z0-9]{30,}'''
+keywords = ["hf_"]
+
+[allowlist]
+description = "Files that hold placeholders or public client configuration"
+paths = [
+    # Placeholder values only.
+    '''local\.properties\.example$''',
+    # Firebase client configuration. It is public by design: access is controlled by
+    # Firebase security rules and app restrictions, not by hiding this file.
+    '''app/google-services\.json$''',
+]
