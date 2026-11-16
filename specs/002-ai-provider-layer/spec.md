@@ -22,6 +22,26 @@ translation, summarization, speech to text, image and document text extraction) 
 delivers no new screen. Its "users" are the app's feature screens and, through them, the
 person using the app.
 
+## Clarifications
+
+### Session 2026-11-17 (planning)
+
+- Q: Hugging Face no longer gives free accounts any inference (the project's token returns
+  `402`). How is it treated? → A: Its service is built and tested, and its models stay in
+  configuration switched off until the account has credits. Every working chain uses
+  OpenRouter free models, with the fallback served by a different upstream host.
+- Q: OpenRouter allows 50 free-model requests a day per account, or 1,000 after a one-time
+  credit purchase. Which is assumed? → A: 50 a day, with no money spent.
+- Q: How is language detection served under that limit? → A: On the device, by script
+  analysis, with no hosted model and no fallback. Recorded as an exception to FR-008 and
+  FR-013 in the plan.
+- Q: What is the fallback for speech recognition? → A: Only one free hosted model accepts
+  audio. The Hugging Face fallback is configured but switched off. An on-device fallback is
+  decided in the speech-to-text feature. Recorded as an exception to FR-013 in the plan.
+- Note: because of the Hugging Face change, the existing grammar correction screen cannot get
+  a live result today. User Story 5 and SC-009 mean this feature does not alter that screen's
+  code or behavior; its migration to this layer is the grammar correction feature.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - A feature asks for an AI result and gets it (Priority: P1)
@@ -365,6 +385,6 @@ changed before planning.
   choice is exhausted the user sees "service busy". Raising the limits is outside this feature.
 - **No result caching and no offline mode** in this feature.
 - **Depends on feature 001** (build foundation), which provides the modules this layer lives
-  in. Feature 001 is implemented and awaiting merge.
+  in. Feature 001 is merged into `development`.
 - **A second provider credential is needed**: an OpenRouter key supplied by the project owner,
   handled the same way as the existing Hugging Face token.
