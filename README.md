@@ -40,6 +40,73 @@ Alpha-AI helps users improve their writing by providing:
 
 ---
 
+## Building
+
+### Prerequisites
+
+- JDK 17
+- Android SDK with platform 37 (Android Studio installs it on first sync)
+
+### Setup
+
+1. Copy `local.properties.example` to `local.properties`.
+2. Set `sdk.dir` to your Android SDK path. Android Studio does this for you.
+3. Set `HF_API_TOKEN` to a Hugging Face read token. Without it the app still builds, with one
+   warning, but the AI features fail at run time.
+
+`local.properties` is git-ignored. Never commit a token. In CI or scripts you can pass the
+token as an environment variable or Gradle property named `HF_API_TOKEN` instead.
+
+### Commands
+
+Run these from the repository root. Terminal builds need `JAVA_HOME` to point to a JDK 17. On
+Windows with the JDK bundled by Android Studio:
+
+```powershell
+$env:JAVA_HOME = "$HOME\.jdks\jbr-17.0.14"
+```
+
+| Purpose | Command |
+|---|---|
+| Build the debug app | `./gradlew assembleDebug` |
+| Run all unit tests | `./gradlew testDebugUnitTest test` |
+| Run lint | `./gradlew lintDebug` |
+| Build and test one module | `./gradlew :core:domain:build` |
+| Test the convention plugins | `./gradlew -p build-logic test` |
+
+Every push runs the same commands, plus a secret scan, in GitHub Actions (`.github/workflows/ci.yml`).
+
+### Modules
+
+| Module | Purpose |
+|---|---|
+| `:app` | The application. Holds all existing code until features are moved out |
+| `:core:common` | Pure Kotlin helpers shared by every layer: result types, dispatcher qualifiers |
+| `:core:domain` | Use cases, domain models, repository interfaces |
+| `:core:data` | Repository implementations, mappers |
+| `:core:network` | HTTP clients, provider services, interceptors |
+| `:core:datastore` | Local preferences and encrypted session storage |
+| `:core:designsystem` | Theme, tokens, reusable components |
+| `:core:ui` | Shared screen-level building blocks, MVI base types |
+| `:core:testing` | Shared fakes, test dispatchers, test rules |
+
+The `:core` modules are empty for now. Shared build settings live in the convention plugins
+under `build-logic/`; all versions live in `gradle/libs.versions.toml`.
+
+### Dependency rules
+
+The build fails when a rule marked "build" is broken.
+
+| Rule | Statement | Enforced by |
+|---|---|---|
+| DR-1 | A `:core:*` module must not depend on `:app` or on a `:feature:*` module | build |
+| DR-2 | A `:feature:*` module must not depend on another `:feature:*` module | build |
+| DR-3 | `:core:domain` may depend only on `:core:common` | build |
+| DR-4 | `:core:domain` and `:core:common` must not use Android, Compose, Retrofit, or Firebase | build (they are plain Kotlin modules without those libraries) |
+| DR-5 | No circular dependency between modules | build (Gradle) |
+
+---
+
 ## Current Status
 
 **In Progress:**

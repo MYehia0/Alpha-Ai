@@ -289,7 +289,7 @@ want to ship first.
 The project is production ready when all of these are true.
 
 **Security**
-- [ ] No secret in the repository or its history that is still valid
+- [x] No secret in the repository or its history that is still valid
 - [ ] Release build is minified, not debuggable, and logs no HTTP bodies or user content
 - [ ] Cleartext traffic disabled; sensitive data excluded from backup
 - [ ] Firestore rules restrict each user to their own data
@@ -322,7 +322,7 @@ Update this table as each spec is merged.
 | Spec | Name | Status | Merged |
 |---|---|---|---|
 | — | Phase 0 manual steps | Done | |
-| 001 | Build foundation and module structure | Not started | |
+| 001 | Build foundation and module structure | In review | Implemented 2026-11-16 on `001-build-foundation`; CI green. Waiting for the manual walk-through and the merge into `development` |
 | 002 | AI provider layer | Not started | |
 | 003 | Design system and app shell | Not started | |
 | 004 | Onboarding and authentication | Not started | |
