@@ -58,18 +58,18 @@ Analysis of the `development` branch on 2026-11-16.
 
 These steps are not spec work. Do them first, because problem 1 is live now.
 
-- [ ] **Revoke every Hugging Face token** at <https://huggingface.co/settings/tokens>. Removing
+- [x] **Revoke every Hugging Face token** at <https://huggingface.co/settings/tokens>. Removing
       them from the code is not enough: they stay in git history on GitHub.
-- [ ] Create one new token and add it to `local.properties` (already git-ignored) as
+- [x] Create one new token and add it to `local.properties` (already git-ignored) as
       `HF_API_TOKEN=hf_...`. Then delete the old `api_keys.properties` file from disk.
 - [x] Remove the tokens from `Constants.kt`, run `git rm --cached api_keys.properties`, and add
       `api_keys.properties` to `.gitignore`. The build now reads a single `HF_API_TOKEN` from
       `local.properties`.
-- [ ] Decide whether to rewrite git history to purge the old tokens. Once they are revoked this
-      is optional.
+- [x] Decide whether to rewrite git history to purge the old tokens. Once they are revoked this
+      is optional. **Decided: no rewrite.** All 12 old tokens show as Invalidated on Hugging Face.
 - [x] Commit the Spec Kit setup (`.specify/`, `.claude/skills/`, this file). Delete the Sync
       Impact Report comment at the top of the constitution first.
-- [ ] Push `development` to GitHub so the work is backed up.
+- [x] Push `development` to GitHub so the work is backed up.
 
 ---
 
@@ -321,7 +321,7 @@ Update this table as each spec is merged.
 
 | Spec | Name | Status | Merged |
 |---|---|---|---|
-| — | Phase 0 manual steps | In progress | |
+| — | Phase 0 manual steps | Done | |
 | 001 | Build foundation and module structure | Not started | |
 | 002 | AI provider layer | Not started | |
 | 003 | Design system and app shell | Not started | |
