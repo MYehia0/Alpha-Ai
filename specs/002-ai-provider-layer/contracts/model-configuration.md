@@ -62,7 +62,9 @@ for that capability ([../quickstart.md](../quickstart.md), section 3), and updat
 | M-6 | Where two enabled choices exist, the first two are served by different upstream hosts | review, recorded in `docs/ai-models.md` |
 | M-7 | A model is added only after its data-use terms are recorded in `docs/ai-models.md` (FR-010) | review |
 
-An entry that breaks M-1 to M-4 is dropped at start-up, logged once (capability, provider,
+| M-8 | Every provider base URL starts with `https://` (FR-027) | resolver, unit test |
+
+An entry that breaks M-1 to M-4 or M-8 is dropped at start-up, logged once (capability, provider,
 rule), and the built-in entry is used in its place. The app never crashes on configuration
 (FR-012).
 

@@ -85,7 +85,7 @@ serialization types
 | IV. Compose-First UI | Pass | No UI is added. Failure messages are string resources in Arabic and English |
 | V. Type-Safe Navigation | N/A | No navigation change |
 | VI. Motion and UX Quality | Pass (enabling) | Every request is cancellable and bounded in time, and every failure states whether retry helps, so later screens can meet this principle |
-| VII. Android Security | Pass, with one recorded exception | Keys come from git-ignored `local.properties` or CI secrets. **Exception**: the OpenRouter key ships in the APK. It is treated as public and restricted on the provider side (see Complexity Tracking and research.md, section 6). HTTPS only. The logging interceptor exists only in the debug source set, redacts `Authorization`, and never logs bodies. Diagnostics carry no user content |
+| VII. Android Security | Pass, with one recorded exception | Keys come from git-ignored `local.properties` or CI secrets. **Exception**: the OpenRouter key ships in the APK. It is treated as public and restricted on the provider side (see Complexity Tracking and research.md, section 6). HTTPS only, enforced by a configuration rule and test on every base URL; the app-wide network security configuration stays with spec 015, as spec 001 recorded. The logging interceptor exists only in the debug source set, redacts `Authorization`, and never logs bodies. Diagnostics carry no user content |
 | VIII. Resilient Networking | Pass | Retrofit services in the data side, one OkHttp client per backend with explicit timeouts, auth as an interceptor, typed classified results, cancellation through structured concurrency, Timber for diagnostics. The legacy `ApiManager` keeps its `BODY` logging until its screens migrate (pre-2.0.0 code under the Migration rule; not changed here because FR-029 forbids it) |
 | IX. Tested Business Logic | Pass | Every implementation, mapper, validator, and the fallback runner ship with JVM tests for success and failure paths, using virtual time and a mock web server. Shared fakes go in `:core:testing` |
 | X. Provider-Agnostic AI | Pass, with two conditions | Domain interfaces per capability; provider code in data and network; one configuration file per provider; versioned prompts with user content sent as separate, delimited data; output validated before it reaches domain. **Condition 1**: the measured model comparison cannot be run during planning (no OpenRouter key exists yet), so the candidates and the method are fixed here and the measurement is the first implementation phase; chains in this plan are provisional until then. **Condition 2**: speech recognition has no working free fallback today (see Complexity Tracking) |
@@ -191,32 +191,32 @@ modules. No `:feature:*` module is created. The legacy code under
 
 Each phase ends with the build, unit tests, and lint passing, and is committed separately.
 
+The order matches [tasks.md](tasks.md).
+
 1. **Setup**: catalog entries, serialization plugin, module dependencies, `OPENROUTER_API_KEY`
    wiring and the missing-key warning, `local.properties.example`, dispatcher qualifiers.
-2. **Model comparison (gate for Principle X)**: write the opt-in comparison runner and the
-   sample set, run it against the candidates in research.md section 3, check each chosen
-   endpoint's data-use terms, and record the results and final chains in `docs/ai-models.md`.
-   At 50 requests a day this takes two days of quota; work on phases 3 to 5 continues
-   meanwhile because they do not depend on which model wins.
-3. **Domain contract** (US1): interfaces, result and failure types, limits.
-4. **Network** (US1, US3): DTOs, services, clients, auth interceptor, error classifier,
-   connectivity check, with MockWebServer tests for every status and body shape in
-   contracts/provider-api.md.
-5. **Text capabilities end to end with one model** (US1): prompts, input and output
-   validation, chat engine, grammar correction, translation, summarization, on-device language
-   detection.
-6. **Fallback** (US2): health tracker, fallback runner, failure selection, total time bound,
+2. **Contracts**: domain interfaces, result and failure types, limits; public network types.
+3. **One model per capability** (US1): OpenRouter DTOs, service, client, auth interceptor,
+   error classifier, and connectivity check, with MockWebServer tests for every status and
+   body shape in contracts/provider-api.md; prompts, input and output validation, chat engine;
+   the six capabilities; Hilt wiring and the `:app` credentials module; the restricted
+   OpenRouter key; the opt-in live runner.
+4. **Fallback** (US2): health tracker, fallback runner, failure selection, total time bound,
    offline short-circuit.
-7. **Configuration** (US4): per-provider model files, resolver with validation and built-in
-   defaults, Hugging Face entries present and disabled.
-8. **Image and speech** (US1): vision and audio content parts, image text extraction, speech
-   transcription, Hugging Face Whisper engine (tested against the mock server only).
-9. **Failure messages** (US3): Arabic and English strings and the mapper in `:core:ui`, with
+5. **Failure messages** (US3): Arabic and English strings and the mapper in `:core:ui`, with
    the test that checks both languages cover every category and reason.
-10. **Streaming** (FR-007, SHOULD): server-sent events reader and the streaming variants of
-    the three text capabilities. This phase can be dropped without affecting the others.
-11. **Wiring and guard** (US5): Hilt modules, `:app` credentials module, fakes in
-    `:core:testing`, confirm the legacy flow is untouched, update README and `ROADMAP.md`.
+6. **Configuration and model choice** (US4): Hugging Face service and Whisper engine (tested
+   against the mock server only, switched off), per-provider model files, resolver with
+   validation and built-in defaults.
+   **Model comparison (gate for Principle X)**: run the live runner against the candidates in
+   research.md section 3, check each chosen endpoint's data-use terms, and record the results
+   and final chains in `docs/ai-models.md`. It needs a working client, so it cannot come
+   first; it starts as soon as the live runner works, takes two days of quota at 50 requests
+   a day, and must be complete before the feature merges.
+7. **Streaming** (FR-007, SHOULD): server-sent events reader and the streaming variants of
+   the three text capabilities. This phase can be dropped without affecting the others.
+8. **Guard and polish** (US5): confirm the legacy flow is untouched, fakes in
+   `:core:testing`, README and `ROADMAP.md`.
 
 ## Risks
 

@@ -165,8 +165,12 @@ Hugging Face chat entries are added, disabled, as the last element of each text 
   identification (a new dependency; would distinguish English from French, which no current
   requirement needs).
 - **Known limit**: Latin-script text in another language is reported as English, and Persian
-  or Urdu as Arabic. The same script counter is reused by output validation to check that a
-  result is in the expected language.
+  or Urdu as Arabic.
+- **Decision, mixed text**: the 60% rule is used only to detect a language nobody stated.
+  When the caller states the language, input is accepted if at least 30% of its letters are
+  in that language's script, and output validation uses the same 30% floor.
+  **Rationale**: Arabic writing with many English terms (and the reverse) is common and must
+  not be rejected; the floor still catches a reply in the wrong language.
 
 ## 6. Keys
 
@@ -199,8 +203,8 @@ Hugging Face chat entries are added, disabled, as the last element of each text 
   **Rationale**: only some free models support it, and the result is a single piece of text.
 - **Decision**: output is cleaned, then checked, before it is returned:
   cleaned of wrapping `<content>` tags, code fences, and one pair of surrounding quotation
-  marks; then rejected when it is empty (text capabilities), when its script does not match
-  the expected language, when it repeats the instruction, when a correction is shorter than
+  marks; then rejected when it is empty (text capabilities), when fewer than 30% of its
+  letters are in the expected language's script, when it repeats the instruction, when a correction is shorter than
   half or longer than double the input, when a summary is not shorter than the input, or when
   the reply was cut off (`finish_reason` of `length`). A rejected output is an "invalid
   response" and triggers the fallback (FR-024).

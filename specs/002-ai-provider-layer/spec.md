@@ -88,8 +88,9 @@ The person using the app sees a result, perhaps a little later, and not an error
 **Why this priority**: Free models are the product's operating constraint. Without automatic
 fallback, the app fails daily for reasons the user cannot fix.
 
-**Independent Test**: For each capability, make the first-choice model unavailable in each of
-the ways listed below and confirm a correct result still arrives from the fallback.
+**Independent Test**: For each capability that has an enabled fallback, make the first-choice
+model unavailable in each of the ways listed below and confirm a correct result still arrives
+from the fallback.
 
 **Acceptance Scenarios**:
 
@@ -200,10 +201,11 @@ and confirm the same behavior as before.
   a repeat of the instructions. The result delivered must contain only the requested content.
 - The input contains text that looks like instructions to the model ("ignore the above
   and..."). It must be handled as content to correct, translate, or summarize, never obeyed.
-- The input mixes Arabic and English in one text.
+- The input mixes Arabic and English in one text. When the caller states the language, the
+  text is accepted if at least 30% of its letters are in that language's script; when no
+  language is stated and neither script reaches 60%, it is reported as unsupported.
 - The input is at or just over the length or size limit for the capability.
-- A fallback model answers in the wrong language or returns the input unchanged when it was
-  clearly incorrect.
+- A fallback model answers in the wrong language.
 - The connection drops halfway through a response.
 - A request is cancelled while a fallback attempt is in progress: no further fallbacks may be
   tried.
@@ -240,7 +242,8 @@ and confirm the same behavior as before.
 **Providers and models**
 
 - **FR-008**: Capabilities MUST be served only by OpenRouter and Hugging Face. Models with no
-  usage charge MUST be used for every first choice and fallback.
+  usage charge MUST be used for every first choice and fallback. Exception: language
+  detection is done on the device and calls no provider.
 - **FR-009**: The model chosen for each capability MUST be selected from a recorded comparison
   of candidate free models on Arabic and English samples. The comparison and the choice MUST be
   kept with the project documentation.
@@ -256,7 +259,10 @@ and confirm the same behavior as before.
 **Fallback**
 
 - **FR-013**: Every capability MUST have at least one fallback. Where a second provider offers
-  a suitable free model, the fallback MUST be on a different provider from the first choice.
+  a suitable free model, the fallback MUST be on a different provider from the first choice;
+  otherwise it MUST be served by a different upstream host. Exceptions: language detection
+  (on the device, needs none) and speech recognition (its fallback is configured but switched
+  off until a second free audio model or an on-device option exists).
 - **FR-014**: The fallback MUST be tried automatically when a model is rate-limited, out of
   quota, loading, overloaded, withdrawn, too slow, or returns output that is empty or not in
   the expected form.
@@ -329,10 +335,13 @@ and confirm the same behavior as before.
 ### Measurable Outcomes
 
 - **SC-001**: For each of the six capabilities, a valid Arabic input and a valid English input
-  both produce a correct result in manual checks against the live providers.
+  both produce a correct result in manual checks against the live providers (language
+  detection is checked on the device, with no provider).
 - **SC-002**: With the first-choice model made unavailable in each of the five ways (rate
-  limit, loading or overloaded, withdrawn, too slow, malformed output), every capability still
-  returns a result from its fallback in 100% of automated test cases.
+  limit, loading or overloaded, withdrawn, too slow, malformed output), every capability that
+  has an enabled fallback (grammar correction, translation, summarization, image text
+  extraction) still returns a result from it in 100% of automated test cases, and speech
+  recognition returns a classified failure.
 - **SC-003**: 100% of failures reaching a feature screen belong to a defined category and have
   both an Arabic and an English message; none contains a status code or a provider or model
   name.

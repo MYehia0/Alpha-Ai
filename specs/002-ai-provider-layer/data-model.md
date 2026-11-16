@@ -47,7 +47,7 @@ Defaults for this feature. A later feature spec may change a value here; nothing
 | Grammar correction | at most 5,000 characters | `TOO_LONG` |
 | Translation | at most 5,000 characters; source and target differ | `TOO_LONG`, `UNSUPPORTED_LANGUAGE` |
 | Summarization | 200 to 20,000 characters | `TOO_SHORT`, `TOO_LONG` |
-| Grammar correction, summarization | the text's detected language matches the stated one, or is supported when none is stated | `UNSUPPORTED_LANGUAGE` |
+| Grammar correction, translation, summarization | when a language is stated (for translation, the source): at least 30% of the letters are in that language's script, so Arabic text with English terms, or the reverse, is accepted. When none is stated: the detected language (60% rule, research.md section 5) is Arabic or English | `UNSUPPORTED_LANGUAGE` |
 | Speech recognition | at most 60 seconds and 5 MB; `audio/wav`, `audio/mpeg`, `audio/mp4`, `audio/ogg`, `audio/flac` | `TOO_LONG`, `TOO_LARGE`, `UNSUPPORTED_FORMAT`, `EMPTY` |
 | Image text extraction | at most 4 MB; `image/jpeg`, `image/png`, `image/webp` | `TOO_LARGE`, `UNSUPPORTED_FORMAT`, `EMPTY` |
 | Language detection | not blank | `EMPTY` |
