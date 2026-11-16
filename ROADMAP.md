@@ -322,7 +322,7 @@ Update this table as each spec is merged.
 | Spec | Name | Status | Merged |
 |---|---|---|---|
 | — | Phase 0 manual steps | Done | |
-| 001 | Build foundation and module structure | In review | Implemented 2026-11-16 on `001-build-foundation`; CI green. Waiting for the manual walk-through and the merge into `development` |
+| 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Full manual walk-through on a device still to do |
 | 002 | AI provider layer | Not started | |
 | 003 | Design system and app shell | Not started | |
 | 004 | Onboarding and authentication | Not started | |
