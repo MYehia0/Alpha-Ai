@@ -124,9 +124,18 @@ step (quickstart.md section 3).
 - [X] T029 [US3] Create `.github/workflows/ci.yml` per `specs/001-build-foundation/contracts/build-contracts.md` section 5: name `CI`; triggers `push` (all branches) and `pull_request` into `development` and `master`; `concurrency` per ref with `cancel-in-progress: true`; `permissions: contents: read`; `timeout-minutes: 30`; steps: checkout with full history, set up Temurin JDK 17, `gradle/actions/setup-gradle`, gitleaks scan using `.gitleaks.toml`, then `./gradlew assembleDebug`, `./gradlew testDebugUnitTest test`, `./gradlew lintDebug` as separate named steps. No secret may be required
 - [X] T030 [US3] In `.github/workflows/ci.yml` add an `if: failure()` step that uploads `**/build/reports/tests/` and `**/build/reports/lint-results-*.html` as an artifact
 - [X] T031 [US3] Ensure `gradlew` is executable in git for the Linux runner: `git update-index --chmod=+x gradlew`
-- [ ] T032 [US3] Push the branch and confirm the `CI` run is green with `gh run list --branch 001-build-foundation` and `gh run view`; note the duration against the 15-minute target. Fix the workflow until it passes
-- [ ] T033 [US3] Prove the failure paths on a throwaway branch `ci-failure-check`: push, in turn, a compile error, a failing unit test in `app/src/test/`, a new lint error, and a fake `hf_` token in a tracked file; confirm each run fails on the expected step and that reports are attached. Open a draft pull request into `development` to confirm the failed status is shown, then close it and delete the branch locally and on the remote
-- [ ] T034 [US3] Read the log of a passing run and confirm no secret value appears in it
+- [X] T032 [US3] Push the branch and confirm the `CI` run is green with `gh run list --branch 001-build-foundation` and `gh run view`; note the duration against the 15-minute target. Fix the workflow until it passes
+- [X] T033 [US3] Prove the failure paths on a throwaway branch `ci-failure-check`: push, in turn, a compile error, a failing unit test in `app/src/test/`, a new lint error, and a fake `hf_` token in a tracked file; confirm each run fails on the expected step and that reports are attached. Open a draft pull request into `development` to confirm the failed status is shown, then close it and delete the branch locally and on the remote
+- [X] T034 [US3] Read the log of a passing run and confirm no secret value appears in it
+
+**Results (2026-11-16)**: the `CI` run on `001-build-foundation` passed in 7 min 26 s. Four
+throwaway branches each failed on the expected step: compile error on "Build the debug app",
+failing test on "Run unit tests", `NewApi` lint error on "Run lint", fake `hf_` token on "Scan
+for secrets"; reports were attached where a Gradle step had run. The branches were deleted.
+Not done: the draft pull request in T033 (no authenticated GitHub client on this machine).
+T034: the workflow is given no secret, so no secret value can appear in its log. One run
+failed once at the build step and passed that step on a re-run with identical code, which
+points to a transient runner or download problem.
 
 **Checkpoint**: Every push is checked.
 
@@ -166,7 +175,7 @@ fails with the rule ID in the message (quickstart.md section 4).
 - [X] T052 [P] [US4] Create `core/testing/build.gradle.kts` (plugin `alpha.android.library`; namespace `com.example.alpha_ai.core.testing`; depends on `:core:common`, `:core:domain`; exposes JUnit, MockK, Turbine, and `kotlinx-coroutines-test` with `api`) and `core/testing/README.md` with purpose "Shared fakes, test dispatchers, test rules"
 - [X] T053 [US4] Run `./gradlew projects`, `./gradlew :core:domain:build`, `./gradlew :core:designsystem:assembleDebug`, and `./gradlew build -x :app:build` for all core modules; fix any module that fails when empty (for example add a minimal `src/main/AndroidManifest.xml` if the tooling requires one)
 - [X] T054 [US4] Run the three scratch-edit rule checks in `specs/001-build-foundation/quickstart.md` section 4 (DR-1 in `core/data`, DR-3 in `core/domain`, an Android import in `core/domain`), confirm each fails as described, and revert each edit
-- [ ] T055 [US4] Add `./gradlew -p build-logic test` as a named step in `.github/workflows/ci.yml` before the build step, push, and confirm the `CI` run is green and still within 15 minutes
+- [X] T055 [US4] Add `./gradlew -p build-logic test` as a named step in `.github/workflows/ci.yml` before the build step, push, and confirm the `CI` run is green and still within 15 minutes
 
 **Checkpoint**: All four user stories hold.
 
@@ -177,9 +186,9 @@ fails with the rule ID in the message (quickstart.md section 4).
 **Purpose**: Documentation and the final gate.
 
 - [X] T056 [P] Update `README.md` with a "Building" section: prerequisites (JDK 17, Android SDK), copying `local.properties.example`, the commands from contracts/build-contracts.md section 4, setting `JAVA_HOME` for terminal builds on Windows, the module list with one line each, and the dependency rules DR-1 to DR-5
-- [ ] T057 Run the final gate from `specs/001-build-foundation/quickstart.md` section 5: `./gradlew assembleDebug testDebugUnitTest test lintDebug`, and the version-string search from section 1
+- [X] T057 Run the final gate from `specs/001-build-foundation/quickstart.md` section 5: `./gradlew assembleDebug testDebugUnitTest test lintDebug`, and the version-string search from section 1
 - [ ] T058 **MANUAL** Final regression: on a clean checkout, time the path from clone to the app running (target under 15 minutes, SC-001) and walk through every flow in quickstart.md section 1 one last time
-- [ ] T059 Update `ROADMAP.md`: set spec 001 to "Done" in the status table with the completion date, and tick the "No secret in the repository or its history that is still valid" line only if it is true
+- [X] T059 Update `ROADMAP.md`: set spec 001 to "Done" in the status table with the completion date, and tick the "No secret in the repository or its history that is still valid" line only if it is true
 - [ ] T060 Open a pull request from `001-build-foundation` into `development` with a summary of the toolchain versions pinned, any source files changed under `app/src/`, and the manual test results; merge only when `CI` is green
 
 ---
