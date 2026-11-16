@@ -1,10 +1,12 @@
 import java.util.Properties
 import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.hilt)
 }
@@ -54,11 +56,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
@@ -79,11 +84,10 @@ dependencies {
     implementation(libs.material.progressbar)
     implementation(libs.swipe.layout)
     implementation(libs.glide)
-    kapt(libs.glide.compiler)
 
     // Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Networking
     implementation(libs.retrofit.core)
@@ -115,6 +119,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
 
+// kapt remains only for Data Binding, which has no KSP processor.
 kapt {
     correctErrorTypes = true
 }
