@@ -40,7 +40,9 @@ object ShellDestinations {
    `@Serializable data class ItemRoute(val id: String)` (identifiers and primitives only).
 2. Expose `fun NavGraphBuilder.historyGraph(onNavigate: …)` with
    `composable<HistoryRoute> { HistoryScreen(…) }`.
-3. Call it inside the `NavHost` in `AlphaApp`.
+3. Call it inside the `NavHost` in `app/src/main/kotlin/.../shell/AlphaApp.kt`, after
+   `register(navController)` (that call holds the debug gallery or the release legacy entry and
+   stays first). Feature graphs live in `app/src/main` so both build types get them.
 4. Navigate from a `UiEffect` at the screen boundary: `navController.navigate(HistoryRoute)`.
    ViewModels never hold the `NavController` (constitution V).
 

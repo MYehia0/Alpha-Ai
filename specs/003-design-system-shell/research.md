@@ -100,7 +100,7 @@ does not cover `delay`-based logic).
 ## 6. Loading state that does not flash
 
 **Decision**: `AlphaLoadingState` becomes visible only after 400 ms; once shown it stays at
-least 500 ms. The timing logic is a pure function (`loadingVisible(elapsedMs, shownAtMs, finished, finishedAtMs)`) tested on
+least 500 ms. The timing logic is a pure function (`loadingVisible(elapsedMs, finishedAtMs)` plus `loadingHoldMs(finishedAtMs)`) tested on
 the JVM with virtual time.
 
 **Rationale**: FR-014 and the edge case "a short operation shows no loading state".

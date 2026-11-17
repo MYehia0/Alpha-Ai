@@ -53,7 +53,7 @@ sealed interface ScreenState<out T> {
     data class Content<T>(val value: T) : ScreenState<T>
 }
 
-fun AiFailure.isRetryable(): Boolean
+fun AiFailure.isRetryable(): Boolean   // = canRetry; false for ServiceUnavailable and InvalidInput
 fun AiFailure.toErrorState(): ScreenState.Error
 
 @Composable

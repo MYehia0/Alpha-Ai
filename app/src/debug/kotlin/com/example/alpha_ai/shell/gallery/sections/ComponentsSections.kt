@@ -161,15 +161,6 @@ fun StatesSection() {
         }
     }
     Column(verticalArrangement = Arrangement.spacedBy(AlphaTheme.spacing.md)) {
-        AlphaLoadingState(onCancel = {}, showImmediately = true)
-        AlphaEmptyState(
-            message = stringResource(R.string.gallery_empty_message),
-            actionLabel = stringResource(R.string.gallery_empty_action),
-            onAction = {},
-        )
-        AlphaErrorState(message = stringResource(AiFailure.NoConnection.messageRes()), onRetry = {})
-        AlphaErrorState(message = stringResource(AiFailure.ServiceUnavailable.messageRes()))
-
         AlphaSecondaryButton(stringResource(R.string.gallery_run_quick), { run(200, ScreenState.Content(R.string.gallery_quick_done)) })
         AlphaSecondaryButton(stringResource(R.string.gallery_run_slow), { run(2_000, AiFailure.TimedOut.toErrorState()) })
         AlphaCard {
@@ -179,6 +170,15 @@ fun StatesSection() {
                 onCancel = { state = ScreenState.Empty(R.string.gallery_empty_message) },
             ) { Text(stringResource(it), style = AlphaTheme.typography.bodyLarge) }
         }
+
+        AlphaLoadingState(onCancel = {}, showImmediately = true)
+        AlphaEmptyState(
+            message = stringResource(R.string.gallery_empty_message),
+            actionLabel = stringResource(R.string.gallery_empty_action),
+            onAction = {},
+        )
+        AlphaErrorState(message = stringResource(AiFailure.NoConnection.messageRes()), onRetry = {})
+        AlphaErrorState(message = stringResource(AiFailure.ServiceUnavailable.messageRes()))
     }
 }
 

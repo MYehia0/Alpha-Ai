@@ -128,9 +128,10 @@ ScreenState<T>
 Located in `:core:ui` (package `…core.ui.state`) because it uses `AiFailure` from
 `:core:domain`. Rules:
 
-- `AiFailure.isRetryable()`: `true` for `NoConnection`, `TimedOut`, `ServiceBusy`,
-  `ServiceUnavailable`, `InvalidResponse`, `Unknown`; `false` for `InvalidInput` (FR-015). The
-  `when` has no `else` branch so a new failure type does not compile until classified.
+- `AiFailure.isRetryable()` returns the domain's `AiFailure.canRetry` (spec 002), so the two can
+  never disagree: `true` for `NoConnection`, `TimedOut`, `ServiceBusy`, `InvalidResponse`,
+  `Unknown`; `false` for `ServiceUnavailable` (no key or credit, so retrying cannot help) and
+  `InvalidInput` (FR-015). New failure types are classified once, in `canRetry`.
 - `AiFailure.toErrorState()` builds `Error` from `messageRes()` (spec 002) and `isRetryable()`.
 
 The visual blocks `AlphaLoadingState`, `AlphaEmptyState`, `AlphaErrorState` live in
@@ -139,9 +140,11 @@ The visual blocks `AlphaLoadingState`, `AlphaEmptyState`, `AlphaErrorState` live
 
 ### Loading visibility
 
-`loadingVisible(elapsedMs, shownAtMs, finished, finishedAtMs)`: hidden before 400 ms; once shown,
-stays visible until at least 500 ms after `shownAtMs`, even when finished (FR-014, edge case).
-Pure function, JVM-tested.
+`loadingVisible(elapsedMs, finishedAtMs)`: hidden before 400 ms; work that ends before 400 ms never
+shows it; once shown it stays until at least 900 ms after the start (400 ms delay + 500 ms
+minimum), even when finished (FR-014, edge case). `loadingHoldMs(finishedAtMs)` is how long a host
+keeps the indicator after the work ends. Both are pure functions, JVM-tested. Times are measured
+from the start of the work; `finishedAtMs` is null while it runs.
 
 ## 3. Navigation (`:app`, package `…alpha_ai.shell`)
 

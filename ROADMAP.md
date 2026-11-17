@@ -35,7 +35,7 @@ Analysis of the `development` branch on 2026-11-16.
 | Translation, summarization | Implemented in `ApiManager`, used by the "Words" screen |
 | OCR, speech-to-text, document, ER, WR screens | UI exists but the ViewModels make no API calls |
 | History | `HistoryRepository` exists but is unused; the screen shows hardcoded sample data |
-| Arabic UI | No `values-ar` folder; all 60 strings are English only |
+| Arabic UI | `values-ar` exists in every module with strings (spec 003); English and Arabic parity is checked by `StringsParityTest` |
 
 ### Problems that block production
 
@@ -331,7 +331,7 @@ Update this table as each spec is merged.
 | — | Phase 0 manual steps | Done | |
 | 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Device walk-through done on the emulator on 2026-11-17 |
 | 002 | AI provider layer | Done | Merged into `development` on 2026-11-17 (PR #2); checked against live models. Before release the OpenRouter key needs its credit limit and guardrail (`docs/ai-models.md`, T027) |
-| 003 | Design system and app shell | Not started | |
+| 003 | Design system and app shell | Done | Branch `003-design-system-shell`, gate green and checked on the emulator on 2026-11-18. Waiting on the owner's Arabic review (T053), then merge into `development` |
 | 004 | Onboarding and authentication | Not started | |
 | 005 | Home and settings | Not started | |
 | 006 | Grammar correction | Not started | |
