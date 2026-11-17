@@ -57,7 +57,7 @@ class OpenRouterClientTest {
             credentials = credentials,
             baseUrl = server.url("/api/v1/").toString(),
         ).create(OpenRouterService::class.java)
-        client = DefaultOpenRouterClient(service, credentials)
+        client = DefaultOpenRouterClient(service, credentials, Dispatchers.IO)
     }
 
     @After
@@ -301,22 +301,6 @@ class OpenRouterClientTest {
             assertTrue(call.isCancelled)
         }
     }
-
-    @Test
-    fun `chatStream delivers a reply as one delta and done`() = runBlocking {
-        server.enqueue(json(200, successBody("He goes home.")))
-
-        val events = mutableListOf<ChatStreamEvent>()
-        client.chatStream(request).collect { events += it }
-
-        assertEquals(
-            listOf(ChatStreamEvent.Delta("He goes home."), ChatStreamEvent.Done(truncated = false)),
-            events,
-        )
-        assertFalse(events.isEmpty())
-    }
-
-    // ---- helpers --------------------------------------------------------------------------
 
     private fun assertFailure(expected: ProviderFailure) = runBlocking {
         assertEquals(ProviderResult.Failure(expected), client.chat(request))

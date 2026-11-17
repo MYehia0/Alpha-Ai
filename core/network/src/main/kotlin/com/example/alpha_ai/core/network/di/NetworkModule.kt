@@ -3,9 +3,12 @@ package com.example.alpha_ai.core.network.di
 import com.example.alpha_ai.core.network.AiCredentials
 import com.example.alpha_ai.core.network.AiProvider
 import com.example.alpha_ai.core.network.ConnectivityChecker
+import com.example.alpha_ai.core.network.HuggingFaceClient
 import com.example.alpha_ai.core.network.OpenRouterClient
 import com.example.alpha_ai.core.network.internal.AndroidConnectivityChecker
+import com.example.alpha_ai.core.network.internal.DefaultHuggingFaceClient
 import com.example.alpha_ai.core.network.internal.DefaultOpenRouterClient
+import com.example.alpha_ai.core.network.internal.HuggingFaceService
 import com.example.alpha_ai.core.network.internal.OpenRouterService
 import com.example.alpha_ai.core.network.internal.baseOkHttpClient
 import com.example.alpha_ai.core.network.internal.providerRetrofit
@@ -48,6 +51,16 @@ internal object NetworkModule {
     ): OpenRouterService =
         providerRetrofit(baseClient, AiProvider.OPENROUTER, credentials, baseUrl)
             .create(OpenRouterService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideHuggingFaceService(
+        @AiBaseClient baseClient: OkHttpClient,
+        credentials: AiCredentials,
+        @Named(NetworkBindingNames.HUGGING_FACE_BASE_URL) baseUrl: String,
+    ): HuggingFaceService =
+        providerRetrofit(baseClient, AiProvider.HUGGING_FACE, credentials, baseUrl)
+            .create(HuggingFaceService::class.java)
 }
 
 @Module
@@ -57,6 +70,10 @@ internal abstract class NetworkBindingsModule {
     @Binds
     @Singleton
     abstract fun bindOpenRouterClient(impl: DefaultOpenRouterClient): OpenRouterClient
+
+    @Binds
+    @Singleton
+    abstract fun bindHuggingFaceClient(impl: DefaultHuggingFaceClient): HuggingFaceClient
 
     @Binds
     @Singleton

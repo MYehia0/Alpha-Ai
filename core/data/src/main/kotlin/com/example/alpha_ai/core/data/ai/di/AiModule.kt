@@ -8,8 +8,11 @@ import com.example.alpha_ai.core.data.ai.DefaultSpeechTranscriber
 import com.example.alpha_ai.core.data.ai.DefaultSummarizer
 import com.example.alpha_ai.core.data.ai.DefaultTranslator
 import com.example.alpha_ai.core.data.ai.ScriptLanguageDetector
-import com.example.alpha_ai.core.data.ai.config.BundledModelChains
+import com.example.alpha_ai.core.data.ai.config.HuggingFaceModels
 import com.example.alpha_ai.core.data.ai.config.ModelChains
+import com.example.alpha_ai.core.data.ai.config.ModelConfigResolver
+import com.example.alpha_ai.core.data.ai.config.ModelConfigSource
+import com.example.alpha_ai.core.data.ai.config.NoOverrides
 import com.example.alpha_ai.core.data.ai.config.OpenRouterModels
 import com.example.alpha_ai.core.data.ai.fallback.AiClock
 import com.example.alpha_ai.core.domain.ai.GrammarCorrector
@@ -27,7 +30,6 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -52,14 +54,20 @@ internal abstract class AiModule {
     abstract fun bindLanguageDetector(impl: ScriptLanguageDetector): LanguageDetector
 
     @Binds
-    @Singleton
-    abstract fun bindModelChains(impl: BundledModelChains): ModelChains
+    abstract fun bindModelChains(impl: ModelConfigResolver): ModelChains
+
+    @Binds
+    abstract fun bindModelConfigSource(impl: NoOverrides): ModelConfigSource
 
     companion object {
 
         @Provides
         @Named(NetworkBindingNames.OPENROUTER_BASE_URL)
         fun provideOpenRouterBaseUrl(): String = OpenRouterModels.baseUrl
+
+        @Provides
+        @Named(NetworkBindingNames.HUGGING_FACE_BASE_URL)
+        fun provideHuggingFaceBaseUrl(): String = HuggingFaceModels.baseUrl
 
         @Provides
         fun provideClock(): AiClock = AiClock { System.currentTimeMillis() }

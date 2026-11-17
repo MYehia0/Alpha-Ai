@@ -5,7 +5,8 @@ import com.example.alpha_ai.core.data.ai.DefaultImageTextExtractor
 import com.example.alpha_ai.core.data.ai.DefaultSpeechTranscriber
 import com.example.alpha_ai.core.data.ai.DefaultSummarizer
 import com.example.alpha_ai.core.data.ai.DefaultTranslator
-import com.example.alpha_ai.core.data.ai.config.BundledModelChains
+import com.example.alpha_ai.core.data.ai.config.ModelConfigResolver
+import com.example.alpha_ai.core.data.ai.config.NoOverrides
 import com.example.alpha_ai.core.data.ai.config.Capability
 import com.example.alpha_ai.core.data.ai.config.ModelChains
 import com.example.alpha_ai.core.data.ai.config.ModelChoice
@@ -14,17 +15,20 @@ import com.example.alpha_ai.core.data.ai.engine.TextTaskRunner
 import com.example.alpha_ai.core.data.ai.fallback.AiClock
 import com.example.alpha_ai.core.data.ai.fallback.FallbackRunner
 import com.example.alpha_ai.core.data.ai.fallback.ModelHealthTracker
+import com.example.alpha_ai.core.data.ai.fallback.StreamingFallbackRunner
 import com.example.alpha_ai.core.network.AiProvider
 import com.example.alpha_ai.core.network.ChatReply
 import com.example.alpha_ai.core.network.ChatRequest
 import com.example.alpha_ai.core.network.ChatStreamEvent
 import com.example.alpha_ai.core.network.ConnectivityChecker
 import com.example.alpha_ai.core.network.ContentPart
+import com.example.alpha_ai.core.network.HuggingFaceClient
 import com.example.alpha_ai.core.network.OpenRouterClient
 import com.example.alpha_ai.core.network.ProviderFailure
 import com.example.alpha_ai.core.network.ProviderResult
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 
@@ -53,7 +57,40 @@ internal class FakeOpenRouterClient : OpenRouterClient {
         return handler(request)
     }
 
-    override fun chatStream(request: ChatRequest): Flow<ChatStreamEvent> = emptyFlow()
+    /** Streams a reply; by default the one-shot answer arrives as a single delta. */
+    var streamHandler: (ChatRequest) -> Flow<ChatStreamEvent> = { request ->
+        flow {
+            when (val result = handler(request)) {
+                is ProviderResult.Success -> {
+                    emit(ChatStreamEvent.Delta(result.value.text))
+                    emit(ChatStreamEvent.Done(result.value.truncated))
+                }
+                is ProviderResult.Failure -> emit(ChatStreamEvent.Error(result.failure))
+            }
+        }
+    }
+
+    override fun chatStream(request: ChatRequest): Flow<ChatStreamEvent> {
+        requests += request
+        return streamHandler(request)
+    }
+}
+
+/** Records transcription calls and answers with [transcript]. */
+internal class FakeHuggingFaceClient : HuggingFaceClient {
+    val transcriptions = mutableListOf<Triple<String, ByteArray, String>>()
+    var transcript: ProviderResult<String> = ProviderResult.Success("ok")
+
+    override suspend fun chat(request: ChatRequest): ProviderResult<ChatReply> =
+        failure(ProviderFailure.NoCredits)
+
+    override fun chatStream(request: ChatRequest): Flow<ChatStreamEvent> =
+        flowOf(ChatStreamEvent.Error(ProviderFailure.NoCredits))
+
+    override suspend fun transcribe(model: String, audio: ByteArray, mimeType: String): ProviderResult<String> {
+        transcriptions += Triple(model, audio, mimeType)
+        return transcript
+    }
 }
 
 internal class FakeConnectivity(var online: Boolean = true) : ConnectivityChecker {
@@ -71,7 +108,7 @@ internal class FakeChains(private val chains: Map<Capability, List<ModelChoice>>
 }
 
 /** The whole data layer wired by hand on top of fakes and the test's virtual clock. */
-internal class AiTestHarness(scope: TestScope, var chains: ModelChains = BundledModelChains()) {
+internal class AiTestHarness(scope: TestScope, var chains: ModelChains = ModelConfigResolver(NoOverrides())) {
     val client = FakeOpenRouterClient()
     val connectivity = FakeConnectivity()
     val clock = AiClock { scope.testScheduler.currentTime }
@@ -79,8 +116,10 @@ internal class AiTestHarness(scope: TestScope, var chains: ModelChains = Bundled
     private val dispatcher = StandardTestDispatcher(scope.testScheduler)
 
     val runner: FallbackRunner get() = FallbackRunner(chains, health, connectivity, clock)
-    private val invoker = ModelInvoker(client)
-    private val tasks: TextTaskRunner get() = TextTaskRunner(runner, invoker)
+    val huggingFace = FakeHuggingFaceClient()
+    private val invoker = ModelInvoker(client, huggingFace)
+    private val streamingRunner get() = StreamingFallbackRunner(chains, health, connectivity, clock)
+    private val tasks: TextTaskRunner get() = TextTaskRunner(runner, streamingRunner, invoker)
 
     val grammar get() = DefaultGrammarCorrector(tasks)
     val translator get() = DefaultTranslator(tasks)

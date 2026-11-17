@@ -3,14 +3,12 @@ package com.example.alpha_ai.core.data.ai.fallback
 import com.example.alpha_ai.core.data.ai.config.Capability
 import com.example.alpha_ai.core.data.ai.config.ModelChains
 import com.example.alpha_ai.core.data.ai.config.ModelChoice
-import com.example.alpha_ai.core.data.ai.prompt.Prompts
 import com.example.alpha_ai.core.domain.ai.AiFailure
 import com.example.alpha_ai.core.domain.ai.AiResult
 import com.example.alpha_ai.core.network.ConnectivityChecker
 import com.example.alpha_ai.core.network.ProviderFailure
 import com.example.alpha_ai.core.network.ProviderResult
 import kotlinx.coroutines.withTimeoutOrNull
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -49,12 +47,10 @@ internal class FallbackRunner @Inject constructor(
             AiResult.Failure(AiFailure.NoConnection)
         }
 
-        Timber.tag(LOG_TAG).d(
-            "request capability=%s promptVersion=%d result=%s totalMs=%d",
+        AiDiagnostics.request(
             capability,
-            Prompts.VERSION,
-            result.label(),
-            clock.nowMillis() - startedAt,
+            failure = (result as? AiResult.Failure)?.failure,
+            totalMillis = clock.nowMillis() - startedAt,
         )
         return result
     }
@@ -87,7 +83,13 @@ internal class FallbackRunner @Inject constructor(
             // different exception and passes straight through.
             val result = withTimeoutOrNull(minOf(limits.attemptMillis, remaining)) { attempt(choice) }
                 ?: ProviderResult.Failure(ProviderFailure.Timeout)
-            logAttempt(capability, choice, attemptNumber, result, clock.nowMillis() - attemptStartedAt)
+            AiDiagnostics.attempt(
+                capability,
+                choice,
+                attemptNumber,
+                failure = (result as? ProviderResult.Failure)?.failure,
+                elapsedMillis = clock.nowMillis() - attemptStartedAt,
+            )
 
             when (result) {
                 is ProviderResult.Success -> {
@@ -108,39 +110,7 @@ internal class FallbackRunner @Inject constructor(
         return AiResult.Failure(FailureSelector.select(outcomes))
     }
 
-    private fun logAttempt(
-        capability: Capability,
-        choice: ModelChoice,
-        attemptNumber: Int,
-        result: ProviderResult<String>,
-        elapsedMillis: Long,
-    ) {
-        val outcome = when (result) {
-            is ProviderResult.Success -> "SUCCESS"
-            is ProviderResult.Failure -> result.failure::class.simpleName
-        }
-        // Diagnostics name what was tried and how it ended. They never hold input, output,
-        // a key, or a raw provider message.
-        Timber.tag(LOG_TAG).d(
-            "attempt capability=%s provider=%s model=%s promptVersion=%d attempt=%d outcome=%s elapsedMs=%d",
-            capability,
-            choice.provider,
-            choice.modelId,
-            Prompts.VERSION,
-            attemptNumber,
-            outcome,
-            elapsedMillis,
-        )
-    }
-
-    private fun AiResult<String>.label(): String? = when (this) {
-        is AiResult.Success -> "SUCCESS"
-        is AiResult.Failure -> failure::class.simpleName
-    }
-
     internal companion object {
-        const val LOG_TAG = "AiLayer"
-
         /** No new attempt starts with less time than this left. */
         const val MIN_ATTEMPT_MILLIS = 3_000L
     }

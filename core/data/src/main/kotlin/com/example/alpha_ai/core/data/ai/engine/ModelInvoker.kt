@@ -5,10 +5,14 @@ import com.example.alpha_ai.core.data.ai.config.ModelChoice
 import com.example.alpha_ai.core.network.AiProvider
 import com.example.alpha_ai.core.network.ChatReply
 import com.example.alpha_ai.core.network.ChatRequest
+import com.example.alpha_ai.core.network.ChatStreamEvent
 import com.example.alpha_ai.core.network.ContentPart
+import com.example.alpha_ai.core.network.HuggingFaceClient
 import com.example.alpha_ai.core.network.OpenRouterClient
 import com.example.alpha_ai.core.network.ProviderFailure
 import com.example.alpha_ai.core.network.ProviderResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 /**
@@ -17,6 +21,7 @@ import javax.inject.Inject
  */
 internal class ModelInvoker @Inject constructor(
     private val openRouter: OpenRouterClient,
+    private val huggingFace: HuggingFaceClient,
 ) {
 
     /**
@@ -31,17 +36,34 @@ internal class ModelInvoker @Inject constructor(
         temperature: Double,
     ): ProviderResult<ChatReply> {
         if (choice.apiStyle != ApiStyle.CHAT) return ProviderResult.Failure(ProviderFailure.RequestRejected)
-        val request = ChatRequest(
-            model = choice.modelId,
-            systemPrompt = systemPrompt,
-            content = content,
-            maxTokens = maxTokens,
-            temperature = temperature,
-        )
+        val request = ChatRequest(choice.modelId, systemPrompt, content, maxTokens, temperature)
         return when (choice.provider) {
             AiProvider.OPENROUTER -> openRouter.chat(request)
-            // Switched off in configuration; its client arrives with the configuration work.
-            AiProvider.HUGGING_FACE -> ProviderResult.Failure(ProviderFailure.ModelNotFound)
+            AiProvider.HUGGING_FACE -> huggingFace.chat(request)
         }
     }
+
+    /** The same request as [chat], with the reply delivered as it is generated. */
+    fun chatStream(
+        choice: ModelChoice,
+        systemPrompt: String,
+        content: List<ContentPart>,
+        maxTokens: Int,
+        temperature: Double,
+    ): Flow<ChatStreamEvent> {
+        if (choice.apiStyle != ApiStyle.CHAT) return flowOf(ChatStreamEvent.Error(ProviderFailure.RequestRejected))
+        val request = ChatRequest(choice.modelId, systemPrompt, content, maxTokens, temperature)
+        return when (choice.provider) {
+            AiProvider.OPENROUTER -> openRouter.chatStream(request)
+            AiProvider.HUGGING_FACE -> huggingFace.chatStream(request)
+        }
+    }
+
+    /** Transcribes raw audio with a speech recognition model ([ApiStyle.HF_SPEECH]). */
+    suspend fun transcribe(choice: ModelChoice, audio: ByteArray, mimeType: String): ProviderResult<String> =
+        if (choice.apiStyle == ApiStyle.HF_SPEECH && choice.provider == AiProvider.HUGGING_FACE) {
+            huggingFace.transcribe(choice.modelId, audio, mimeType)
+        } else {
+            ProviderResult.Failure(ProviderFailure.RequestRejected)
+        }
 }

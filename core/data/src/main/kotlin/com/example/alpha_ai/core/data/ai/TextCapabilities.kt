@@ -2,7 +2,6 @@ package com.example.alpha_ai.core.data.ai
 
 import com.example.alpha_ai.core.data.ai.config.Capability
 import com.example.alpha_ai.core.data.ai.engine.TextTaskRunner
-import com.example.alpha_ai.core.data.ai.engine.toTerminalEvent
 import com.example.alpha_ai.core.data.ai.prompt.Prompts
 import com.example.alpha_ai.core.data.ai.validate.InputCheck
 import com.example.alpha_ai.core.data.ai.validate.InputValidator
@@ -15,7 +14,7 @@ import com.example.alpha_ai.core.domain.ai.Summarizer
 import com.example.alpha_ai.core.domain.ai.TextStreamEvent
 import com.example.alpha_ai.core.domain.ai.Translator
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 internal class DefaultGrammarCorrector @Inject constructor(
@@ -35,7 +34,16 @@ internal class DefaultGrammarCorrector @Inject constructor(
         }
 
     override fun correctStreaming(text: String, language: Language?): Flow<TextStreamEvent> =
-        flow { emit(correct(text, language).toTerminalEvent()) }
+        when (val check = InputValidator.grammar(text, language)) {
+            is InputCheck.Rejected -> check.toFailedStream()
+            is InputCheck.Accepted -> tasks.stream(
+                capability = Capability.GRAMMAR,
+                task = TextTask.CORRECTION,
+                input = text.trim(),
+                systemPrompt = Prompts.grammar(check.value),
+                expected = check.value,
+            )
+        }
 }
 
 internal class DefaultTranslator @Inject constructor(
@@ -55,7 +63,16 @@ internal class DefaultTranslator @Inject constructor(
         }
 
     override fun translateStreaming(text: String, from: Language, to: Language): Flow<TextStreamEvent> =
-        flow { emit(translate(text, from, to).toTerminalEvent()) }
+        when (val check = InputValidator.translation(text, from, to)) {
+            is InputCheck.Rejected -> check.toFailedStream()
+            is InputCheck.Accepted -> tasks.stream(
+                capability = Capability.TRANSLATION,
+                task = TextTask.TRANSLATION,
+                input = text.trim(),
+                systemPrompt = Prompts.translation(from, to),
+                expected = to,
+            )
+        }
 }
 
 internal class DefaultSummarizer @Inject constructor(
@@ -75,8 +92,20 @@ internal class DefaultSummarizer @Inject constructor(
         }
 
     override fun summarizeStreaming(text: String, language: Language?): Flow<TextStreamEvent> =
-        flow { emit(summarize(text, language).toTerminalEvent()) }
+        when (val check = InputValidator.summary(text, language)) {
+            is InputCheck.Rejected -> check.toFailedStream()
+            is InputCheck.Accepted -> tasks.stream(
+                capability = Capability.SUMMARIZATION,
+                task = TextTask.SUMMARY,
+                input = text.trim(),
+                systemPrompt = Prompts.summary(check.value),
+                expected = check.value,
+            )
+        }
 }
 
 internal fun InputCheck.Rejected.toFailure(): AiResult.Failure =
     AiResult.Failure(AiFailure.InvalidInput(reason))
+
+private fun InputCheck.Rejected.toFailedStream(): Flow<TextStreamEvent> =
+    flowOf(TextStreamEvent.Failed(AiFailure.InvalidInput(reason)))

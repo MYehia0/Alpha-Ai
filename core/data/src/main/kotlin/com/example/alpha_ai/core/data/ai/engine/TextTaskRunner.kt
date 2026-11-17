@@ -2,6 +2,7 @@ package com.example.alpha_ai.core.data.ai.engine
 
 import com.example.alpha_ai.core.data.ai.config.Capability
 import com.example.alpha_ai.core.data.ai.fallback.FallbackRunner
+import com.example.alpha_ai.core.data.ai.fallback.StreamingFallbackRunner
 import com.example.alpha_ai.core.data.ai.prompt.Prompts
 import com.example.alpha_ai.core.data.ai.validate.OutputValidator
 import com.example.alpha_ai.core.data.ai.validate.TextTask
@@ -11,6 +12,7 @@ import com.example.alpha_ai.core.domain.ai.TextStreamEvent
 import com.example.alpha_ai.core.network.ContentPart
 import com.example.alpha_ai.core.network.ProviderFailure
 import com.example.alpha_ai.core.network.ProviderResult
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -19,6 +21,7 @@ import javax.inject.Inject
  */
 internal class TextTaskRunner @Inject constructor(
     private val runner: FallbackRunner,
+    private val streamingRunner: StreamingFallbackRunner,
     private val invoker: ModelInvoker,
 ) {
 
@@ -40,7 +43,7 @@ internal class TextTaskRunner @Inject constructor(
                 // The user's text is the whole of its own message, never part of the instruction.
                 content = listOf(ContentPart.Text(Prompts.wrap(input))),
                 maxTokens = maxTokensFor(task, input),
-                temperature = if (task == TextTask.SUMMARY) SUMMARY_TEMPERATURE else 0.0,
+                temperature = temperatureFor(task),
             )
             when (reply) {
                 is ProviderResult.Failure -> reply
@@ -57,6 +60,33 @@ internal class TextTaskRunner @Inject constructor(
             }
         }
 
+    /** The streaming form of [run]: the same request and checks, delivered as it is generated. */
+    fun stream(
+        capability: Capability,
+        task: TextTask,
+        input: String,
+        systemPrompt: String,
+        expected: Language,
+    ): Flow<TextStreamEvent> =
+        streamingRunner.run(
+            capability = capability,
+            attempt = { choice ->
+                invoker.chatStream(
+                    choice = choice,
+                    systemPrompt = systemPrompt,
+                    content = listOf(ContentPart.Text(Prompts.wrap(input))),
+                    maxTokens = maxTokensFor(task, input),
+                    temperature = temperatureFor(task),
+                )
+            },
+            check = { raw, truncated ->
+                OutputValidator.text(task, input, raw, expected, systemPrompt, truncated)
+            },
+        )
+
+    private fun temperatureFor(task: TextTask): Double =
+        if (task == TextTask.SUMMARY) SUMMARY_TEMPERATURE else 0.0
+
     private fun maxTokensFor(task: TextTask, input: String): Int {
         // A token is rarely shorter than one character, so the character count is a safe
         // ceiling for a result about as long as the input. The margin leaves room for models
@@ -70,10 +100,4 @@ internal class TextTaskRunner @Inject constructor(
         const val TOKEN_MARGIN = 512
         const val MAX_TOKENS_CEILING = 12_000
     }
-}
-
-/** The single terminal event that delivers a one-shot result on a stream. */
-internal fun AiResult<String>.toTerminalEvent(): TextStreamEvent = when (this) {
-    is AiResult.Success -> TextStreamEvent.Completed(value)
-    is AiResult.Failure -> TextStreamEvent.Failed(failure)
 }

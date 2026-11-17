@@ -1,5 +1,6 @@
 package com.example.alpha_ai.core.network.internal
 
+import com.example.alpha_ai.core.common.IoDispatcher
 import com.example.alpha_ai.core.network.AiCredentials
 import com.example.alpha_ai.core.network.AiProvider
 import com.example.alpha_ai.core.network.ChatReply
@@ -8,17 +9,19 @@ import com.example.alpha_ai.core.network.ChatStreamEvent
 import com.example.alpha_ai.core.network.OpenRouterClient
 import com.example.alpha_ai.core.network.ProviderFailure
 import com.example.alpha_ai.core.network.ProviderResult
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 internal class DefaultOpenRouterClient @Inject constructor(
     private val service: OpenRouterService,
     private val credentials: AiCredentials,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : OpenRouterClient {
 
     override suspend fun chat(request: ChatRequest): ProviderResult<ChatReply> {
-        if (credentials.tokenFor(AiProvider.OPENROUTER).isNullOrBlank()) {
+        if (!credentials.hasToken(AiProvider.OPENROUTER)) {
             return ProviderResult.Failure(ProviderFailure.AccessRejected)
         }
         return executeChatCall(OpenRouterErrorClassifier) {
@@ -26,24 +29,16 @@ internal class DefaultOpenRouterClient @Inject constructor(
         }
     }
 
-    override fun chatStream(request: ChatRequest): Flow<ChatStreamEvent> = flow {
-        emitOneShot(chat(request))
-    }
-}
-
-/**
- * Delivers a one-shot reply as a stream: the whole text in one piece, then the end.
- * It satisfies the stream contract for providers or builds without progressive delivery.
- */
-internal suspend fun kotlinx.coroutines.flow.FlowCollector<ChatStreamEvent>.emitOneShot(
-    result: ProviderResult<ChatReply>,
-) {
-    when (result) {
-        is ProviderResult.Success -> {
-            emit(ChatStreamEvent.Delta(result.value.text))
-            emit(ChatStreamEvent.Done(result.value.truncated))
+    override fun chatStream(request: ChatRequest): Flow<ChatStreamEvent> {
+        if (!credentials.hasToken(AiProvider.OPENROUTER)) return rejectedStream()
+        return streamChat(OpenRouterErrorClassifier, ioDispatcher) {
+            service.chatCompletionStream(request.toDto(stream = true))
         }
-
-        is ProviderResult.Failure -> emit(ChatStreamEvent.Error(result.failure))
     }
 }
+
+internal fun AiCredentials.hasToken(provider: AiProvider): Boolean = !tokenFor(provider).isNullOrBlank()
+
+/** The stream for a provider with no key: it fails at once and sends nothing. */
+internal fun rejectedStream(): Flow<ChatStreamEvent> =
+    flowOf(ChatStreamEvent.Error(ProviderFailure.AccessRejected))

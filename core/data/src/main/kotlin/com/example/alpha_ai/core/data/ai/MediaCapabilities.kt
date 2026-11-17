@@ -1,6 +1,7 @@
 package com.example.alpha_ai.core.data.ai
 
 import com.example.alpha_ai.core.common.DefaultDispatcher
+import com.example.alpha_ai.core.data.ai.config.ApiStyle
 import com.example.alpha_ai.core.data.ai.config.Capability
 import com.example.alpha_ai.core.data.ai.engine.ModelInvoker
 import com.example.alpha_ai.core.data.ai.fallback.FallbackRunner
@@ -66,6 +67,11 @@ internal class DefaultSpeechTranscriber @Inject constructor(
             ContentPart.Audio(Base64.getEncoder().encodeToString(audio.bytes), audioFormat(audio.mimeType))
         }
         return runner.run(Capability.SPEECH) { choice ->
+            if (choice.apiStyle == ApiStyle.HF_SPEECH) {
+                // A speech recognition model takes the raw audio and no instruction.
+                return@run invoker.transcribe(choice, audio.bytes, audio.mimeType)
+                    .checkedTranscript(expected = language)
+            }
             invoker.chat(
                 choice = choice,
                 systemPrompt = prompt,
@@ -101,6 +107,15 @@ private fun ProviderResult<ChatReply>.checked(expected: Language?, systemPrompt:
         is ProviderResult.Failure -> this
         is ProviderResult.Success ->
             OutputValidator.media(value.text, expected, systemPrompt, value.truncated)
+                ?.let { ProviderResult.Success(it) }
+                ?: ProviderResult.Failure(ProviderFailure.MalformedResponse)
+    }
+
+private fun ProviderResult<String>.checkedTranscript(expected: Language?): ProviderResult<String> =
+    when (this) {
+        is ProviderResult.Failure -> this
+        is ProviderResult.Success ->
+            OutputValidator.media(value, expected, systemPrompt = "", truncated = false)
                 ?.let { ProviderResult.Success(it) }
                 ?: ProviderResult.Failure(ProviderFailure.MalformedResponse)
     }

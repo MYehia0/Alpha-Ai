@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ai_failure_no_connection">أنت غير متصل بالإنترنت. تحقق من الاتصال وحاول مرة أخرى.</string>
+    <string name="ai_failure_timed_out">استغرق الأمر وقتًا طويلًا. حاول مرة أخرى.</string>
+    <string name="ai_failure_service_busy">الخدمة مشغولة الآن. انتظر قليلًا ثم حاول مرة أخرى.</string>
+    <string name="ai_failure_service_unavailable">هذه الميزة غير متاحة الآن. حاول مرة أخرى لاحقًا.</string>
+    <string name="ai_failure_invalid_response">تعذر الحصول على نتيجة صالحة. حاول مرة أخرى.</string>
+    <string name="ai_failure_unknown">حدث خطأ ما. حاول مرة أخرى.</string>
+
+    <string name="ai_input_empty">لا يوجد محتوى للمعالجة. أضف محتوى أولًا.</string>
+    <string name="ai_input_too_short">النص قصير جدًا. أضف نصًا أطول وحاول مرة أخرى.</string>
+    <string name="ai_input_too_long">المحتوى طويل جدًا. اختصره وحاول مرة أخرى.</string>
+    <string name="ai_input_too_large">حجم الملف كبير جدًا. اختر ملفًا أصغر.</string>
+    <string name="ai_input_unsupported_language">اللغتان المدعومتان هما العربية والإنجليزية فقط.</string>
+    <string name="ai_input_unsupported_format">نوع الملف غير مدعوم.</string>
+</resources>
