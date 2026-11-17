@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Component gallery, debug builds only (spec 003). -->
+    <string name="gallery_launcher_name">Alpha-AI Gallery</string>
+    <string name="gallery_title">Component gallery</string>
+    <string name="gallery_placeholder">This section is not built yet.</string>
+
+    <string name="gallery_section_colors">Colors</string>
+    <string name="gallery_section_typography">Typography</string>
+    <string name="gallery_section_spacing">Spacing</string>
+    <string name="gallery_section_shapes">Shapes</string>
+    <string name="gallery_section_motion">Motion</string>
+    <string name="gallery_section_buttons">Buttons</string>
+    <string name="gallery_section_text_fields">Text fields</string>
+    <string name="gallery_section_cards">Cards</string>
+    <string name="gallery_section_top_bar">Top bar</string>
+    <string name="gallery_section_states">Loading, empty, and error</string>
+    <string name="gallery_section_language">Language and direction</string>
+</resources>

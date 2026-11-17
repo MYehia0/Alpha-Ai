@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery_launcher_name">معرض Alpha-AI</string>
+    <string name="gallery_title">معرض المكوّنات</string>
+    <string name="gallery_placeholder">لم يُبنَ هذا القسم بعد.</string>
+
+    <string name="gallery_section_colors">الألوان</string>
+    <string name="gallery_section_typography">الخطوط</string>
+    <string name="gallery_section_spacing">المسافات</string>
+    <string name="gallery_section_shapes">الأشكال</string>
+    <string name="gallery_section_motion">الحركة</string>
+    <string name="gallery_section_buttons">الأزرار</string>
+    <string name="gallery_section_text_fields">حقول النص</string>
+    <string name="gallery_section_cards">البطاقات</string>
+    <string name="gallery_section_top_bar">الشريط العلوي</string>
+    <string name="gallery_section_states">التحميل والفراغ والخطأ</string>
+    <string name="gallery_section_language">اللغة والاتجاه</string>
+</resources>

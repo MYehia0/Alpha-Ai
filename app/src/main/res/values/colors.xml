@@ -45,4 +45,6 @@
     <color name="gray70">#546E7A</color>
     <color name="gray20">#80FFFFFF</color>
 
+    <!-- Window colour behind Compose screens; matches the design system surface. -->
+    <color name="shell_window_background">#FFFFFF</color>
 </resources>

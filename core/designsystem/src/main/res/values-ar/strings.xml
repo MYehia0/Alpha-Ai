@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ds_back">رجوع</string>
+    <string name="ds_retry">إعادة المحاولة</string>
+    <string name="ds_cancel">إلغاء</string>
+    <string name="ds_loading">جارٍ التحميل</string>
+    <string name="ds_in_progress">%1$s، قيد التنفيذ</string>
+    <string name="ds_char_count">%1$d / %2$d</string>
+</resources>
