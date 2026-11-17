@@ -81,6 +81,13 @@ android {
 }
 
 dependencies {
+    // Shared modules. The AI layer is reached through :core:domain; :core:data and
+    // :core:network are here so Hilt can see their bindings.
+    implementation(projects.core.common)
+    implementation(projects.core.domain)
+    implementation(projects.core.network)
+    implementation(projects.core.data)
+
     // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
