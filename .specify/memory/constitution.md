@@ -231,8 +231,11 @@ without tying product quality to any single model.
 
 ## Development Workflow and Quality Gates
 
-- Work happens on a feature branch created from `development`. `master` receives changes only
-  by merge from `development`.
+- `development` is the main branch. Work happens on a feature branch created from
+  `development` and returns to it by pull request.
+- `master` is the archive of release v1.0.0 (tag `v1.0.0`) and is frozen: nothing is merged
+  into it until every spec in `ROADMAP.md` is done. Then `development` is merged into `master`
+  once, and that merge is tagged `v2.0.0`.
 - Commit messages MUST follow the Conventional Commits format (`feat:`, `fix:`, `refactor:`,
   `docs:`, `test:`, `chore:`).
 - Before a change is merged, the debug build, all unit tests, and Android Lint MUST pass with no
@@ -261,4 +264,4 @@ without tying product quality to any single model.
   it, and legacy code for that screen MUST be deleted in the same change.
 - `README.md` is the runtime guidance document for project status and stack overview.
 
-**Version**: 2.1.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-16
+**Version**: 2.2.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-17

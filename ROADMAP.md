@@ -92,6 +92,8 @@ current one is merged.
 
 Rules that keep the loop safe:
 
+- `development` is the main branch; `master` is frozen as the v1.0.0 archive until every spec
+  here is done, then receives one merge tagged `v2.0.0`.
 - One spec, one branch, one merge. The app must build and its existing flows must work after
   every merge.
 - When a spec migrates a screen, it deletes that screen's XML layout, Activity, and old
