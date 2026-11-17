@@ -5,6 +5,10 @@ plugins {
 
 android {
     namespace = "com.example.alpha_ai.core.ui"
+
+    lint {
+        error += "HardcodedText"
+    }
 }
 
 dependencies {
