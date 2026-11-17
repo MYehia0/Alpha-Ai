@@ -111,7 +111,7 @@ class ERActivity : BaseActivity<ActivityErBinding, ERViewModel>() {
             }
             start()
             isRecording = true
-            binding.content.btnSubmit.text = "Stop"
+            binding.content.btnSubmit.text = getString(R.string.stop)
             binding.content.btnSubmit.icon = getDrawable(R.drawable.video)
         }
     }
@@ -123,7 +123,7 @@ class ERActivity : BaseActivity<ActivityErBinding, ERViewModel>() {
         }
         isRecording = false
         mediaRecorder = null
-        binding.content.btnSubmit.text = "Record"
+        binding.content.btnSubmit.text = getString(R.string.record)
         binding.content.btnSubmit.icon = getDrawable(R.drawable.mic)
     }
 

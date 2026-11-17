@@ -1,5 +1,6 @@
 package com.example.alpha_ai.shell.gallery
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import com.example.alpha_ai.R
 import kotlinx.serialization.Serializable
@@ -12,6 +13,7 @@ data object GalleryRoute
 @Serializable
 data class GallerySectionRoute(val section: GallerySection)
 
+@Keep // Its serializer is looked up by name when the route is restored.
 enum class GallerySection(@StringRes val labelRes: Int) {
     Colors(R.string.gallery_section_colors),
     Typography(R.string.gallery_section_typography),

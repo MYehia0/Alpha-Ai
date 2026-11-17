@@ -1,11 +1,11 @@
 <resources>
 
     // common
-    <string name="app_name">Alpha-Ai</string>
-    <string name="alpha_ai">Alpha Ai</string>
+    <string name="app_name" translatable="false">Alpha-Ai</string>
+    <string name="alpha_ai" translatable="false">Alpha Ai</string>
 
     // splash
-    <string name="app_title_formatted">Alpha <font color="#0182EE">Ai</font></string>
+    <string name="app_title_formatted" translatable="false">Alpha <font color="#0182EE">Ai</font></string>
     <string name="version_info">VERSION 1.1.0</string>
     <string name="powered_by">Powered by Alpha Team</string>
 
@@ -83,7 +83,7 @@
     <string name="please_enter_your_details_to_create_an_account">Please enter your details to create an account</string>
     <string name="i_agree_to_chatbot_ai_public_agreement_terms_privacy_policy"><![CDATA[I agree to Chatbot_AI Public Agreement, Terms, & Privacy Policy.]]></string>
     <string name="get_started">Get Started</string>
-    <string name="empty"> </string>
+    <string name="empty" translatable="false"> </string>
     <string name="share">Share</string>
     <string name="copy">Copy</string>
     <string name="tasks_title">Tasks</string>
@@ -105,5 +105,23 @@
     <string name="summarize">Summarize</string>
     <string name="english">English</string>
     <string name="back">Back</string>
+
+    <!-- Texts moved out of legacy layouts and screens (spec 003). English is unchanged. -->
+    <string name="search_history_hint">Search for history</string>
+    <string name="enter_the_photo">Enter the photo</string>
+    <string name="select">select</string>
+    <string name="output_hint">output</string>
+    <string name="correct_this">Correct this ?</string>
+    <string name="submit">Submit</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="correct">Correct</string>
+    <string name="record">Record</string>
+    <string name="stop">Stop</string>
+    <string name="translate">Translate</string>
+    <!-- This hint has always been shown in Arabic, also in the English UI (FR-021). -->
+    <string name="translation_hint">ترجمة</string>
+    <string name="description">description</string>
+    <string name="not_found">Not Found</string>
+    <string name="delete">Delete</string>
 
 </resources>

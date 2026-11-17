@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
@@ -35,7 +36,6 @@ import com.example.alpha_ai.core.designsystem.preview.AlphaPreviews
 import com.example.alpha_ai.core.designsystem.theme.AlphaTheme
 import com.example.alpha_ai.core.designsystem.theme.contrastPairs
 import com.example.alpha_ai.core.designsystem.theme.contrastRatio
-import java.util.Locale
 
 // Token and role names below are identifiers shown to developers, not user copy.
 
@@ -43,6 +43,7 @@ import java.util.Locale
 @Composable
 fun ColorsSection() {
     val scheme = AlphaTheme.colors.scheme
+    val locale = LocalConfiguration.current.locales[0]
     Column(verticalArrangement = Arrangement.spacedBy(AlphaTheme.spacing.sm)) {
         contrastPairs(scheme).forEach { pair ->
             Column(
@@ -56,7 +57,7 @@ fun ColorsSection() {
                 Text(
                     text = stringResource(
                         R.string.gallery_contrast,
-                        String.format(Locale.getDefault(), "%.1f", contrastRatio(pair.foreground, pair.background)),
+                        String.format(locale, "%.1f", contrastRatio(pair.foreground, pair.background)),
                     ),
                     color = pair.foreground,
                     style = AlphaTheme.typography.bodySmall,
