@@ -329,8 +329,8 @@ Update this table as each spec is merged.
 | Spec | Name | Status | Merged |
 |---|---|---|---|
 | — | Phase 0 manual steps | Done | |
-| 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Full manual walk-through on a device still to do |
-| 002 | AI provider layer | Built, unit-tested, and checked against live models on 2026-11-17; not merged. Before release the key needs its credit limit and guardrail set (`docs/ai-models.md`) | |
+| 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Device walk-through done on the emulator on 2026-11-17 |
+| 002 | AI provider layer | Done | Merged into `development` on 2026-11-17 (PR #2); checked against live models. Before release the OpenRouter key needs its credit limit and guardrail (`docs/ai-models.md`, T027) |
 | 003 | Design system and app shell | Not started | |
 | 004 | Onboarding and authentication | Not started | |
 | 005 | Home and settings | Not started | |
