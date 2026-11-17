@@ -331,7 +331,7 @@ Update this table as each spec is merged.
 | — | Phase 0 manual steps | Done | |
 | 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Device walk-through done on the emulator on 2026-11-17 |
 | 002 | AI provider layer | Done | Merged into `development` on 2026-11-17 (PR #2); checked against live models. Before release the OpenRouter key needs its credit limit and guardrail (`docs/ai-models.md`, T027) |
-| 003 | Design system and app shell | Done | Branch `003-design-system-shell`, gate green and checked on the emulator on 2026-11-18. Waiting on the owner's Arabic review (T053), then merge into `development` |
+| 003 | Design system and app shell | Done | Merged into `development` on 2026-11-18 (PR #5); CI green, checked on the emulator. Owner still to review the Arabic strings (T053) |
 | 004 | Onboarding and authentication | Not started | |
 | 005 | Home and settings | Not started | |
 | 006 | Grammar correction | Not started | |
