@@ -32,7 +32,7 @@ import timber.log.Timber
 
 private const val INPUT = "He go to school every day and he like it very much."
 private const val FIXED = "He goes to school every day and he likes it very much."
-private const val SECRET_KEY = "sk-or-v1-test-secret"
+private const val FAKE_KEY = "sk-or-fake-0000" // gitleaks:allow (fake test value)
 
 private typealias Answer = suspend (ChatRequest) -> ProviderResult<ChatReply>
 
@@ -250,7 +250,7 @@ class FallbackRunnerTest {
             assertFalse(line.contains(INPUT))
             assertFalse(line.contains(FIXED))
             assertFalse(line.contains("school"))
-            assertFalse(line.contains(SECRET_KEY))
+            assertFalse(line.contains(FAKE_KEY))
             assertFalse(line.contains("Bearer", ignoreCase = true))
         }
     }

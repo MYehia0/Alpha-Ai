@@ -29,7 +29,7 @@ import kotlin.concurrent.thread
 class ChatStreamTest {
 
     private lateinit var server: MockWebServer
-    private var token: String? = "sk-or-test-token"
+    private var token: String? = "sk-or-test-token" // gitleaks:allow (fake test value)
     private val credentials = object : AiCredentials {
         override fun tokenFor(provider: AiProvider): String? = token
     }

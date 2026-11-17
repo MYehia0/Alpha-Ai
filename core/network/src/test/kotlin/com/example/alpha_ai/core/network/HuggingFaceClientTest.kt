@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 class HuggingFaceClientTest {
 
     private lateinit var server: MockWebServer
-    private var token: String? = "hf_test_token"
+    private var token: String? = "hf_test_token" // gitleaks:allow (fake test value)
     private val credentials = object : AiCredentials {
         override fun tokenFor(provider: AiProvider): String? =
             token.takeIf { provider == AiProvider.HUGGING_FACE }
@@ -74,7 +74,7 @@ class HuggingFaceClientTest {
         )
         val recorded = server.takeRequest()
         assertEquals("/v1/chat/completions", recorded.path)
-        assertEquals("Bearer hf_test_token", recorded.getHeader("Authorization"))
+        assertEquals("Bearer hf_test_token", recorded.getHeader("Authorization")) // gitleaks:allow (fake test value)
     }
 
     @Test
@@ -87,7 +87,7 @@ class HuggingFaceClientTest {
         val recorded = server.takeRequest()
         assertEquals("/hf-inference/models/openai/whisper-large-v3-turbo", recorded.path)
         assertEquals("audio/wav", recorded.getHeader("Content-Type"))
-        assertEquals("Bearer hf_test_token", recorded.getHeader("Authorization"))
+        assertEquals("Bearer hf_test_token", recorded.getHeader("Authorization")) // gitleaks:allow (fake test value)
         assertArrayEquals(audio, recorded.body.readByteArray())
     }
 

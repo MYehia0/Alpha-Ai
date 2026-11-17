@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 class OpenRouterClientTest {
 
     private lateinit var server: MockWebServer
-    private var token: String? = "sk-or-test-token"
+    private var token: String? = "sk-or-test-token" // gitleaks:allow (fake test value)
 
     private val credentials = object : AiCredentials {
         override fun tokenFor(provider: AiProvider): String? =
@@ -79,7 +79,7 @@ class OpenRouterClientTest {
         )
         val recorded = server.takeRequest()
         assertEquals("/api/v1/chat/completions", recorded.path)
-        assertEquals("Bearer sk-or-test-token", recorded.getHeader("Authorization"))
+        assertEquals("Bearer sk-or-test-token", recorded.getHeader("Authorization")) // gitleaks:allow (fake test value)
         val body = Json.parseToJsonElement(recorded.body.readUtf8()).jsonObject
         assertEquals("vendor/model:free", body.getValue("model").jsonPrimitive.content)
         assertEquals("false", body.getValue("stream").jsonPrimitive.content)

@@ -64,7 +64,7 @@ class FailureMappingTest {
 
     @Test
     fun `a rejected key is reported as unavailable and never appears in the log`() = runTest {
-        val key = "sk-or-v1-0123456789abcdef"
+        val key = "sk-or-v1-" + "0".repeat(16) // gitleaks:allow (fake test value)
         val lines = mutableListOf<String>()
         Timber.plant(object : Timber.Tree() {
             override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
