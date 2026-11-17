@@ -194,10 +194,10 @@ event.
 
 ## Phase 9: Polish & Cross-Cutting Concerns
 
-- [ ] T045 [P] Create fakes in `core/testing/src/main/kotlin/com/example/alpha_ai/core/testing/ai/`: `FakeGrammarCorrector.kt`, `FakeTranslator.kt`, `FakeSummarizer.kt`, `FakeSpeechTranscriber.kt`, `FakeImageTextExtractor.kt`, `FakeLanguageDetector.kt`, each configurable with the result to return and recording the calls received. Provider client fakes stay in `DATA-TEST/fakes/`
-- [ ] T046 [P] Update `README.md` (OpenRouter key setup and restriction steps from research.md section 6, how to run the live check, where models are configured), `core/network/README.md`, `core/data/README.md`, and `core/domain/README.md` (what each now contains)
+- [X] T045 [P] Create fakes in `core/testing/src/main/kotlin/com/example/alpha_ai/core/testing/ai/`: `FakeGrammarCorrector.kt`, `FakeTranslator.kt`, `FakeSummarizer.kt`, `FakeSpeechTranscriber.kt`, `FakeImageTextExtractor.kt`, `FakeLanguageDetector.kt`, each configurable with the result to return and recording the calls received. Provider client fakes stay in `DATA-TEST/fakes/`
+- [X] T046 [P] Update `README.md` (OpenRouter key setup and restriction steps from research.md section 6, how to run the live check, where models are configured), `core/network/README.md`, `core/data/README.md`, and `core/domain/README.md` (what each now contains)
 - [ ] T047 Run the full gate `./gradlew assembleDebug testDebugUnitTest lintDebug` and fix any new lint warning in changed files. Then **MANUAL** quickstart.md section 6: capture `adb logcat` during a live call and confirm neither key prefix (`sk-or-`, `hf_`) nor the input text appears, and that `core/network/src/release/` holds the no-op logging file (SC-008)
-- [ ] T048 Update `ROADMAP.md`: mark spec 002 done in the progress table with the date; record that Hugging Face is switched off because it is no longer free, that the app runs on 50 OpenRouter requests a day, and that the legacy grammar screen cannot get a live result until spec 006; tick "Every AI request can be cancelled and has a working fallback" only if T041 confirmed a second free audio path, otherwise leave it unticked with a note about speech
+- [X] T048 Update `ROADMAP.md`: mark spec 002 done in the progress table with the date; record that Hugging Face is switched off because it is no longer free, that the app runs on 50 OpenRouter requests a day, and that the legacy grammar screen cannot get a live result until spec 006; tick "Every AI request can be cancelled and has a working fallback" only if T041 confirmed a second free audio path, otherwise leave it unticked with a note about speech
 
 ---
 

@@ -51,11 +51,34 @@ Alpha-AI helps users improve their writing by providing:
 
 1. Copy `local.properties.example` to `local.properties`.
 2. Set `sdk.dir` to your Android SDK path. Android Studio does this for you.
-3. Set `HF_API_TOKEN` to a Hugging Face read token. Without it the app still builds, with one
-   warning, but the AI features fail at run time.
+3. Set `OPENROUTER_API_KEY` to an OpenRouter key that is restricted as described below.
+   Without it the app still builds, with one warning, but the AI layer reports every
+   request as unavailable.
+4. `HF_API_TOKEN` is optional. Hugging Face is switched off in the model configuration,
+   because it no longer serves inference on a free account. Only the old grammar screen
+   still uses this token.
 
-`local.properties` is git-ignored. Never commit a token. In CI or scripts you can pass the
-token as an environment variable or Gradle property named `HF_API_TOKEN` instead.
+`local.properties` is git-ignored. Never commit a key. In CI or scripts you can pass each
+key as an environment variable or Gradle property of the same name instead.
+
+#### Restricting the OpenRouter key
+
+The key ships inside the app, so it must be unable to do anything except use the free daily
+allowance (20 requests a minute, 50 a day):
+
+1. Use an OpenRouter account with no payment method and no credits.
+2. Create a key used only by this app, with a credit limit of 0.
+3. In the privacy settings, turn off free endpoints that publish prompts.
+4. Add a guardrail that limits the key to the free models listed in
+   [docs/ai-models.md](docs/ai-models.md).
+5. Record what you applied, with the date, in that file.
+
+#### AI models
+
+Which model serves each capability is set in two files under
+`core/data/src/main/kotlin/com/example/alpha_ai/core/data/ai/config/` and recorded in
+[docs/ai-models.md](docs/ai-models.md). See [core/data/README.md](core/data/README.md) for
+how to change a model and how to run the opt-in live check.
 
 ### Commands
 

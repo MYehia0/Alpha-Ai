@@ -12,6 +12,7 @@ import com.example.alpha_ai.core.network.ProviderResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import timber.log.Timber
 import javax.inject.Inject
 
 internal class DefaultOpenRouterClient @Inject constructor(
@@ -37,7 +38,12 @@ internal class DefaultOpenRouterClient @Inject constructor(
     }
 }
 
-internal fun AiCredentials.hasToken(provider: AiProvider): Boolean = !tokenFor(provider).isNullOrBlank()
+/** Whether [provider] has a key. A missing key is logged, by provider name only. */
+internal fun AiCredentials.hasToken(provider: AiProvider): Boolean {
+    val present = !tokenFor(provider).isNullOrBlank()
+    if (!present) Timber.tag("AiNetwork").w("no key configured for %s; nothing was sent", provider)
+    return present
+}
 
 /** The stream for a provider with no key: it fails at once and sends nothing. */
 internal fun rejectedStream(): Flow<ChatStreamEvent> =
