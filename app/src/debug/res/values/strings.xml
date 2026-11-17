@@ -3,7 +3,6 @@
     <!-- Component gallery, debug builds only (spec 003). -->
     <string name="gallery_launcher_name">Alpha-AI Gallery</string>
     <string name="gallery_title">Component gallery</string>
-    <string name="gallery_placeholder">This section is not built yet.</string>
 
     <string name="gallery_section_colors">Colors</string>
     <string name="gallery_section_typography">Typography</string>
@@ -16,4 +15,45 @@
     <string name="gallery_section_top_bar">Top bar</string>
     <string name="gallery_section_states">Loading, empty, and error</string>
     <string name="gallery_section_language">Language and direction</string>
+
+    <!-- Samples that must stay in one script whatever the app language. -->
+    <string name="gallery_sample_latin" translatable="false">The quick brown fox jumps over the lazy dog. 0123456789</string>
+    <string name="gallery_sample_arabic" translatable="false">نصٌّ عربيٌّ للتجربة: صحّح أخطاءك النحوية بسهولة. ٠١٢٣٤٥٦٧٨٩</string>
+    <string name="gallery_long_word" translatable="false">Pneumonoultramicroscopicsilicovolcanoconiosis</string>
+    <string name="gallery_long_url" translatable="false">https://example.com/a/very/long/path/that/does/not/break/naturally/anywhere/at/all</string>
+
+    <string name="gallery_contrast">Contrast %1$s:1</string>
+    <string name="gallery_brand_accent">Brand accent: decorative only, never used for text</string>
+    <string name="gallery_motion_play">Play</string>
+    <string name="gallery_reduced_motion_on">Remove animations is on: changes are instant.</string>
+    <string name="gallery_reduced_motion_off">Animations are on.</string>
+
+    <string name="gallery_label_continue">Continue</string>
+    <string name="gallery_label_long">Correct my grammar and then send the result to translation</string>
+    <string name="gallery_busy_demo">Tap to run a 2-second action</string>
+    <string name="gallery_accepted_taps">Accepted taps: %1$d</string>
+
+    <string name="gallery_field_label">Your text</string>
+    <string name="gallery_field_placeholder">Type or paste text</string>
+    <string name="gallery_field_error">Enter at least 3 characters.</string>
+    <string name="gallery_field_long">Long text</string>
+
+    <string name="gallery_card_title">Recent correction</string>
+    <string name="gallery_long_title">A very long screen title that cannot fit on one line</string>
+
+    <string name="gallery_empty_message">No history yet. Your corrected texts will appear here.</string>
+    <string name="gallery_empty_action">Start writing</string>
+    <string name="gallery_run_slow">Run a 2-second task</string>
+    <string name="gallery_run_quick">Run a 0.2-second task</string>
+    <string name="gallery_quick_done">Done, with no loading shown.</string>
+
+    <string name="gallery_locale">Language: %1$s. Direction: %2$s.</string>
+    <string name="gallery_direction_rtl">right to left</string>
+    <string name="gallery_direction_ltr">left to right</string>
+    <string name="gallery_row_start">Start</string>
+    <string name="gallery_row_end">End</string>
+    <string name="gallery_icons_mirror">These icons flip in Arabic:</string>
+    <string name="gallery_icons_fixed">These do not:</string>
+    <string name="gallery_mixed">Use Alpha-AI to correct your text.</string>
+    <string name="gallery_number">Number: %1$s</string>
 </resources>

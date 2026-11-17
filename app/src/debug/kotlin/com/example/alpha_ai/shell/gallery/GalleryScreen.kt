@@ -11,27 +11,34 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.alpha_ai.R
+import com.example.alpha_ai.core.designsystem.component.AlphaTopBar
 import com.example.alpha_ai.core.designsystem.preview.AlphaPreviews
+import com.example.alpha_ai.shell.gallery.sections.ButtonsSection
+import com.example.alpha_ai.shell.gallery.sections.CardsSection
+import com.example.alpha_ai.shell.gallery.sections.ColorsSection
+import com.example.alpha_ai.shell.gallery.sections.LanguageSection
+import com.example.alpha_ai.shell.gallery.sections.MotionSection
+import com.example.alpha_ai.shell.gallery.sections.ShapesSection
+import com.example.alpha_ai.shell.gallery.sections.SpacingSection
+import com.example.alpha_ai.shell.gallery.sections.StatesSection
+import com.example.alpha_ai.shell.gallery.sections.TextFieldsSection
+import com.example.alpha_ai.shell.gallery.sections.TopBarSection
+import com.example.alpha_ai.shell.gallery.sections.TypographySection
 import com.example.alpha_ai.core.designsystem.theme.AlphaTheme
 
 /** The gallery index: one row per section. */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GalleryScreen(onOpenSection: (GallerySection) -> Unit, modifier: Modifier = Modifier) {
     Surface(modifier.fillMaxSize()) {
         Column {
-            TopAppBar(title = { Text(stringResource(R.string.gallery_title), maxLines = 1) })
+            AlphaTopBar(title = stringResource(R.string.gallery_title))
             LazyColumn {
                 items(GallerySection.entries, key = { it.name }) { section ->
                     Text(
@@ -62,17 +69,22 @@ fun GallerySectionScreen(section: GallerySection, onBack: () -> Unit, modifier: 
 }
 
 @Composable
-private fun ColumnScope.SectionContent(section: GallerySection) {
+private fun SectionContent(section: GallerySection) {
     when (section) {
-        else -> Text(
-            text = stringResource(R.string.gallery_placeholder),
-            style = AlphaTheme.typography.bodyMedium,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-        )
+        GallerySection.Colors -> ColorsSection()
+        GallerySection.Typography -> TypographySection()
+        GallerySection.Spacing -> SpacingSection()
+        GallerySection.Shapes -> ShapesSection()
+        GallerySection.Motion -> MotionSection()
+        GallerySection.Buttons -> ButtonsSection()
+        GallerySection.TextFields -> TextFieldsSection()
+        GallerySection.Cards -> CardsSection()
+        GallerySection.TopBar -> TopBarSection()
+        GallerySection.States -> StatesSection()
+        GallerySection.Language -> LanguageSection()
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SectionFrame(
     title: String,
@@ -82,7 +94,7 @@ internal fun SectionFrame(
 ) {
     Surface(modifier.fillMaxSize()) {
         Column {
-            TopAppBar(title = { Text(title, maxLines = 1, style = MaterialTheme.typography.titleLarge) })
+            AlphaTopBar(title = title, onBack = onBack)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -102,6 +114,6 @@ private fun GalleryScreenPreview() {
 
 @AlphaPreviews
 @Composable
-private fun GallerySectionPlaceholderPreview() {
+private fun GallerySectionScreenPreview() {
     AlphaTheme { GallerySectionScreen(section = GallerySection.Cards, onBack = {}) }
 }
