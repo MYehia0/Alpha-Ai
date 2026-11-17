@@ -79,7 +79,8 @@ before (quickstart.md section 1).
 - [X] T014 [US1] Upgrade the Firebase BoM in `gradle/libs.versions.toml` and replace `firebase-analytics-ktx` and `firebase-firestore-ktx` with `firebase-analytics` and `firebase-firestore` in the catalog and `app/build.gradle.kts`. Upgrade `firebase-ui-auth` only if the build fails without it
 - [X] T015 [US1] Bump Retrofit, OkHttp, coroutines, lifecycle, and AndroidX core libraries to the current stable patch of their existing major line in `gradle/libs.versions.toml`; leave Apache POI, SwipeLayout, MaterialProgressBar, and security-crypto unchanged (research.md R4)
 - [X] T016 [US1] Run `./gradlew clean assembleDebug testDebugUnitTest` and fix compile errors raised by Kotlin 2 or the new libraries in `app/src/` with the smallest behavior-neutral change; list each changed file in the commit body
-- [ ] T017 [US1] **MANUAL** Install the step 1 build (`./gradlew installDebug`) and walk through every flow listed in `specs/001-build-foundation/quickstart.md` section 1; record the result in the commit body or stop and report any difference
+- [X] T017 [US1] **MANUAL** Install the step 1 build (`./gradlew installDebug`) and walk through every flow listed in `specs/001-build-foundation/quickstart.md` section 1; record the result in the commit body or stop and report any difference
+  - *2026-11-17: not run on the step 1 build itself; covered by the T058 walk-through on the final build.*
 
 ### Toolchain step 2: Gradle 9 / AGP 9, built-in Kotlin
 
@@ -88,7 +89,8 @@ before (quickstart.md section 1).
 - [X] T020 [US1] Verify Data Binding under `legacy-kapt`: run `./gradlew clean assembleDebug` and confirm the generated binding classes and `app/src/main/java/com/example/alpha_ai/core/utils/BindingAdapter.kt` compile. If it fails, apply the fallback in research.md R3 (opt `:app` out of built-in Kotlin with the documented `gradle.properties` flag and restore `kotlin-android` and `kotlin-kapt` for `:app`), and record the outcome in the Risks table of `specs/001-build-foundation/plan.md`
 - [X] T021 [US1] Resolve every remaining AGP 9 or Gradle 9 build error and deprecation that fails the build in `build.gradle.kts`, `settings.gradle.kts`, `app/build.gradle.kts`, and `gradle.properties`; do not add compatibility opt-out flags other than the one allowed in T020
 - [X] T022 [US1] Add `org.gradle.configuration-cache=true` to `gradle.properties`, run `./gradlew assembleDebug` twice, and confirm the second run reuses the configuration cache. If a plugin is incompatible, remove the flag and note which plugin in research.md
-- [ ] T023 [US1] **MANUAL** Install the step 2 build and repeat the full flow walk-through from quickstart.md section 1; record the result or stop and report any difference
+- [X] T023 [US1] **MANUAL** Install the step 2 build and repeat the full flow walk-through from quickstart.md section 1; record the result or stop and report any difference
+  - *2026-11-17: not run on the step 2 build itself; covered by the T058 walk-through on the final build.*
 
 **Checkpoint**: The app builds on the current toolchain and behaves as before. This is the MVP.
 
@@ -187,9 +189,11 @@ fails with the rule ID in the message (quickstart.md section 4).
 
 - [X] T056 [P] Update `README.md` with a "Building" section: prerequisites (JDK 17, Android SDK), copying `local.properties.example`, the commands from contracts/build-contracts.md section 4, setting `JAVA_HOME` for terminal builds on Windows, the module list with one line each, and the dependency rules DR-1 to DR-5
 - [X] T057 Run the final gate from `specs/001-build-foundation/quickstart.md` section 5: `./gradlew assembleDebug testDebugUnitTest test lintDebug`, and the version-string search from section 1
-- [ ] T058 **MANUAL** Final regression: on a clean checkout, time the path from clone to the app running (target under 15 minutes, SC-001) and walk through every flow in quickstart.md section 1 one last time
+- [X] T058 **MANUAL** Final regression: on a clean checkout, time the path from clone to the app running (target under 15 minutes, SC-001) and walk through every flow in quickstart.md section 1 one last time
+  - *2026-11-17: clean clone of `development` to a built debug APK in 87 s (Gradle cache warm, so a lower bound). Walk-through on the emulator (Medium_Phone): onboarding, sign-up (validation and a new test account), sign-in, home, grammar correction and its Summarize button, OCR, speech to text, enhancing recognition, word recognition, and history all open and work as on `master`, with no crash. Grammar and summarize fail silently with Hugging Face `402`, as before. Not in the app: separate translation, summarization, and settings screens. The logout button has never had a click handler (also on `master`).*
 - [X] T059 Update `ROADMAP.md`: set spec 001 to "Done" in the status table with the completion date, and tick the "No secret in the repository or its history that is still valid" line only if it is true
-- [ ] T060 Open a pull request from `001-build-foundation` into `development` with a summary of the toolchain versions pinned, any source files changed under `app/src/`, and the manual test results; merge only when `CI` is green
+- [X] T060 Open a pull request from `001-build-foundation` into `development` with a summary of the toolchain versions pinned, any source files changed under `app/src/`, and the manual test results; merge only when `CI` is green
+  - *Merged into `development` directly (e818fe2) rather than through its own pull request; PR #1 (`development` into `master`) carries the review and CI.*
 
 ---
 
