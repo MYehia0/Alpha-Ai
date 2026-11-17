@@ -8,6 +8,15 @@
 
 **Input**: User description: "Define the look and feel of Alpha-AI and the frame every screen lives in: colors, typography, spacing, shapes, motion, and the shared components (buttons, text fields, cards, top bar, loading, empty, and error states). Support light and dark themes, Arabic and English with correct right-to-left layout, and large font sizes. Provide one navigation frame that later screens plug into."
 
+## Clarifications
+
+### Session 2026-11-17
+
+- Q: Which blue should Alpha-AI use where text sits on the brand color? → A: The darker brand blue #1976D2 (white text on it passes WCAG AA); #2196F3 stays for accents, icons, and the logo.
+- Q: Which typeface should Alpha-AI use, given that Inter has no Arabic letters? → A: IBM Plex Sans Arabic, one family for both Arabic and Latin text.
+- Q: Should users pick Arabic or English inside the app, or should it follow the phone's language? → A: Follow the phone's language in this spec (including the system per-app language setting where the device offers one); the in-app choice is added by spec 005.
+- Q: Should the app recolor itself to match the user's wallpaper on newer Android versions? → A: No; it always uses the Alpha-AI palette so the brand and the tested contrast stay the same on every phone.
+
 ## User Scenarios & Testing *(mandatory)*
 
 This feature has two audiences. People using Alpha-AI see one consistent, readable app in their
@@ -177,13 +186,17 @@ and use system back to leave it.
 **Visual language**
 
 - **FR-001**: The app MUST have one defined color palette, with a named role for each color
-  (for example primary, on-primary, surface, error), in a light and a dark variant. Alpha-AI's
-  brand blue MUST remain the primary color.
+  (for example primary, on-primary, surface, error), in a light and a dark variant. In the
+  light theme the primary color MUST be the darker brand blue #1976D2, used wherever text or
+  icons sit on the brand color; the lighter brand blue #2196F3 MAY be used only for accents,
+  decorative icons, and the logo, never behind text. The app MUST always use this palette and
+  MUST NOT take its colors from the user's wallpaper.
 - **FR-002**: Every pair of foreground and background colors defined for use together MUST meet
   WCAG AA contrast in both themes.
 - **FR-003**: The app MUST have one typography scale (display, headline, title, body, and label
-  sizes) using a typeface that renders Arabic and Latin letters with matching weight and
-  height, so mixed Arabic and English text looks like one family.
+  sizes) using one typeface, IBM Plex Sans Arabic, for both Arabic and Latin letters, so mixed
+  Arabic and English text looks like one family. The typeface MUST be bundled with the app so
+  it looks the same on every device and works offline.
 - **FR-004**: The app MUST have one spacing scale and one shape (corner rounding) scale that all
   components use. Screens MUST NOT need values outside these scales.
 - **FR-005**: The app MUST have a small set of named motion styles (durations and easing) for
@@ -193,9 +206,10 @@ and use system back to leave it.
 
 **Language, direction, and text size**
 
-- **FR-007**: The app MUST follow the device language for Arabic and English and fall back to
-  English for any other language. The design MUST also allow a later spec (005, settings) to let
-  the user choose the language and theme inside the app.
+- **FR-007**: The app MUST follow the device language for Arabic and English, and MUST honor the
+  system's per-app language setting on devices that offer one; any other language falls back
+  to English. This spec adds no in-app language or theme switch, but the design MUST let spec
+  005 (settings) add one without changing existing screens.
 - **FR-008**: Layout MUST mirror for Arabic: reading order, alignment, the order of items in a
   row, and directional icons. Icons that do not imply direction (for example a microphone) MUST
   NOT mirror.
@@ -275,10 +289,12 @@ and use system back to leave it.
 
 ## Assumptions
 
-- The brand stays recognizably Alpha-AI: its current blue (#2196F3 and its darker variant) stays
-  the primary color, and the logo is unchanged. A full rebrand is out of scope.
-- The current typeface (Inter) has no Arabic letters. A typeface family that covers both Arabic
-  and Latin, free to use and bundle in the app, will be chosen during planning.
+- The brand stays recognizably Alpha-AI: its blues (#1976D2 as primary, #2196F3 as accent) and
+  the logo are unchanged. A full rebrand is out of scope. The dark theme's primary is a lighter
+  tint of the same blue, chosen in planning to pass contrast on dark surfaces.
+- The current typeface (Inter) has no Arabic letters, so it is replaced by IBM Plex Sans Arabic
+  (free to bundle under the SIL Open Font License) in the new design system. Legacy screens
+  keep Inter until their own specs migrate them.
 - The app follows the device language and theme in this feature. The in-app language and theme
   choice belongs to spec 005 (home and settings); this feature only makes it possible.
 - Existing screens are not restyled in this feature. Each one adopts the new design when its own
