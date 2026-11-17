@@ -50,6 +50,12 @@
         <activity
             android:name=".ui.auth.register.RegisterActivity"
             android:exported="false" />
+        <!-- The Compose frame (spec 003). Not exported: SplashActivity stays the launcher until
+             spec 004. Debug builds add a gallery launcher alias in src/debug. -->
+        <activity
+            android:name=".shell.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AlphaAi.Compose" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">

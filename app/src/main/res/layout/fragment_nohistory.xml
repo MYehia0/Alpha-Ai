@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Not Found"
+            android:text="@string/not_found"
             android:textSize="16sp"
             android:textColor="@color/gray"
             android:textStyle="bold"

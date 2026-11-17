@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <!-- Debug only: a second launcher icon that opens the component gallery (FR-017).
+             Release builds have no such entry (FR-022). -->
+        <activity-alias
+            android:name=".GalleryLauncher"
+            android:exported="true"
+            android:label="@string/gallery_launcher_name"
+            android:targetActivity="com.example.alpha_ai.shell.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+
+</manifest>

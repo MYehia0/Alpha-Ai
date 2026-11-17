@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery_launcher_name">معرض Alpha-AI</string>
+    <string name="gallery_title">معرض المكوّنات</string>
+
+    <string name="gallery_section_colors">الألوان</string>
+    <string name="gallery_section_typography">الخطوط</string>
+    <string name="gallery_section_spacing">المسافات</string>
+    <string name="gallery_section_shapes">الأشكال</string>
+    <string name="gallery_section_motion">الحركة</string>
+    <string name="gallery_section_buttons">الأزرار</string>
+    <string name="gallery_section_text_fields">حقول النص</string>
+    <string name="gallery_section_cards">البطاقات</string>
+    <string name="gallery_section_top_bar">الشريط العلوي</string>
+    <string name="gallery_section_states">التحميل والفراغ والخطأ</string>
+    <string name="gallery_section_language">اللغة والاتجاه</string>
+
+    <string name="gallery_contrast">التباين %1$s:1</string>
+    <string name="gallery_brand_accent">لون العلامة الثانوي: للزينة فقط، ولا يُستخدم للنص أبدًا</string>
+    <string name="gallery_motion_play">تشغيل</string>
+    <string name="gallery_reduced_motion_on">خيار إزالة الرسوم المتحركة مفعّل: تحدث التغييرات فورًا.</string>
+    <string name="gallery_reduced_motion_off">الرسوم المتحركة مفعّلة.</string>
+
+    <string name="gallery_label_continue">متابعة</string>
+    <string name="gallery_label_long">صحّح قواعد نصي ثم أرسل النتيجة إلى الترجمة</string>
+    <string name="gallery_busy_demo">اضغط لتشغيل إجراء مدته ثانيتان</string>
+    <string name="gallery_accepted_taps">الضغطات المقبولة: %1$d</string>
+
+    <string name="gallery_field_label">نصك</string>
+    <string name="gallery_field_placeholder">اكتب النص أو الصقه</string>
+    <string name="gallery_field_error">أدخل ثلاثة أحرف على الأقل.</string>
+    <string name="gallery_field_long">نص طويل</string>
+
+    <string name="gallery_card_title">آخر تصحيح</string>
+    <string name="gallery_long_title">عنوان شاشة طويل جدًا لا يتسع في سطر واحد</string>
+
+    <string name="gallery_empty_message">لا يوجد سجل بعد. ستظهر نصوصك المصححة هنا.</string>
+    <string name="gallery_empty_action">ابدأ الكتابة</string>
+    <string name="gallery_run_slow">شغّل مهمة مدتها ثانيتان</string>
+    <string name="gallery_run_quick">شغّل مهمة مدتها 0.2 ثانية</string>
+    <string name="gallery_quick_done">تمت، دون عرض التحميل.</string>
+
+    <string name="gallery_locale">اللغة: %1$s. الاتجاه: %2$s.</string>
+    <string name="gallery_direction_rtl">من اليمين إلى اليسار</string>
+    <string name="gallery_direction_ltr">من اليسار إلى اليمين</string>
+    <string name="gallery_row_start">البداية</string>
+    <string name="gallery_row_end">النهاية</string>
+    <string name="gallery_icons_mirror">هذه الأيقونات تنعكس في العربية:</string>
+    <string name="gallery_icons_fixed">وهذه لا تنعكس:</string>
+    <string name="gallery_mixed">استخدم Alpha-AI لتصحيح النص.</string>
+    <string name="gallery_number">رقم: %1$s</string>
+</resources>

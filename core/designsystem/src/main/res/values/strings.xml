@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared component texts (spec 003). -->
+    <string name="ds_back">Back</string>
+    <string name="ds_retry">Retry</string>
+    <string name="ds_cancel">Cancel</string>
+    <string name="ds_loading">Loading</string>
+    <!-- A button label read by screen readers while its action runs. %1$s is the label. -->
+    <string name="ds_in_progress">%1$s, in progress</string>
+    <!-- Characters typed out of the limit, for example 120 / 500. -->
+    <string name="ds_char_count">%1$d / %2$d</string>
+</resources>

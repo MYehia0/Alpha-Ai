@@ -60,7 +60,7 @@
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:text="Delete"
+                        android:text="@string/delete"
                         />
 
 

@@ -8,6 +8,7 @@ plugins {
     // Data Binding has no KSP processor, so kapt stays in this module only.
     alias(libs.plugins.android.legacy.kapt)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 // Secrets never live in tracked files. Each key is resolved from, in order: a Gradle
@@ -74,6 +75,11 @@ android {
         }
     }
 
+    androidResources {
+        // Lists English and Arabic in the system per-app language screen (Android 13+).
+        generateLocaleConfig = true
+    }
+
     lint {
         // Existing findings are recorded in the baseline; only new ones fail the build.
         baseline = file("lint-baseline.xml")
@@ -87,6 +93,15 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.network)
     implementation(projects.core.data)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
+
+    // App shell (spec 003)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.kotlinx.serialization.json)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
@@ -138,4 +153,9 @@ dependencies {
 // kapt remains only for Data Binding, which has no KSP processor.
 kapt {
     correctErrorTypes = true
+}
+
+// StringsParityTest reads resource files from every module.
+tasks.withType<Test>().configureEach {
+    systemProperty("rootDir", rootDir.path)
 }

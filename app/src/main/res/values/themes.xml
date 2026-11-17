@@ -19,4 +19,11 @@
         <item name="fontFamily">@font/app_font_family</item>
     </style>
 
+    <!-- Window theme for MainActivity (Compose). Compose draws everything; this only sets the
+         window colour so there is no flash before the first frame. Legacy screens keep
+         Theme.AlphaAi. -->
+    <style name="Theme.AlphaAi.Compose" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/shell_window_background</item>
+    </style>
+
 </resources>
