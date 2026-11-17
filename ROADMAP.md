@@ -4,7 +4,7 @@ A spec-driven plan for turning Alpha-AI from a graduation project into a product
 Android app. Each numbered spec below is one pass through the Spec Kit workflow and one merge
 into `development`.
 
-The rules every spec must follow are in `.specify/memory/constitution.md` (version 2.1.0).
+The rules every spec must follow are in `.specify/memory/constitution.md` (version 2.2.0).
 
 ---
 
