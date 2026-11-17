@@ -21,6 +21,15 @@ data class AlphaSpacing(
     val xxxl: Dp = 48.dp,
     /** The smallest size of anything the user can tap (constitution VI). */
     val minTouchTarget: Dp = 48.dp,
+    /** Icon and indicator sizes: inside a button, standard, and in an empty or error state. */
+    val iconSmall: Dp = 18.dp,
+    val iconMedium: Dp = 24.dp,
+    val iconLarge: Dp = 48.dp,
+    /** Border and indicator stroke widths. */
+    val borderThin: Dp = 1.dp,
+    val strokeThin: Dp = 2.dp,
+    /** The widest a single column of content grows on large screens. */
+    val maxContentWidth: Dp = 600.dp,
 )
 
 internal val LocalAlphaSpacing = staticCompositionLocalOf { AlphaSpacing() }
