@@ -164,6 +164,11 @@ translating only the new strings (fails FR-009 and SC-005).
 **Rationale**: Material 3 does not include icons. The core set is small; the extended set (a
 very large artifact) is not needed.
 
+**Note**: the library is frozen at 1.7.8, which the Compose BOM 2026.09.00 still resolves; it gets
+no new icons. The core set has what this spec uses (`ArrowBack`, `KeyboardArrowRight`,
+`Settings`, `Search`, `Close`, `Refresh`, `Info`, `Warning`). It does **not** have `Mic`; a
+later spec that needs more icons adds them as vector drawables rather than the extended set.
+
 ## 10. Verification of the gallery
 
 **Decision**: every component has `@Preview`s for its states, grouped by a multi-preview

@@ -229,7 +229,8 @@ and use system back to leave it.
   message MUST be announced by screen readers. Multi-line fields MUST grow up to a limit, then
   scroll, and MUST be able to show a character count.
 - **FR-014**: The loading state MUST be able to offer a cancel action, and MUST NOT appear for
-  operations that finish in under about half a second.
+  operations that finish in under 400 milliseconds. Once shown, it MUST stay visible for at
+  least 500 milliseconds so it does not flash.
 - **FR-015**: The error state MUST show a localized message for every failure type the AI layer
   reports (spec 002) and MUST offer retry only for failures that can be retried.
 - **FR-016**: Every interactive component MUST have a touch target of at least 48 by 48
@@ -239,8 +240,9 @@ and use system back to leave it.
 
 **App frame**
 
-- **FR-018**: The app MUST have one frame that hosts new screens, with one consistent top bar
-  and one consistent way to move between screens. New screens MUST be added to the frame
+- **FR-018**: The app MUST have one frame that hosts new screens and one consistent way to move
+  between them. The frame provides one shared top bar component that every screen in it uses,
+  so titles and back look and behave the same everywhere. New screens MUST be added to the frame
   without changing other screens.
 - **FR-019**: System back MUST behave predictably in the frame: it returns to the previous
   screen, and from the frame's first screen it leaves as the app did before.
@@ -260,8 +262,9 @@ and use system back to leave it.
   with normal, pressed, disabled, busy) that reads only from the design tokens.
 - **Screen state presentation**: the shared way a screen shows that it is loading, empty, in
   error, or showing content.
-- **App frame**: the single container that hosts screens, owns the top bar and moving between
-  screens, and keeps the current screen across rotation and restore.
+- **App frame**: the single container that hosts screens, owns moving between screens, provides
+  the shared top bar every screen uses, and keeps the current screen across rotation and
+  restore.
 - **Destination**: a screen the frame can show, identified so that later specs can add their own
   without editing others.
 

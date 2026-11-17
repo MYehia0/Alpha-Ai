@@ -121,7 +121,7 @@ back uses `Icons.AutoMirrored.Filled.ArrowBack` with the localized "Back" descri
 ScreenState<T>
 ├── Loading(cancellable: Boolean)
 ├── Empty(messageRes: Int, actionLabelRes: Int?)
-├── Error(failure: AiFailure?, messageRes: Int, retryable: Boolean)
+├── Error(messageRes: Int, retryable: Boolean)
 └── Content(value: T)
 ```
 
@@ -139,8 +139,9 @@ The visual blocks `AlphaLoadingState`, `AlphaEmptyState`, `AlphaErrorState` live
 
 ### Loading visibility
 
-`loadingVisibility(elapsedMs, shownForMs, finished)`: hidden before 400 ms; once shown, stays at
-least 500 ms after `finished` (FR-014, edge case). Pure function, JVM-tested.
+`loadingVisible(elapsedMs, shownAtMs, finished, finishedAtMs)`: hidden before 400 ms; once shown,
+stays visible until at least 500 ms after `shownAtMs`, even when finished (FR-014, edge case).
+Pure function, JVM-tested.
 
 ## 3. Navigation (`:app`, package `…alpha_ai.shell`)
 
