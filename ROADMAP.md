@@ -139,6 +139,11 @@ Nothing user-visible changes in this phase. It builds what every later spec depe
   configuration is remote (for example Firebase Remote Config) or bundled.
 - **Done when:** each capability interface has a tested implementation and a tested fallback;
   the old `ApiManager` still works for screens not yet migrated.
+- **Outcome (2026-11-17):** keys ship in the app, restricted on the provider side; model
+  configuration is bundled, with a hook for a remote source later. Hugging Face is switched
+  off because it is no longer free, so the app runs on OpenRouter's free allowance of 50
+  requests a day. The old grammar screen still calls Hugging Face through `ApiManager` and
+  cannot get a live result until spec 006 moves it to the new layer.
 
 #### 003 — Design system and app shell
 
@@ -307,7 +312,7 @@ The project is production ready when all of these are true.
 - [ ] Full Arabic and English UI with correct right-to-left layout
 - [ ] Light and dark themes; font scaling up to 200%
 - [ ] TalkBack can complete every flow
-- [ ] Every AI request can be cancelled and has a working fallback
+- [ ] Every AI request can be cancelled and has a working fallback (spec 002: done for text and image; speech recognition needs $0.50 of OpenRouter credit or an on-device recognizer, see `docs/ai-models.md`)
 
 **Release**
 - [ ] Real application ID, signed bundle, version scheme
@@ -325,7 +330,7 @@ Update this table as each spec is merged.
 |---|---|---|---|
 | — | Phase 0 manual steps | Done | |
 | 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Full manual walk-through on a device still to do |
-| 002 | AI provider layer | Not started | |
+| 002 | AI provider layer | Built, unit-tested, and checked against live models on 2026-11-17; not merged. Before release the key needs its credit limit and guardrail set (`docs/ai-models.md`) | |
 | 003 | Design system and app shell | Not started | |
 | 004 | Onboarding and authentication | Not started | |
 | 005 | Home and settings | Not started | |

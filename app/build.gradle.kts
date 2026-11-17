@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-// Secrets never live in tracked files. HF_API_TOKEN is resolved from, in order: a Gradle
+// Secrets never live in tracked files. Each key is resolved from, in order: a Gradle
 // property, an environment variable, then the git-ignored local.properties.
 val localProperties = Properties().apply {
     val localPropertiesFile = rootProject.file("local.properties")
@@ -18,17 +18,27 @@ val localProperties = Properties().apply {
         FileInputStream(localPropertiesFile).use { load(it) }
     }
 }
-val hfApiToken: String = providers.gradleProperty("HF_API_TOKEN")
-    .orElse(providers.environmentVariable("HF_API_TOKEN"))
+fun secret(name: String): String = providers.gradleProperty(name)
+    .orElse(providers.environmentVariable(name))
     .orNull
-    ?: localProperties.getProperty("HF_API_TOKEN", "")
+    ?: localProperties.getProperty(name, "")
 
-if (hfApiToken.isBlank()) {
+val hfApiToken: String = secret("HF_API_TOKEN")
+val openRouterApiKey: String = secret("OPENROUTER_API_KEY")
+
+val missingKeys: List<String> =
+    listOf("HF_API_TOKEN" to hfApiToken, "OPENROUTER_API_KEY" to openRouterApiKey)
+        .filter { it.second.isBlank() }
+        .map { it.first }
+
+if (missingKeys.isNotEmpty()) {
+    val missingKeysText = missingKeys.joinToString(" and ")
     tasks.named("preBuild") {
         doFirst {
             logger.warn(
-                "HF_API_TOKEN is not set. Add it to local.properties " +
-                    "(see local.properties.example). AI features will fail at run time."
+                "$missingKeysText not set. Add to local.properties " +
+                    "(see local.properties.example). AI features that need a missing key " +
+                    "will fail at run time."
             )
         }
     }
@@ -49,6 +59,7 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "HF_API_TOKEN", "\"$hfApiToken\"")
+        buildConfigField("String", "OPENROUTER_API_KEY", "\"$openRouterApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -70,6 +81,13 @@ android {
 }
 
 dependencies {
+    // Shared modules. The AI layer is reached through :core:domain; :core:data and
+    // :core:network are here so Hilt can see their bindings.
+    implementation(projects.core.common)
+    implementation(projects.core.domain)
+    implementation(projects.core.network)
+    implementation(projects.core.data)
+
     // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

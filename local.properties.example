@@ -5,3 +5,7 @@ sdk.dir=/path/to/Android/Sdk
 
 # Hugging Face access token (read). Create one at https://huggingface.co/settings/tokens
 HF_API_TOKEN=hf_your_token_here
+
+# OpenRouter API key for free models. Create one at https://openrouter.ai/keys with a
+# credit limit of 0 (see README).
+OPENROUTER_API_KEY=sk-or-your_key_here
