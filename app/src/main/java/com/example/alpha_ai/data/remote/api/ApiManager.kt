@@ -1,6 +1,7 @@
 package com.example.alpha_ai.data.remote.api
 
 import android.content.Context
+import com.example.alpha_ai.BuildConfig
 import com.example.alpha_ai.core.common.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -26,8 +27,11 @@ class ApiManager private constructor(context: Context) {
     private val responseHandler = NetworkResponseHandler()
 
     init {
+        // Bodies hold user text and headers hold the provider token, so only the request line
+        // is logged, and only in debug builds (constitution Principle VII).
         val logging = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
+            redactHeader("Authorization")
         }
 
         val httpClient = OkHttpClient.Builder()
