@@ -28,6 +28,7 @@ internal class TextTaskRunner @Inject constructor(
     /**
      * @param input the user's text, already validated
      * @param expected the language the result must be in
+     * @param reminder the fixed reminder of the task, sent after the user's text
      */
     suspend fun run(
         capability: Capability,
@@ -35,13 +36,14 @@ internal class TextTaskRunner @Inject constructor(
         input: String,
         systemPrompt: String,
         expected: Language,
+        reminder: String,
     ): AiResult<String> =
         runner.run(capability) { choice ->
             val reply = invoker.chat(
                 choice = choice,
                 systemPrompt = systemPrompt,
                 // The user's text is the whole of its own message, never part of the instruction.
-                content = listOf(ContentPart.Text(Prompts.wrap(input))),
+                content = listOf(ContentPart.Text(Prompts.wrap(input, reminder))),
                 maxTokens = maxTokensFor(task, input),
                 temperature = temperatureFor(task),
             )
@@ -67,6 +69,7 @@ internal class TextTaskRunner @Inject constructor(
         input: String,
         systemPrompt: String,
         expected: Language,
+        reminder: String,
     ): Flow<TextStreamEvent> =
         streamingRunner.run(
             capability = capability,
@@ -74,7 +77,7 @@ internal class TextTaskRunner @Inject constructor(
                 invoker.chatStream(
                     choice = choice,
                     systemPrompt = systemPrompt,
-                    content = listOf(ContentPart.Text(Prompts.wrap(input))),
+                    content = listOf(ContentPart.Text(Prompts.wrap(input, reminder))),
                     maxTokens = maxTokensFor(task, input),
                     temperature = temperatureFor(task),
                 )
@@ -90,14 +93,16 @@ internal class TextTaskRunner @Inject constructor(
     private fun maxTokensFor(task: TextTask, input: String): Int {
         // A token is rarely shorter than one character, so the character count is a safe
         // ceiling for a result about as long as the input. The margin leaves room for models
-        // that think before answering.
+        // that reason before answering: on 2026-11-17 one used about 500 tokens of reasoning
+        // for a 100-character translation, which a 512 margin cut off. Free models cost
+        // nothing per token, so the margin is generous.
         val expectedChars = if (task == TextTask.SUMMARY) input.length / 2 else input.length
         return (expectedChars + TOKEN_MARGIN).coerceAtMost(MAX_TOKENS_CEILING)
     }
 
     private companion object {
         const val SUMMARY_TEMPERATURE = 0.2
-        const val TOKEN_MARGIN = 512
+        const val TOKEN_MARGIN = 2_048
         const val MAX_TOKENS_CEILING = 12_000
     }
 }

@@ -11,17 +11,18 @@ import com.example.alpha_ai.core.network.AiProvider
  * ranks are unique within a capability across both provider files.
  * See specs/002-ai-provider-layer/contracts/model-configuration.md.
  *
- * The order below is provisional until the comparison recorded in docs/ai-models.md is run.
- * The first two choices of a capability are served by different upstream hosts (Google and
- * Nvidia), so one host's outage does not take the capability down. The free router is last:
- * it picks any free model that is available, which covers a named model being withdrawn.
+ * The order was measured on 2026-11-17 (docs/ai-models.md). For text, the first two choices
+ * are served by different upstream hosts (Nvidia and Google), so one host's outage does not
+ * take the capability down. Gemma's shared free pool was busy on nearly every attempt that
+ * day; a busy model fails in under a second, so it costs little as the second try. For image
+ * text, the free router comes before Nemotron VL, which misread the Arabic samples.
  */
 internal val OpenRouterModels: ProviderModels = run {
     fun choice(modelId: String, rank: Int) = ModelChoice(AiProvider.OPENROUTER, modelId, rank)
 
     val text = listOf(
-        choice("google/gemma-4-31b-it:free", rank = 10),
-        choice("nvidia/nemotron-3-ultra-550b-a55b:free", rank = 20),
+        choice("nvidia/nemotron-3-ultra-550b-a55b:free", rank = 10),
+        choice("google/gemma-4-31b-it:free", rank = 20),
         choice(OPENROUTER_FREE_ROUTER, rank = 30),
     )
 
@@ -34,10 +35,13 @@ internal val OpenRouterModels: ProviderModels = run {
             Capability.SUMMARIZATION to text,
             Capability.IMAGE_TEXT to listOf(
                 choice("google/gemma-4-31b-it:free", rank = 10),
-                choice("nvidia/nemotron-3.5-super-vl:free", rank = 20),
-                choice(OPENROUTER_FREE_ROUTER, rank = 30),
+                choice(OPENROUTER_FREE_ROUTER, rank = 20),
+                // Exact on English; misread the Arabic samples.
+                choice("nvidia/nemotron-3.5-super-vl:free", rank = 30),
             ),
-            // The only free model that accepts audio.
+            // The only free model that accepts audio. OpenRouter refuses any audio request
+            // unless the account holds at least $0.50 of credit (measured 2026-11-17), so on
+            // a zero-credit account this capability always reports ServiceUnavailable.
             Capability.SPEECH to listOf(
                 choice("nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free", rank = 10),
             ),

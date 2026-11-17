@@ -9,10 +9,15 @@ import com.example.alpha_ai.core.domain.ai.Language
  * User content is never placed in these strings. It travels as a separate user message,
  * wrapped by [wrap], and every instruction tells the model to treat that message as material
  * to work on and never as instructions.
+ *
+ * Version 2 repeats the task after the content (a fixed sentence, never user text). Measured
+ * on 2026-11-17: without it, a model with reasoning turned off obeyed an instruction hidden
+ * in the text; with it, the same model translated the instruction and spent about half as
+ * many reasoning tokens.
  */
 internal object Prompts {
 
-    const val VERSION = 1
+    const val VERSION = 2
 
     /** What a model must answer when an image has no text or a clip has no speech. */
     const val NONE_TOKEN = "[[NONE]]"
@@ -28,7 +33,18 @@ internal object Prompts {
     private const val BARE_OUTPUT_RULE =
         "Reply with the result only: no explanation, no notes, no quotation marks, no tags."
 
-    fun wrap(text: String): String = "$CONTENT_OPEN\n$text\n$CONTENT_CLOSE"
+    /** The user message: the [text] in content tags, then the fixed [task] reminder if given. */
+    fun wrap(text: String, task: String? = null): String =
+        "$CONTENT_OPEN\n$text\n$CONTENT_CLOSE" + task?.let { "\n\n$it" }.orEmpty()
+
+    fun grammarTask(language: Language): String =
+        "Correct the ${language.label} text between the content tags."
+
+    fun translationTask(to: Language): String =
+        "Translate all of the text between the content tags into ${to.label}."
+
+    fun summaryTask(language: Language): String =
+        "Summarize the ${language.label} text between the content tags."
 
     fun grammar(language: Language): String =
         "You correct ${language.label} text. Fix grammar, spelling, and punctuation mistakes. " +

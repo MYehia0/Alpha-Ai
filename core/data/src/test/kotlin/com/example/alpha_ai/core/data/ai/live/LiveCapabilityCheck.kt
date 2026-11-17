@@ -79,9 +79,11 @@ class LiveCapabilityCheck {
     fun setUp() {
         assumeTrue("live check not requested (-PliveAi)", System.getProperty("liveAi") == "true")
         assumeTrue("OPENROUTER_API_KEY is not set", key != null)
-        // Record which model answered, from the layer's own diagnostics.
+        // Print the layer's diagnostics (they hold no input, output, or key) and record which
+        // model answered.
         Timber.plant(object : Timber.Tree() {
             override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+                if (tag == AiDiagnostics.LOG_TAG || tag == "AiNetwork" || tag == "AiConfig") println("[$tag] $message")
                 if (tag == AiDiagnostics.LOG_TAG && "outcome=SUCCESS" in message) {
                     answeredBy = message.substringAfter("model=").substringBefore(' ')
                 }

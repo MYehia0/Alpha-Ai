@@ -30,6 +30,7 @@ internal class DefaultGrammarCorrector @Inject constructor(
                 input = text.trim(),
                 systemPrompt = Prompts.grammar(check.value),
                 expected = check.value,
+                reminder = Prompts.grammarTask(check.value),
             )
         }
 
@@ -42,6 +43,7 @@ internal class DefaultGrammarCorrector @Inject constructor(
                 input = text.trim(),
                 systemPrompt = Prompts.grammar(check.value),
                 expected = check.value,
+                reminder = Prompts.grammarTask(check.value),
             )
         }
 }
@@ -59,6 +61,7 @@ internal class DefaultTranslator @Inject constructor(
                 input = text.trim(),
                 systemPrompt = Prompts.translation(from, to),
                 expected = to,
+                reminder = Prompts.translationTask(to),
             )
         }
 
@@ -71,6 +74,7 @@ internal class DefaultTranslator @Inject constructor(
                 input = text.trim(),
                 systemPrompt = Prompts.translation(from, to),
                 expected = to,
+                reminder = Prompts.translationTask(to),
             )
         }
 }
@@ -88,6 +92,7 @@ internal class DefaultSummarizer @Inject constructor(
                 input = text.trim(),
                 systemPrompt = Prompts.summary(check.value),
                 expected = check.value,
+                reminder = Prompts.summaryTask(check.value),
             )
         }
 
@@ -100,6 +105,7 @@ internal class DefaultSummarizer @Inject constructor(
                 input = text.trim(),
                 systemPrompt = Prompts.summary(check.value),
                 expected = check.value,
+                reminder = Prompts.summaryTask(check.value),
             )
         }
 }
