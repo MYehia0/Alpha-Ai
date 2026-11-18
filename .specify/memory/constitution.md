@@ -126,6 +126,11 @@ feedback are how the app shows it is working during slow model calls.
   to the AI provider keys covered by Principle X.
 - Auth tokens and persisted credentials MUST be encrypted with a key held in the Android
   Keystore. Passwords MUST NOT be persisted.
+- Exception: a session token that an approved backend SDK (Firebase Auth) stores and refreshes
+  itself, with no supported way to supply custom storage, MAY stay in that SDK's app-private
+  storage, provided the app never copies it, the storage is excluded from backup and device
+  transfer, and sign-out clears it. Every token or credential the app stores itself remains
+  subject to the rule above.
 - All network traffic MUST use HTTPS. Cleartext traffic MUST be disabled through the network
   security configuration.
 - Release builds MUST enable R8 minification and resource shrinking, MUST NOT be debuggable,
@@ -264,4 +269,4 @@ without tying product quality to any single model.
   it, and legacy code for that screen MUST be deleted in the same change.
 - `README.md` is the runtime guidance document for project status and stack overview.
 
-**Version**: 2.2.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-17
+**Version**: 2.3.0 | **Ratified**: 2026-11-15 | **Last Amended**: 2026-11-18
