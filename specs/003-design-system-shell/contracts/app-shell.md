@@ -4,10 +4,12 @@ How screens plug into the single-activity frame. Spec 004 is the first consumer.
 
 ## Entry points
 
+> Superseded by spec 004: `SplashActivity` is deleted and `MainActivity` is the launcher. The
+> current entry points are in `specs/004-onboarding-auth/contracts/app-entry.md`.
+
 | Component | Manifest | Exported | Launcher | Notes |
 |---|---|---|---|---|
-| `SplashActivity` (legacy) | `main` | yes | **yes** | Unchanged; the user flow starts here until spec 004 |
-| `MainActivity` | `main` | no | no | Hosts `AlphaApp`; theme `Theme.AlphaAi.Compose` (NoActionBar, edge-to-edge) |
+| `MainActivity` | `main` | yes | **yes** | Hosts `AlphaApp`; the only launcher since spec 004 |
 | `activity-alias` "Alpha-AI Gallery" → `MainActivity` | `debug` only | yes | yes (debug) | Opens the gallery; absent from release builds (FR-022) |
 
 ## Root composable

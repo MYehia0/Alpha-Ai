@@ -4,7 +4,7 @@ A spec-driven plan for turning Alpha-AI from a graduation project into a product
 Android app. Each numbered spec below is one pass through the Spec Kit workflow and one merge
 into `development`.
 
-The rules every spec must follow are in `.specify/memory/constitution.md` (version 2.2.0).
+The rules every spec must follow are in `.specify/memory/constitution.md` (version 2.3.0).
 
 ---
 
@@ -185,6 +185,8 @@ Nothing user-visible changes in this phase. It builds what every later spec depe
   delete their account.
 - **Plan prompt:** `:feature:home` and `:feature:settings` in Compose with MVI. Replace
   `HomeActivity`, `TasksFragment`, and the drawer menu.
+- **Carried from 004:** home shows a lasting "confirm your email" reminder with a resend option
+  (at most once every 60 seconds) until the user's email is confirmed.
 - **Done when:** every tool is reachable from home; settings changes persist across restarts.
 
 #### 006 — Grammar correction (flagship)
@@ -332,7 +334,7 @@ Update this table as each spec is merged.
 | 001 | Build foundation and module structure | Done | Merged into `development` on 2026-11-17; CI green. Device walk-through done on the emulator on 2026-11-17 |
 | 002 | AI provider layer | Done | Merged into `development` on 2026-11-17 (PR #2); checked against live models. Before release the OpenRouter key needs its credit limit and guardrail (`docs/ai-models.md`, T027) |
 | 003 | Design system and app shell | Done | Merged into `development` on 2026-11-18 (PR #5); CI green, checked on the emulator. Owner still to review the Arabic strings (T053) |
-| 004 | Onboarding and authentication | Not started | |
+| 004 | Onboarding and authentication | In progress | Built on branch `004-onboarding-auth`; tests, lint, and connected tests green; device run done on the emulator; all 47 tasks done. Scenarios 6, 15, 16, 17 and real-phone start-up time accepted by the owner (quickstart.md) |
 | 005 | Home and settings | Not started | |
 | 006 | Grammar correction | Not started | |
 | 007 | History | Not started | |

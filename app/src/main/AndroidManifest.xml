@@ -8,9 +8,8 @@
 
     <application
         android:name=".AlphaAiApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/icon_app_4"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_app_4"
@@ -39,26 +38,14 @@
             android:name=".ui.main.tasks.wr.WRActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.onBoarding.OnBoardingActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.home.HomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.auth.login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.auth.register.RegisterActivity"
-            android:exported="false" />
-        <!-- The Compose frame (spec 003). Not exported: SplashActivity stays the launcher until
-             spec 004. Debug builds add a gallery launcher alias in src/debug. -->
+        <!-- The launcher (spec 004): shows the splash screen until the start destination is
+             known. Debug builds add a gallery launcher alias in src/debug. -->
         <activity
             android:name=".shell.MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AlphaAi.Compose" />
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AlphaAi.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

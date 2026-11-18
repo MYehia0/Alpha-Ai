@@ -16,6 +16,12 @@ dependencies {
     implementation(projects.core.datastore)
 
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.play.services)
+
+    // Accounts and the users/{uid} profile document (spec 004)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     implementation(libs.timber)
 
     testImplementation(projects.core.testing)

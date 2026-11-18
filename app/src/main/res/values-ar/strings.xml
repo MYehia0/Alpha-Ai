@@ -4,34 +4,13 @@
 <resources>
 
     <!-- Splash -->
-    <string name="version_info">الإصدار 1.1.0</string>
-    <string name="powered_by">مقدَّم من فريق Alpha</string>
 
     <!-- Onboarding -->
-    <string name="correction_with_alpha_ai">التصحيح مع Alpha Ai</string>
-    <string name="experience_the_power_of_ai_with_us">اكتشف قوة الذكاء الاصطناعي معنا</string>
-    <string name="i_need_to_create_an_account">أريد إنشاء حساب</string>
-    <string name="i_already_have_an_account">لديّ حساب بالفعل</string>
-    <string name="terms_disclaimer">
-        بالمتابعة، فإنك توافق على <font color="#0182EE">شروط الخدمة</font> و<font color="#0182EE">سياسة الخصوصية</font>.
-    </string>
 
     <!-- Sign up -->
-    <string name="create_account">إنشاء حساب</string>
-    <string name="sign_up_to_get_started_with_alpha_ai">سجّل للبدء مع Alpha Ai</string>
-    <string name="full_name">الاسم الكامل</string>
     <string name="user_name">اسم المستخدم</string>
-    <string name="email_address">البريد الإلكتروني</string>
-    <string name="password">كلمة المرور</string>
-    <string name="confirm_password">تأكيد كلمة المرور</string>
-    <string name="login">تسجيل الدخول</string>
-    <string name="already_have_an_account">لديك حساب بالفعل؟</string>
 
     <!-- Login -->
-    <string name="sign_in_title">مرحبًا بعودتك إلى Alpha Ai</string>
-    <string name="sign_in_subtitle">سجّل الدخول للمتابعة إلى حسابك</string>
-    <string name="google_sign_in">تسجيل الدخول باستخدام Google</string>
-    <string name="facebook_sign_in">تسجيل الدخول باستخدام Facebook</string>
 
     <!-- Validation -->
     <string name="error_invalid_email">أدخل بريدًا إلكترونيًا صحيحًا</string>
@@ -39,14 +18,9 @@
     <string name="error_short_password">يجب ألا تقل كلمة المرور عن 6 أحرف</string>
 
     <string name="sign_in">تسجيل الدخول</string>
-    <string name="forget_password">نسيت كلمة المرور؟</string>
     <string name="or_create_my_account">أو أنشئ حسابي</string>
     <string name="welcome_back_to_alpha_ai">مرحبًا بعودتك إلى Alpha Ai</string>
     <string name="please_login_to_continue_to_your_account">سجّل الدخول للمتابعة إلى حسابك</string>
-    <string name="sign_up">إنشاء حساب</string>
-    <string name="don_t_have_an_account">ليس لديك حساب؟</string>
-    <string name="remember_me">تذكّرني</string>
-    <string name="or_continue_with">أو تابع باستخدام</string>
     <string name="please_enter_your_details_to_create_an_account">أدخل بياناتك لإنشاء حساب</string>
     <string name="i_agree_to_chatbot_ai_public_agreement_terms_privacy_policy"><![CDATA[أوافق على الاتفاقية العامة لـ Chatbot_AI والشروط وسياسة الخصوصية.]]></string>
     <string name="get_started">ابدأ الآن</string>
@@ -70,7 +44,6 @@
     <string name="correction">التصحيح</string>
     <string name="summarize">تلخيص</string>
     <string name="english">الإنجليزية</string>
-    <string name="back">رجوع</string>
 
     <!-- Texts moved out of legacy layouts and screens (spec 003) -->
     <string name="search_history_hint">ابحث في السجل</string>
@@ -89,4 +62,11 @@
     <string name="not_found">لا توجد نتائج</string>
     <string name="delete">حذف</string>
 
+    <!-- Legacy home (spec 004 bridge) -->
+    <string name="home_confirmation_link_sent">أرسلنا رابط التأكيد إلى %1$s</string>
+    <string name="home_sign_out_title">تسجيل الخروج؟</string>
+    <string name="home_sign_out_message">ستحتاج إلى تسجيل الدخول مرة أخرى لاستخدام Alpha-AI على هذا الهاتف.</string>
+    <string name="home_sign_out_confirm">تسجيل الخروج</string>
+    <string name="home_sign_out_cancel">إلغاء</string>
+    <string name="home_sign_out_description">تسجيل الخروج</string>
 </resources>

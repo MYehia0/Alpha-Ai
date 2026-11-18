@@ -19,6 +19,7 @@ class StringsParityTest {
         "app/src/debug/res",
         "core/designsystem/src/main/res",
         "core/ui/src/main/res",
+        "feature/auth/src/main/res",
     )
 
     @Test

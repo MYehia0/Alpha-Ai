@@ -9,7 +9,6 @@ import com.example.alpha_ai.core.base.BaseActivity
 import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.data.remote.api.ApiManager
 import com.example.alpha_ai.databinding.ActivityGecBinding
-import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import kotlin.getValue
 
 class GECActivity : BaseActivity<ActivityGecBinding, GECViewModel>() {

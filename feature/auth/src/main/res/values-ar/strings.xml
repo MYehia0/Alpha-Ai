@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PluralsCandidate: the count is always MIN_PASSWORD_LENGTH (8), and the wording is correct
+     for 8 in English and Arabic. -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Service failures (FR-017) -->
+    <string name="auth_error_no_connection">أنت غير متصل بالإنترنت. تحقّق من اتصالك وحاول مرة أخرى.</string>
+    <string name="auth_error_invalid_credentials">البريد الإلكتروني أو كلمة المرور غير صحيحة.</string>
+    <string name="auth_error_email_in_use">هذا البريد الإلكتروني لديه حساب بالفعل.</string>
+    <string name="auth_error_weak_password">اختر كلمة مرور أقوى.</string>
+    <string name="auth_error_invalid_email">أدخل بريدًا إلكترونيًا صالحًا.</string>
+    <string name="auth_error_too_many_attempts">محاولات كثيرة جدًا. انتظر بضع دقائق، أو أعد تعيين كلمة المرور.</string>
+    <string name="auth_error_account_disabled">تم تعطيل هذا الحساب.</string>
+    <string name="auth_error_session_expired">انتهت جلستك. يُرجى تسجيل الدخول مرة أخرى.</string>
+    <string name="auth_error_unknown">حدث خطأ ما. يُرجى المحاولة مرة أخرى.</string>
+
+    <!-- Field errors -->
+    <string name="auth_field_name_empty">أدخل اسمك.</string>
+    <string name="auth_field_email_empty">أدخل بريدك الإلكتروني.</string>
+    <string name="auth_field_email_invalid">أدخل بريدًا إلكترونيًا صالحًا.</string>
+    <string name="auth_field_password_empty">أدخل كلمة المرور.</string>
+    <string name="auth_field_password_too_short" tools:ignore="PluralsCandidate">استخدم %1$d أحرف على الأقل.</string>
+    <string name="auth_field_confirm_mismatch">كلمتا المرور غير متطابقتين.</string>
+
+    <!-- Password field -->
+    <string name="auth_password_show">إظهار كلمة المرور</string>
+    <string name="auth_password_hide">إخفاء كلمة المرور</string>
+
+    <!-- Sign-in notices (start_reason) -->
+    <string name="auth_notice_session_expired">انتهت جلستك. يُرجى تسجيل الدخول مرة أخرى.</string>
+    <string name="auth_notice_account_disabled">تم تعطيل هذا الحساب.</string>
+    <string name="auth_notice_signed_out">لقد سجّلت الخروج.</string>
+    <!-- Introduction -->
+    <string name="auth_intro_page1_title">اكتب بشكل صحيح بالعربية والإنجليزية</string>
+    <string name="auth_intro_page1_body">يكتشف Alpha-AI الأخطاء النحوية والإملائية في نصك ويصحّحها.</string>
+    <string name="auth_intro_page2_title">أدوات تساعدك في عملك</string>
+    <string name="auth_intro_page2_body">حوّل الكلام والصور والمستندات إلى نص، ثم ترجمه أو لخّصه.</string>
+    <string name="auth_intro_page3_title">عملك محفوظ لك</string>
+    <string name="auth_intro_page3_body">تُحفظ نتائجك في السجل. أنشئ حسابًا لتبدأ.</string>
+    <string name="auth_intro_skip">تخطَّ</string>
+    <string name="auth_intro_next">التالي</string>
+    <string name="auth_intro_get_started">ابدأ الآن</string>
+    <string name="auth_intro_page_indicator">الصفحة %1$d من %2$d</string>
+
+    <!-- Shared form labels -->
+    <string name="auth_label_name">الاسم</string>
+    <string name="auth_label_email">البريد الإلكتروني</string>
+    <string name="auth_label_password">كلمة المرور</string>
+    <string name="auth_label_confirm_password">تأكيد كلمة المرور</string>
+    <string name="auth_password_hint" tools:ignore="PluralsCandidate">%1$d أحرف على الأقل</string>
+
+    <!-- Sign-up -->
+    <string name="auth_sign_up_title">إنشاء حساب</string>
+    <string name="auth_sign_up_submit">إنشاء حساب</string>
+    <string name="auth_sign_up_have_account">لديك حساب بالفعل؟ سجّل الدخول</string>
+    <string name="auth_action_sign_in">تسجيل الدخول</string>
+
+    <!-- Sign-in -->
+    <string name="auth_sign_in_title">تسجيل الدخول</string>
+    <string name="auth_sign_in_submit">تسجيل الدخول</string>
+    <string name="auth_sign_in_forgot">نسيت كلمة المرور؟</string>
+    <string name="auth_sign_in_create_account">إنشاء حساب</string>
+    <string name="auth_action_reset_password">إعادة تعيين كلمة المرور</string>
+    <string name="auth_dismiss">إغلاق</string>
+    <!-- Password reset -->
+    <string name="auth_reset_title">إعادة تعيين كلمة المرور</string>
+    <string name="auth_reset_body">أدخل بريدك الإلكتروني وسنرسل لك رابطًا لاختيار كلمة مرور جديدة.</string>
+    <string name="auth_reset_submit">إرسال رابط إعادة التعيين</string>
+    <string name="auth_reset_send_again">إرسال مرة أخرى</string>
+    <string name="auth_reset_send_again_in" tools:ignore="PluralsCandidate">إرسال مرة أخرى بعد %1$d ث</string>
+    <string name="auth_reset_sent">إذا كان هناك حساب بهذا البريد الإلكتروني، فقد أرسلنا إليه رابطًا لإعادة تعيين كلمة المرور. تحقّق من صندوق الوارد ومجلد الرسائل غير المرغوب فيها.</string>
+    <string name="auth_reset_back_to_sign_in">العودة إلى تسجيل الدخول</string>
+</resources>

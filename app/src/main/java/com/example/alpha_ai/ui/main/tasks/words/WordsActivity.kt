@@ -8,7 +8,6 @@ import com.example.alpha_ai.R
 import com.example.alpha_ai.core.base.BaseActivity
 import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityWordsBinding
-import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import kotlin.getValue
 
 class WordsActivity : BaseActivity<ActivityWordsBinding, WordsViewModel>() {

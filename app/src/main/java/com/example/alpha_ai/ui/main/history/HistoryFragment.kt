@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.alpha_ai.core.common.UserProvider
 import com.example.alpha_ai.data.models.History
 import com.example.alpha_ai.databinding.FragmentHistoryBinding
 

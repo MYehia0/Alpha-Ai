@@ -10,7 +10,6 @@ import com.example.alpha_ai.core.base.BaseActivity
 import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivitySearchHistoryBinding
 import com.example.alpha_ai.data.models.History
-import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import com.example.alpha_ai.ui.main.history.HistoryFragment
 import com.example.alpha_ai.ui.main.history.NoHistoryFragment
 import com.example.alpha_ai.ui.main.tasks.doc.DOCActivity

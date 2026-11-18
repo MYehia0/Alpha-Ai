@@ -3,7 +3,6 @@ package com.example.alpha_ai.ui.main.tasks.words
 import android.util.Log
 import androidx.databinding.ObservableField
 import com.example.alpha_ai.core.base.BaseViewModel
-import com.example.alpha_ai.core.common.UserProvider
 import com.example.alpha_ai.data.models.History
 //import com.example.alpha_ai.database.apis.GECModelApi
 //import com.example.alpha_ai.database.apis.GECarModelApi

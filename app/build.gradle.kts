@@ -95,6 +95,8 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)
+    implementation(projects.core.datastore)
+    implementation(projects.feature.auth)
 
     // App shell (spec 003)
     implementation(libs.androidx.activity.compose)
@@ -102,6 +104,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.core.splashscreen)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
@@ -112,7 +115,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.security.crypto)
 
     // UI
     implementation(libs.material)
@@ -134,7 +136,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore)
-    implementation(libs.firebase.ui.auth)
 
     // Document parsing
     implementation(libs.poi.core)
@@ -146,6 +147,9 @@ dependencies {
 
     // Testing
     testImplementation(libs.junit)
+    testImplementation(projects.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
