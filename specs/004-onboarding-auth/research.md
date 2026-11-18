@@ -202,7 +202,8 @@ kind, so it is tested on the JVM without constructing SDK types.
 
 1. Normalize the email (FR-020) and validate the form (`SignUpForm.validate()`); stop with
    field errors if any (FR-007).
-2. `createAccount(email, password)` → on failure, return the mapped `AuthFailure`.
+2. `createAccount(email, password, name)` → on failure, return the mapped `AuthFailure` (the
+   name is passed only for the cancellation clean-up below).
 3. `saveProfile(name)`: writes `users/{uid}` (`uid`, `uName`, `uEmail`, same shape as v1) and
    the cached profile. On failure, set `profileSyncPending` and continue (edge case: the account
    exists, the name is saved later). `RefreshSessionUseCase` retries a pending sync.
@@ -214,11 +215,14 @@ Steps 3 and 4 log their failure by case name through Timber (constitution VIII),
 the user is not told.
 
 **Cancel** (constitution VI: operations over 1 s must be cancellable): while step 2 runs, Cancel
-stops the coroutine and keeps the form. Firebase cannot abort a request already sent, so if the
-account turns out to have been created, it is signed out locally and the user can sign in with
-it. Once step 2 has succeeded, Cancel is hidden and steps 3 to 5 finish, so the user is never
-left half signed up. Sign-in and reset cancel the same way; a sign-in that completes after
-Cancel is signed out locally.
+stops the coroutine and keeps the form. Firebase cannot abort a request already sent and signs
+the user in when it completes, even if the screen is gone. So the repository, not the
+ViewModel, cleans up: if its caller was cancelled, it waits for the task in an
+application-lifetime scope and, when the account turns out to have been created, saves the name
+to `users/{uid}` and signs out (data-model.md "Cancellation"). The user can then sign in with
+the account, name included. Once step 2 has succeeded, Cancel is hidden and steps 3 to 5
+finish, so the user is never left half signed up. Sign-in cancels the same way (a late success
+is signed out); a cancelled reset needs no clean-up.
 
 If the process dies between 2 and 3, Firebase already holds the session, so the next launch goes
 home and the pending sync covers the profile (edge case "killed while creating").

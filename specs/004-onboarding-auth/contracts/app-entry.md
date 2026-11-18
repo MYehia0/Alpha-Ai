@@ -83,7 +83,7 @@ class LegacyHomeSessionBridge @Inject constructor(
 
 | Trigger | Behaviour |
 |---|---|
-| `btn_logout` tapped | Confirmation dialog ("Sign out?" / "Sign out" / "Cancel"); confirm → `SignOutUseCase` → open `MainActivity` with `NEW_TASK or CLEAR_TASK` and `start_reason = SignedOut` |
+| `btn_logout` tapped | Confirmation dialog ("Sign out?" / "Sign out" / "Cancel"); confirm → `LegacyHomeRedirectPolicy.onSignOutConfirmed()` → `SignOutUseCase` → open `MainActivity` once with `NEW_TASK or CLEAR_TASK` and `start_reason = SignedOut` |
 | First `onStart` after sign-up | `ConsumeConfirmationNoticeUseCase` returns an email → snackbar "We sent a confirmation link to <email>" (long duration) |
 | Every `onStart` | `RefreshSessionUseCase`; `SessionExpired` / `AccountDisabled` → sign out and open `MainActivity` with that reason |
 | `observeSignedIn()` emits `false` while home is open | Open `MainActivity` with `SessionExpired` |
@@ -104,6 +104,10 @@ The bridge asks this class whether and why to leave home; it holds no Android ty
 
 At most one `Redirect` is issued per home instance, so signing out never opens `MainActivity`
 twice or shows "session ended" instead of "signed out".
+
+**Lifetime**: `LegacyHomeSessionBridge` and `LegacyHomeRedirectPolicy` are unscoped (no
+`@Singleton` or other scope annotation), so each `HomeActivity` gets new instances. A user who
+signs out, signs in again, and reaches a new home can be redirected again.
 
 ### Back on the legacy home (FR-021)
 

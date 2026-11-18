@@ -11,10 +11,11 @@ Shared pieces:
   intent while `submitting` is ignored (FR-018).
 - `cancellable: Boolean`: while `true` a Cancel text button is shown next to the progress
   (constitution VI). The `Cancel` intent cancels the request job, sets `submitting = false`, and
-  keeps every field. If the service completed the request anyway (an account was created or a
-  sign-in succeeded), the ViewModel signs out locally, so Cancel always leaves the user signed
-  out. System back while submitting also cancels, because leaving the screen clears the
-  ViewModel.
+  keeps every field; the ViewModel does nothing else. System back while submitting also
+  cancels, because leaving the screen clears the ViewModel. Firebase cannot abort a request
+  already sent, so the repository, which outlives the screen, makes sure a cancelled request
+  that completes later leaves the user signed out (data-model.md "Cancellation"). The user
+  always ends up signed out after Cancel, even if the screen is gone by then.
 - `fieldErrors: Map<FormField, FieldError>` shows each error under its field. Editing a field
   clears that field's error.
 - `failure: AuthFailure?` shows a message above the submit button, in the user's language.

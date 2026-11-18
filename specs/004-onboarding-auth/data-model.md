@@ -79,7 +79,7 @@ interface AuthRepository {
     fun currentUser(): AuthUser?                       // local, no network
     fun observeSignedIn(): Flow<Boolean>
     suspend fun signIn(email: String, password: String): AuthResult<AuthUser>
-    suspend fun createAccount(email: String, password: String): AuthResult<AuthUser>
+    suspend fun createAccount(email: String, password: String, name: String): AuthResult<AuthUser>
     suspend fun saveProfile(name: String): AuthResult<Unit>
     suspend fun sendEmailConfirmation(): AuthResult<Unit>
     suspend fun sendPasswordReset(email: String): AuthResult<Unit>   // unknown email = Success
@@ -89,14 +89,31 @@ interface AuthRepository {
 }
 
 interface AppPreferencesRepository {
-    suspend fun isIntroductionCompleted(): Boolean
-    suspend fun setIntroductionCompleted()
+    suspend fun isIntroductionCompleted(): Boolean     // a read failure returns false, never throws
+    suspend fun setIntroductionCompleted()             // a write failure is logged, never throws
 }
 
 interface LegacyCleanup {                              // implemented by LegacyAuthCleanup in :core:data
     suspend fun runOnce()                              // erases v1's stored password; never throws
 }
 ```
+
+### Cancellation (`signIn`, `createAccount`)
+
+Firebase cannot abort a request already sent, and when it completes it signs the user in on the
+phone even if nobody is waiting. `FirebaseAuthRepository` (a `@Singleton`, so it outlives any
+screen) handles this:
+
+- The SDK call is awaited with `suspendCancellableCoroutine`. If the caller is cancelled while
+  the task is still running, `invokeOnCancellation` registers a completion listener on the task.
+- `signIn` completes after cancel → `signOut()` (session store cleared).
+- `createAccount(email, password, name)` completes after cancel → write `users/{uid}` with the
+  name (best effort, so a later sign-in has it), then `signOut()`.
+- The listener runs in an application-lifetime `CoroutineScope` injected into the repository,
+  not in the cancelled caller's scope.
+
+Because the name is needed for this, `createAccount` takes the name as well. The resulting state
+is always "signed out" after Cancel, whatever the timing (contracts/auth-screens.md).
 
 ## Use cases (domain, one `operator fun invoke` each)
 
