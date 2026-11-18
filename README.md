@@ -24,7 +24,7 @@ Alpha-AI helps users improve their writing by providing:
 - **Grammar Correction:** Real-time grammar fixes using NLP models
 - **Multi-Input Support:** Extract text from audio, images, and PDF files
 - **History Tracking:** Save and review past corrections
-- **Firebase Integration:** User authentication and cloud storage
+- **Accounts:** sign up, sign in, password reset, and sign-out with Firebase email and password (spec 004); cloud storage with Firestore
 - **Bilingual Support:** Works seamlessly in Arabic and English
 
 ---
@@ -112,8 +112,9 @@ Every push runs the same commands, plus a secret scan, in GitHub Actions (`.gith
 | `:core:designsystem` | Theme, tokens, reusable components |
 | `:core:ui` | Shared screen-level building blocks, MVI base types |
 | `:core:testing` | Shared fakes, test dispatchers, test rules |
+| `:feature:auth` | Introduction, sign-in, sign-up, and password reset screens (spec 004) |
 
-The `:core` modules are empty for now. Shared build settings live in the convention plugins
+A `:feature:*` module depends only on `:core:*` modules. Shared build settings live in the convention plugins
 under `build-logic/`; all versions live in `gradle/libs.versions.toml`.
 
 ### Dependency rules

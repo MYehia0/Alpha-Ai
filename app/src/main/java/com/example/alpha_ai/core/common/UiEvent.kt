@@ -34,8 +34,5 @@ enum class SnackbarDuration {
 
 sealed class NavigationDestination {
     data object Back : NavigationDestination()
-    data object OnBoarding : NavigationDestination()
-    data object Login : NavigationDestination()
-    data object Register : NavigationDestination()
     data object Home : NavigationDestination()
 }

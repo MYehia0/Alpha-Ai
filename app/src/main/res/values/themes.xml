@@ -26,4 +26,12 @@
         <item name="android:windowBackground">@color/shell_window_background</item>
     </style>
 
+    <!-- Launch theme for MainActivity: the system splash screen stays until the start
+         destination is decided, then the window switches to Theme.AlphaAi.Compose (FR-001). -->
+    <style name="Theme.AlphaAi.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/shell_window_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/icon_app_4</item>
+        <item name="postSplashScreenTheme">@style/Theme.AlphaAi.Compose</item>
+    </style>
+
 </resources>

@@ -15,7 +15,6 @@ import com.example.alpha_ai.R
 import com.example.alpha_ai.core.base.BaseActivity
 import com.example.alpha_ai.core.common.NavigationDestination
 import com.example.alpha_ai.databinding.ActivityErBinding
-import com.example.alpha_ai.ui.auth.register.RegisterViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

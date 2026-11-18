@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PluralsCandidate: the count is always MIN_PASSWORD_LENGTH (8), and the wording is correct
+     for 8 in English and Arabic. -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Service failures (FR-017) -->
+    <string name="auth_error_no_connection">You\'re offline. Check your connection and try again.</string>
+    <string name="auth_error_invalid_credentials">The email or password is incorrect.</string>
+    <string name="auth_error_email_in_use">This email already has an account.</string>
+    <string name="auth_error_weak_password">Choose a stronger password.</string>
+    <string name="auth_error_invalid_email">Enter a valid email address.</string>
+    <string name="auth_error_too_many_attempts">Too many attempts. Wait a few minutes, or reset your password.</string>
+    <string name="auth_error_account_disabled">This account has been disabled.</string>
+    <string name="auth_error_session_expired">Your session ended. Please sign in again.</string>
+    <string name="auth_error_unknown">Something went wrong. Please try again.</string>
+
+    <!-- Field errors -->
+    <string name="auth_field_name_empty">Enter your name.</string>
+    <string name="auth_field_email_empty">Enter your email address.</string>
+    <string name="auth_field_email_invalid">Enter a valid email address.</string>
+    <string name="auth_field_password_empty">Enter your password.</string>
+    <string name="auth_field_password_too_short" tools:ignore="PluralsCandidate">Use at least %1$d characters.</string>
+    <string name="auth_field_confirm_mismatch">The passwords don\'t match.</string>
+
+    <!-- Password field -->
+    <string name="auth_password_show">Show password</string>
+    <string name="auth_password_hide">Hide password</string>
+
+    <!-- Sign-in notices (start_reason) -->
+    <string name="auth_notice_session_expired">Your session ended. Please sign in again.</string>
+    <string name="auth_notice_account_disabled">This account has been disabled.</string>
+    <string name="auth_notice_signed_out">You\'ve signed out.</string>
+    <!-- Introduction -->
+    <string name="auth_intro_page1_title">Write correctly in Arabic and English</string>
+    <string name="auth_intro_page1_body">Alpha-AI finds and fixes grammar and spelling mistakes in your text.</string>
+    <string name="auth_intro_page2_title">Tools that help you work</string>
+    <string name="auth_intro_page2_body">Turn speech, images, and documents into text, then translate or summarize it.</string>
+    <string name="auth_intro_page3_title">Your work, kept for you</string>
+    <string name="auth_intro_page3_body">Your results are saved in your history. Create an account to get started.</string>
+    <string name="auth_intro_skip">Skip</string>
+    <string name="auth_intro_next">Next</string>
+    <string name="auth_intro_get_started">Get started</string>
+    <string name="auth_intro_page_indicator">Page %1$d of %2$d</string>
+
+    <!-- Shared form labels -->
+    <string name="auth_label_name">Name</string>
+    <string name="auth_label_email">Email</string>
+    <string name="auth_label_password">Password</string>
+    <string name="auth_label_confirm_password">Confirm password</string>
+    <string name="auth_password_hint" tools:ignore="PluralsCandidate">At least %1$d characters</string>
+
+    <!-- Sign-up -->
+    <string name="auth_sign_up_title">Create account</string>
+    <string name="auth_sign_up_submit">Create account</string>
+    <string name="auth_sign_up_have_account">Already have an account? Sign in</string>
+    <string name="auth_action_sign_in">Sign in</string>
+
+    <!-- Sign-in -->
+    <string name="auth_sign_in_title">Sign in</string>
+    <string name="auth_sign_in_submit">Sign in</string>
+    <string name="auth_sign_in_forgot">Forgot password?</string>
+    <string name="auth_sign_in_create_account">Create account</string>
+    <string name="auth_action_reset_password">Reset password</string>
+    <string name="auth_dismiss">Dismiss</string>
+    <!-- Password reset -->
+    <string name="auth_reset_title">Reset password</string>
+    <string name="auth_reset_body">Enter your email and we\'ll send you a link to choose a new password.</string>
+    <string name="auth_reset_submit">Send reset link</string>
+    <string name="auth_reset_send_again">Send again</string>
+    <string name="auth_reset_send_again_in" tools:ignore="PluralsCandidate">Send again in %1$d s</string>
+    <string name="auth_reset_sent">If an account exists for this email, we\'ve sent it a link to reset the password. Check your inbox and spam folder.</string>
+    <string name="auth_reset_back_to_sign_in">Back to sign in</string>
+</resources>

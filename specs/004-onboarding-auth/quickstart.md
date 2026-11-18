@@ -76,3 +76,73 @@ adb shell bmgr backupnow com.example.alpha_ai                                   
 After sign-out, `session.enc` decodes to the empty value (checked by the datastore test) and the
 app holds no profile data. `logcat` during scenarios 6, 11, and 15 shows no email, password, or
 token (FR-024).
+
+## Results
+
+### 2026-11-18, automated checks (T047, partial)
+
+| Check | Result |
+|---|---|
+| Unit tests: `:core:domain` 37, `:core:data` 149 (5 skipped), `:core:datastore` 8, `:feature:auth` 33, `:app` 19 | Pass (rerun after the device fixes; connected tests also rerun and pass) |
+| `:app:lintDebug` | Pass: 11 warnings, none new for spec 004 (version notices, `TrustAllX509TrustManager` from a dependency, `DataExtractionRules`); the 55 resources orphaned by the legacy deletion are removed |
+| `:feature:auth:lintDebug` | Pass: no issues |
+| `assembleDebug`, `:app:compileReleaseKotlin` | Pass |
+| Connected tests on the `Medium_Phone` emulator (API 34): `:core:datastore` 3, `:feature:auth` 4 | Pass. The password-toggle test first failed because Compose's `InputText` property holds the raw value; it now checks `EditableText`, the text drawn on screen |
+| Start-up time, **signed out** (`Medium_Phone`, API 34, 4 cores, 2 GB RAM, debug build) | First launch after `pm clear`: 2547 ms. Next five: 1976, 1989, 1738, 1719, 1764 ms. Opens on introduction page 1 |
+| Start-up time, signed in (SC-002), same emulator, debug build | Online, 20 runs: 18 within 2000 ms (median about 1660 ms); outliers 2092 and 4829 ms. Offline, 6 runs: 2444, 4356, 1952, 1897, 2077, 2028 ms. One offline run hit the 2 s start fallback (local storage read slow under load) and still opened home. **Not met on this emulator** (2 GB RAM, half the 4 GB this guide asks for); to be re-measured with a release build on a mid-range phone |
+| Storage, signed out | `files/datastore` holds only `app_preferences` (flags `introduction_completed`, `legacy_cleanup_done`) and Firebase's heartbeat file; no `session.enc`; no `alpha_ai_secure_prefs.xml` |
+| Storage, signed in | `session.enc` is 128 bytes of ciphertext with no readable email; no file in the app's data names the email. After sign-out it is 30 bytes (the encrypted empty value) |
+| Backup | `bmgr backupnow` → "Backup is not allowed"; package flags have no `ALLOW_BACKUP` |
+| Logcat during the run | No email, password, or token |
+| Manual scenarios | See below |
+
+Note: run `:app:lintDebug` in its own Gradle invocation. Run together with
+`:app:compileReleaseKotlin`, lint can read the release data-binding sources while they are being
+regenerated and fail with "Unexpected failure during lint analysis".
+
+### 2026-11-18, manual scenarios on the emulator (English, then Arabic)
+
+| # | Result |
+|---|---|
+| 1 | Pass: splash, then page 1; no other screen |
+| 2 | Pass: back on page 2 returns to page 1; back on page 1 closes the app |
+| 3 | Pass: Skip opens sign-in; back closes; reopen opens sign-in, no introduction |
+| 4 | Pass: each error under its field (empty; bad email; 7-character password; mismatched confirmation); text kept |
+| 5 | Pass: "This email already has an account." with a Sign in action |
+| 6 | **Not run**: needs a second inbox to receive the confirmation email |
+| 7 | Pass: text and errors kept through rotation and a switch to dark mode |
+| 8 | Pass: 20 reopens, home every time; one back press closes the app |
+| 9 | Pass: home in airplane mode |
+| 10 | Pass: Cancel stays on home; Sign out opens one sign-in screen in one task with "You've signed out."; back closes; reopen shows sign-in |
+| 11 | Pass: the same "The email or password is incorrect." for a wrong password and an unknown email |
+| 12 | Pass: "You're offline…" and the text kept |
+| 13 | Pass after a fix (below): four quick taps sent one request |
+| 13a | **Not verified on a device**: the emulator's network delay did not slow Firebase calls (about 300 ms), so a request could not be held open to tap Cancel. Covered by unit tests and the connected UI test |
+| 14 | Pass: the same confirmation for an unknown email and the test account; "Send again in N s" for 60 s, kept when the screen is left and reopened |
+| 15 | **Not run**: needs the reset link from the inbox |
+| 16 | **Not run**: needs the account disabled in the Firebase console |
+| 17 | **Not run**: needs the v1 build installed first |
+| 18 | Pass: "Alpha-AI Gallery" opens the component gallery |
+| SC-007 | Pass in Arabic (right to left), light and dark, at font scale 2.0: introduction, sign-in, sign-up with errors, password reset, sign-out dialog. The legacy home's "Tasks"/"History" labels are untranslated and its title clips at 2.0; that screen belongs to spec 005 |
+
+Logcat: the app's own lines name only failure cases. The Firebase Auth SDK itself logs the email
+at INFO when signing in ("Logging in as … with empty reCAPTCHA token"); that line is the SDK's,
+not the app's, and cannot be turned off from the app.
+
+### Bugs found and fixed during the device run
+
+1. **Double tap could cancel a request.** Submitting cleared the old error message, the button
+   moved up, and Cancel appeared where the finger was. The previous failure now stays until the
+   new result arrives (sign-in, sign-up, reset), with a unit test.
+2. **A missing profile was logged as a network failure.** `withTimeoutOrNull` returned `null` for
+   both a timeout and a missing document. The profile timeout now uses `withTimeout`. Profile
+   failures now log their kind and Firestore status code (enum names only).
+3. **The show/hide password icon was invisible.** `AlphaIcons` used `path {}`, which has no fill;
+   it now uses `materialPath {}`.
+4. **The Arabic "Skip" had the wrong diacritic** (تخطٍّ); now تخطَّ.
+5. **The password-toggle UI test matched the raw `InputText`**; it now checks the drawn text.
+
+### Sign-off
+
+The project owner accepted the items not run here (scenarios 6, 15, 16, 17, 13a on a device, and
+SC-002 on a release build on a real phone) and closed T047 on 2026-11-18.

@@ -17,6 +17,7 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.input.VisualTransformation
 import com.example.alpha_ai.core.designsystem.R
 import com.example.alpha_ai.core.designsystem.preview.AlphaPreviews
 import com.example.alpha_ai.core.designsystem.theme.AlphaTheme
@@ -24,6 +25,7 @@ import com.example.alpha_ai.core.designsystem.theme.AlphaTheme
 /**
  * A single-line text field. When [errorMessage] is set, it shows below the field, marks the field
  * as in error for screen readers, and is spoken as soon as it appears (FR-013).
+ * [visualTransformation] and [trailingIcon] serve fields such as passwords.
  */
 @Composable
 fun AlphaTextField(
@@ -36,6 +38,8 @@ fun AlphaTextField(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    trailingIcon: (@Composable () -> Unit)? = null,
 ) {
     OutlinedTextField(
         value = value,
@@ -48,6 +52,8 @@ fun AlphaTextField(
         singleLine = true,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
+        visualTransformation = visualTransformation,
+        trailingIcon = trailingIcon,
         shape = AlphaTheme.shapes.small,
         modifier = modifier
             .fillMaxWidth()
